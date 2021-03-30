@@ -1,0 +1,1 @@
+pl-3 pr-3 py-2 space-y-2 border-t border-gray-200 lg:px-0 lg:block lg:border-none lg:pt-0

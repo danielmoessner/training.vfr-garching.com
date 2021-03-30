@@ -1,0 +1,18 @@
+<button type="button"
+        x-on:click="{{ property }} = !{{ property }};"
+        class="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 lg:hidden"
+        aria-expanded="false">
+    <span class="sr-only">{{ text|default:'Menü öffnen' }}</span>
+    <svg :class="{ 'hidden': {{ property }}, 'block': !{{ property }} }" class="block h-6 w-6"
+         xmlns="http://www.w3.org/2000/svg" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+    <svg :class="{ 'block': {{ property }}, 'hidden': !{{ property }} }" class="hidden h-6 w-6"
+         xmlns="http://www.w3.org/2000/svg" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+</button>

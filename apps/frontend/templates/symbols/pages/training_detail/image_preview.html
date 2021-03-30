@@ -1,0 +1,6 @@
+{% if image %}
+    <img x-on:click="image='{{ image.url }}'; alt='{{ alt|default:'Vorschaubild' }}'"
+         :class="{ 'border-2 border-gray-800': image === '{{ image.url }}' }"
+         class="cursor-pointer block max-h-full w-auto" src="{{ image.url }}"
+         alt="{{ alt|default:'Vorschaubild' }}">
+{% endif %}

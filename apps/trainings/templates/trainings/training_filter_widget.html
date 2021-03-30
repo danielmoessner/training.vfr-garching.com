@@ -1,0 +1,12 @@
+{% load extra_tags %}
+
+
+<div style="display: flex; flex-direction: column; padding-top: 6px;">
+    <ul style="margin: 0; padding: 0;">
+        {% for pk in root_group_pks %}
+            {% with group=groups|get_item:pk %}
+                {% include 'trainings/training_filter_widget__group.html' with groups=groups group=group widgets=widgets %}
+            {% endwith %}
+        {% endfor %}
+    </ul>
+</div>

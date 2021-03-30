@@ -1,0 +1,21 @@
+{% load imagefit %}
+
+{# General Tags #}
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}"/>
+<meta name="image" content="{{ image.url|resize:'1200x1200' }}"/>
+
+{# OG Tags #}
+<meta property="og:title" content="{{ title }}"/>
+<meta property="og:description" content="{{ description }}"/>
+<meta property="og:image" content="{{ image.url|resize:'1200x2000' }}"/>
+
+{# Twitter Tags #}
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="{{ title }}"/>
+<meta name="twitter:description" content="{{ description }}"/>
+<meta name="twitter:image" content="{{ image.url|resize:'1200x2000' }}"/>
+
+{# Favicons #}
+<link rel="icon" type="image/png" href="{{ favicon.url|resize:'256x256' }}" sizes="256x256"/>
+<link rel="apple-touch-icon" sizes="256x256" href="{{ favicon.url|resize:'256x256' }}"/>

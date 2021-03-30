@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+{% load static %}
+<head>
+    {# General Meta Stuff #}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {# Seo Stuff #}
+    {% include 'symbols/seo.html' with favicon=settings.favicon image=settings.meta_image title=settings.meta_title description=settings.meta_description %}
+    {# Styles & Scripts #}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script defer src="{% static 'js/main.js' %}"></script>
+</head>
+{% block body %}
+    <body class="bg-gray-100 min-h-screen">
+    {% block navigation %}
+        {% include 'symbols/navigation.html' %}
+    {% endblock navigation %}
+    {% block main %}
+        <main class="">
+            {% block content %}{% endblock content %}
+        </main>
+    {% endblock main %}
+    {% block footer %}
+        {% include 'symbols/footer.html' %}
+    {% endblock footer %}
+    </body>
+{% endblock body %}
+</html>

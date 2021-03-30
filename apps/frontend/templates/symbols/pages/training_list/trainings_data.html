@@ -1,0 +1,50 @@
+{% load static %}
+
+<script>
+    window.trainingsData = () => {
+        return {
+            filterSelected: {},
+            groupOpen: {},
+            filterMenuOpen: false,
+            menuOpen: false,
+            trainerMenuOpen: false,
+            showed: 0,
+            init() {
+                {{ filters_selected }}.
+                forEach(filter => this.filterSelected[filter] = true);
+                {{ groups_open }}.
+                forEach(pk => this.groupOpen[pk] = true);
+                this.showed = {{ videos_count }};
+            },
+            get filtersTrue() {
+                return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
+            },
+            showTraining(filterPks) {
+                return this.filtersTrue.map(filter => filterPks.includes(filter)).every(_ => _);
+            },
+            groupClicked(groupPk) {
+                this.groupOpen[groupPk] = !this.groupOpen[groupPk];
+                fetch(`/api/filter_groups/${groupPk}/`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                })
+            },
+            filterClicked(filterPk) {
+                fetch(`/api/training_filters/${filterPk}/`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                }).then(response => response.json()).then(data => this.showed = data['videos'])
+            }
+        }
+    }
+</script>

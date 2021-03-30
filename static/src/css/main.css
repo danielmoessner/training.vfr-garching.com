@@ -1,0 +1,30 @@
+@import "pre.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+    .errorlist.nonfield li {
+        @apply mt-2 text-sm text-red-600;
+    }
+}
+
+.age-group-form {
+    input[type='radio'] {
+        @apply mr-2 focus:ring-red-500 h-4 w-4 cursor-pointer text-red-600 border-gray-300;
+    }
+    label {
+        @apply block text-sm font-medium text-gray-700 cursor-pointer;
+    }
+    ul {
+        @apply space-y-4;
+    }
+    p {
+        @apply sr-only;
+    }
+}
+
+a.disabled, button.disabled {
+    pointer-events: none;
+}

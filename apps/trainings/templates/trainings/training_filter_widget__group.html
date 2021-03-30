@@ -1,0 +1,21 @@
+{% load extra_tags %}
+
+
+<li style="margin: 0 0 12px 0; padding: 0;">
+    {{ group.name }}
+    <ul style="margin: 0 0 0 32px; padding: 0;">
+        {% for pk in group.trainingfilters %}
+            {% with widget=widgets|get_item:pk %}
+                <li style="display: flex; flex-direction: row; align-items: center; padding: 4px 0;">
+                    {% include widget.template_name with widget=widget %}
+                    <span style="margin-left: 4px;">{{ widget.attrs.label }}</span>
+                </li>
+            {% endwith %}
+        {% endfor %}
+        {% for pk in group.subgroups %}
+            {% with subgroup=groups|get_item:pk %}
+                {% include 'trainings/training_filter_widget__group.html' with groups=groups group=subgroup widgets=widgets %}
+            {% endwith %}
+        {% endfor %}
+    </ul>
+</li>

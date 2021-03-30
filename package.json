@@ -1,0 +1,45 @@
+{
+  "name": "django-website",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A really beautiful website.",
+  "main": "echo \"Error: no main specified && exit 1\"",
+  "repository": "none",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:css && npm run build:js && python manage.py collectstatic --noinput --clear",
+    "css": "postcss static/src/css/main.css -o static/dist/css/main.css",
+    "build:css": "cross-env NODE_ENV=production postcss static/src/css/main.css -o static/dist/css/main.css",
+    "watch:css": "postcss static/src/css/main.css -o static/dist/css/main.css -w",
+    "js": "browserify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] ] -o static/dist/js/main.js",
+    "build:js": "browserify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] --minified ] | uglifyjs > static/dist/js/main.js",
+    "watch:js": "watchify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] --minified ] -o static/dist/js/main.js"
+  },
+  "author": "Daniel Mössner from Tortuga Webdesign",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/line-clamp": "^0.2.0",
+    "@tailwindcss/typography": "^0.4.0",
+    "alpinejs": "^2.8.1",
+    "cookieconsent": "^3.1.1",
+    "tailwindcss": "^2.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "autoprefixer": "^10.1.0",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.2",
+    "cross-env": "^7.0.3",
+    "cssnano": "^4.1.10",
+    "postcss": "^8.2.7",
+    "postcss-cli": "^8.3.0",
+    "postcss-import": "^14.0.0",
+    "postcss-load-config": "^2.1.2",
+    "postcss-nested": "^4.2.3",
+    "uglify-es": "^3.3.9",
+    "watchify": "^3.11.1"
+  }
+}

@@ -1,0 +1,11 @@
+{% load extra_tags %}
+
+<div class="flex flex-col -mt-2">
+    <ul>
+        {% for pk in root_group_pks %}
+            {% with group=groups|get_item:pk %}
+                {% include 'symbols/filters/group.html' with groups=groups group=group depth=0 %}
+            {% endwith %}
+        {% endfor %}
+    </ul>
+</div>

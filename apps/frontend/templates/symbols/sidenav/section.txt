@@ -1,0 +1,1 @@
+mb-5 bg-white last:mb-10 sm:rounded-lg lg:m-0 lg:rounded-none lg:bg-transparent lg:pb-2 lg:pt-12 first:pt-0

@@ -1,0 +1,1 @@
+flex justify-between items-center py-1 pl-3 pr-1 lg:mb-2 lg:px-0 lg:py-0
