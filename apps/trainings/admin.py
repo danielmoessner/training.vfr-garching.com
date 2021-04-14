@@ -1,4 +1,4 @@
-from apps.trainings.models import TrainingFilter, Training, FilterGroup, AgeGroup
+from apps.trainings.models import TrainingFilter, Training, FilterGroup, AgeGroup, Difficulty
 from django.contrib import admin
 from django import forms
 from datetime import date
@@ -115,3 +115,4 @@ admin.site.register(TrainingFilter, TrainingFilterAdmin)
 # default admin for filter and group
 admin.site.register(FilterGroup)
 admin.site.register(AgeGroup)
+admin.site.register(Difficulty)

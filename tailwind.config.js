@@ -34,6 +34,7 @@ module.exports = {
             screens: {
                 'print': {'raw': 'print'},
                 // => @media print { ... }
+                '3xl': '1921px'
             }
         },
     },

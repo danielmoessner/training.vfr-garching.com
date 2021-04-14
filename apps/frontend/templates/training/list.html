@@ -9,20 +9,46 @@
         </div>
         <div class="lg:flex-1">
             <div class="{% include 'symbols/container.txt' %}">
-                <h1 class="mb-4 font-medium"><span x-text="showed"></span> von {{ trainings.count }} Trainings</h1>
-                <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                <h1 class="mb-4 font-medium sr-only"><span x-text="showed"></span> von {{ trainings.count }} Trainings
+                </h1>
+                <div class="flex flex-wrap -mt-4 mb-4">
+                    {% for training_filter in training_filters %}
+                        <div x-show="showFilter({{ training_filter.pk }})" class="mt-4 mr-4 bg-white rounded">
+                            <div class="flex space-x-2 items-center">
+                                <div class="pl-2 py-1">
+                                    {{ training_filter.name }}
+                                </div>
+                                <div class="pr-1.5 flex items-center justify-center">
+                                    <button type="button"
+                                            x-on:click="filterClicked({{ training_filter.pk }}, true)"
+                                            class="text-gray-400 hover:text-gray-500 transition focus:outline-none focus:text-gray-600"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                             fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                  clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
                     <div class="hidden" x-show="showTraining([-1])"></div>
                     {% for training in trainings %}
                         <li x-show="showTraining({{ training.get_filter_pks }})"
                             class="video">
                             <div class="bg-white border border-gray-300 shadow overflow-hidden sm:rounded-lg">
                                 <div class="flex flex-col">
-                                    <div class="px-3 py-2 h-16 md:h-20 md:pl-5 md:pr-4 md:py-3">
-                                        <div class="flex justify-between items-baseline">
-                                            <a href="{% url 'training_detail' training.pk %}">
-                                                <h2 class="text-base text-gray-900 inline-block font-medium line-clamp-2 hover:underline md:text-lg lg:text-xl">
+                                    <div class="px-3 py-2 md:pl-5 md:pr-4 md:py-3">
+                                        <div class="flex justify-between items-baseline h-full">
+                                            <a class="flex flex-col justify-between h-full" href="{% url 'training_detail' training.pk %}">
+                                                <h2 class="text-base text-gray-900 inline-block line-clamp-2 font-medium h-12 hover:underline md:text-lg md:h-14 lg:text-xl lg:h-14">
                                                     {{ training.name }}
                                                 </h2>
+                                                <p class="text-gray-700 text-sm line-clamp-1">{{ training.focus }}</p>
                                             </a>
                                             <div class="space-y-1 pl-1 flex items-end flex-col lg:space-y-1.5">
                                                 {% if training.new %}
@@ -38,13 +64,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="group overflow-hidden"
-                                       href="{% url 'training_detail' training.pk %}">
-                                        <div class="transform group-hover:scale-105 transition">
-                                            <img class="mw-full w-full h-auto" src="{{ training.image1.url }}"
-                                                 alt="{{ training.name }}">
+                                    <div class="relative overflow-hidden">
+                                        <div class="absolute top-3 left-3 z-10 flex text-gray-800">
+                                            {% include 'symbols/stars.html' with training=training %}
                                         </div>
-                                    </a>
+                                        <a class="group overflow-hidden"
+                                           href="{% url 'training_detail' training.pk %}">
+                                            <div class="transform group-hover:scale-105 transition">
+                                                <img class="mw-full w-full h-auto" src="{{ training.image1.url }}"
+                                                     alt="{{ training.name }}">
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -63,6 +94,6 @@
             </svg>
         </a>
     </div>
-    {% include 'symbols/pages/training_list/trainings_data.html' %}
+    {% include 'symbols/trainings_data.html' %}
 
 {% endblock main %}

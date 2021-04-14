@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.users.apps.UsersConfig',
     'apps.trainings.apps.TrainingsConfig',
-    'apps.pages.apps.PagesConfig',
     'apps.settings.apps.SettingsConfig',
     'apps.frontend.apps.FrontendConfig',
 ]

@@ -8,6 +8,7 @@
             filterMenuOpen: false,
             menuOpen: false,
             trainerMenuOpen: false,
+            difficultyMenuOpen: false,
             showed: 0,
             init() {
                 {{ filters_selected }}.
@@ -22,6 +23,9 @@
             showTraining(filterPks) {
                 return this.filtersTrue.map(filter => filterPks.includes(filter)).every(_ => _);
             },
+            showFilter(filterPk) {
+                return this.filtersTrue.includes(filterPk);
+            },
             groupClicked(groupPk) {
                 this.groupOpen[groupPk] = !this.groupOpen[groupPk];
                 fetch(`/api/filter_groups/${groupPk}/`, {
@@ -34,7 +38,9 @@
                     },
                 })
             },
-            filterClicked(filterPk) {
+            filterClicked(filterPk, set = false) {
+                if (set)
+                    this.filterSelected[filterPk] = !this.filterSelected[filterPk];
                 fetch(`/api/training_filters/${filterPk}/`, {
                     method: 'POST',
                     credentials: 'same-origin',

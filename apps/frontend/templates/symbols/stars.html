@@ -1,0 +1,7 @@
+{% include 'symbols/svg/star5.html' %}
+<div class="{% if training.difficulty.stars == 1 %}opacity-30{% endif %}">
+    {% include 'symbols/svg/star5.html' %}
+</div>
+<div class="{% if training.difficulty.stars == 1 or training.difficulty.stars == 2 %}opacity-40{% endif %}">
+    {% include 'symbols/svg/star5.html' %}
+</div>

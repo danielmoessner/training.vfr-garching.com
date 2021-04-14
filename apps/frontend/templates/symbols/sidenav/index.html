@@ -18,6 +18,18 @@
                 <span class="truncate">Übungsdatenbank</span>
             </a>
 
+            {% url 'training_bookmarks' as url %}
+            <a href="{{ url }}"
+               class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md {% if request.path == url %}bg-white{% endif %}"
+               aria-current="page">
+                <svg class="text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                </svg>
+                <span class="truncate">Lesezeichen</span>
+            </a>
+
             <a href="{{ url }}"
                class="{% if object %}text-gray-600 hover:bg-gray-50{% else %}text-gray-400 disabled{% endif %} flex items-center px-3 py-2 text-sm font-medium rounded-md"
                aria-current="page">
@@ -38,10 +50,32 @@
         <div :class="{ block: filterMenuOpen, hidden: !filterMenuOpen }"
              class="{% include 'symbols/sidenav/content.txt' %}">
             {% include 'symbols/filters/index.html' %}
-            <div class="pt-5">
+            <div class="pt-5 flex justify-between items-baseline">
                 <a class="{% include 'symbols/secondary_button.txt' %}"
                    href="{% url 'reset_training_filters' %}">Zurücksetzen</a>
+                <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings.count }} Trainings</div>
             </div>
+        </div>
+    </div>
+    <div class="{% include 'symbols/sidenav/section.txt' %}">
+        <div class="{% include 'symbols/sidenav/top.txt' %}">
+            <p class="{% include 'symbols/sidenav/heading.txt' %}">Schwierigkeit einschränken</p>
+            {% include 'symbols/sidenav/button.html' with property='difficultyMenuOpen' text='Schwierigkeitsmenü öffnen' %}
+        </div>
+        <div :class="{ block: difficultyMenuOpen, hidden: !difficultyMenuOpen }"
+             class="{% include 'symbols/sidenav/content.txt' %}">
+            <form action="{% url 'save_difficulties' %}" method="post" class="django-form">
+                {{ difficulties_form.as_p }}
+                {% csrf_token %}
+                <div class="mt-5">
+                    <button type="submit"
+                            class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Absenden
+                    </button>
+                    <a class="{% include 'symbols/secondary_button.txt' %}"
+                       href="{% url 'reset_difficulty' %}">Zurücksetzen</a>
+                </div>
+            </form>
         </div>
     </div>
     <div class="{% include 'symbols/sidenav/section.txt' %}">
@@ -51,7 +85,7 @@
         </div>
         <div :class="{ block: trainerMenuOpen, hidden: !trainerMenuOpen }"
              class="{% include 'symbols/sidenav/content.txt' %}">
-            <form method="post" class="age-group-form">
+            <form action="{% url 'save_age_group' %}" method="post" class="django-form">
                 {{ age_group_form.as_p }}
                 {% csrf_token %}
                 <div class="mt-5">

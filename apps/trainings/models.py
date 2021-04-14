@@ -1,7 +1,22 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
+
+
+class Difficulty(models.Model):
+    name = models.CharField(max_length=80, verbose_name='Name')
+    ordering = models.IntegerField(verbose_name='Sortierung')
+    stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)], verbose_name='Sterne')
+
+    def __str__(self):
+        return '{}'.format(self.name)
+
+    class Meta:
+        verbose_name = 'Schwierigkeit'
+        verbose_name_plural = 'Schwierigkeiten'
+        ordering = ['ordering']
 
 
 class AgeGroup(models.Model):
@@ -84,6 +99,7 @@ class TrainingFilter(models.Model):
     age_groups = models.ManyToManyField(AgeGroup, verbose_name='Altersgruppen', blank=True)
     hide = models.BooleanField(default=False, verbose_name='Versteckt')
     show_on_detail = models.BooleanField(verbose_name='Auf der Detailseite anzeigen', default=False)
+    description = models.TextField(verbose_name='Beschreibung', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -119,6 +135,8 @@ class TrainingFilter(models.Model):
 
 class Training(models.Model):
     name = models.CharField(max_length=80, verbose_name='Name')
+    difficulty = models.ForeignKey(Difficulty, verbose_name='Schwierigkeit', null=True, on_delete=models.PROTECT)
+    focus = models.CharField(max_length=50, verbose_name='Fokus', blank=True)
     description = HTMLField(verbose_name='Beschreibung', null=True, blank=True)
     coaching = HTMLField(verbose_name='Coachingpunkte', null=True, blank=True)
     variations = HTMLField(verbose_name='Variationen', null=True, blank=True)

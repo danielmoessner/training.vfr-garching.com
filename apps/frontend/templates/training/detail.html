@@ -68,10 +68,26 @@
                             {% endif %}
                         </div>
                         <div class="xl:w-2/3 p-4 sm:px-6 sm:py-6">
-                            <h1 class="text-2xl font-medium text-gray-900 md:text-3xl md:font-bold">
-                                {{ object.name }}
-                            </h1>
-                            <div class="flex flex-row mt-4 text-gray-600">
+                            <div class="flex items-center">
+                                <h1 class="text-2xl font-medium text-gray-900 mr-4 md:text-3xl md:font-bold">
+                                    {{ object.name }}
+                                </h1>
+                                <abbr class="" title="Lesezeichen setzen">
+                                    <a class="block transition p-1 rounded focus:outline-none {% if bookmarked %}text-gray-800 hover:text-gray-500 focus:text-gray-400{% else %}text-gray-400 hover:text-gray-600 focus:text-gray-700{% endif %}"
+                                       href="{% url 'training_bookmark' object.pk %}"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                        </svg>
+                                    </a>
+                                </abbr>
+                            </div>
+                            <div class="flex flex-row mt-2 text-gray-400">
+                                {% include 'symbols/stars.html' with training=object %}
+                            </div>
+                            <div class="flex flex-row mt-3 text-gray-600">
                                 <svg class="h-5 w-5 text-gray-400 flex-none"
                                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                      fill="currentColor">
@@ -79,9 +95,10 @@
                                           d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
                                           clip-rule="evenodd"></path>
                                 </svg>
-                                <div class="flex flex-row flex-wrap text-xs -mb-1">
+                                <div class="flex flex-row flex-wrap text-xs -mb-1 space-x-3">
                                     {% for training_filter in training.get_filters %}
-                                        <div class="mb-2 ml-3">{{ training_filter.name }}</div>
+                                        <div class="mb-2">{% if forloop.counter != 1 %} | {% endif %}</div>
+                                        <div class="mb-2">{{ training_filter.name }}</div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -107,14 +124,13 @@
                                     {# endfix #}
                                     <h2>Beschreibung</h2>
                                     {{ training.description|safe }}
-                                    {% with t_filters=training.get_detail_filters %}
-                                        {% if t_filters %}
+                                    {% with training_filters=training.get_detail_filters %}
+                                        {% if training_filters %}
                                             <h2>Spielprinzipien & Methoden</h2>
-                                            <ul>
-                                                {% for filter in t_filters %}
-                                                    <li>{{ filter.get_detail_html|safe }}</li>
-                                                {% endfor %}
-                                            </ul>
+                                            {% for filter in training_filters %}
+                                                <h3>{{ filter.name }}</h3>
+                                                <p>{{ filter.description|linebreaksbr }}</p>
+                                            {% endfor %}
                                         {% endif %}
                                     {% endwith %}
                                     <h2>Coachingpunkte</h2>
@@ -129,5 +145,5 @@
             </div>
         </div>
     </main>
-    {% include 'symbols/pages/training_list/trainings_data.html' %}
+    {% include 'symbols/trainings_data.html' %}
 {% endblock main %}
