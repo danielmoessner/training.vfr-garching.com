@@ -1,0 +1,17 @@
+{% for training_filter in training_filters %}
+    <div x-show="showFilter({{ training_filter.pk }})" class="my-3 mx-2 bg-white rounded">
+        <div class="h-8 flex space-x-2 items-center">
+            <div class="pl-2 py-1 text-gray-800">
+                {{ training_filter.name }}
+            </div>
+            <div class="pr-1.5 flex items-center justify-center">
+                <button type="button"
+                        x-on:click="filterClicked({{ training_filter.pk }}, true)"
+                        class="text-gray-400 hover:text-gray-500 transition focus:outline-none focus:text-gray-600"
+                >
+                    {% include 'symbols/svg/outline-x-circle.svg' %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endfor %}

@@ -1,4 +1,5 @@
 <nav class="lg:divide-y lg:divide-gray-300">
+    {% comment %}
     <div class="{% include 'symbols/sidenav/section.txt' %}">
         <div class="{% include 'symbols/sidenav/top.txt' %} lg:hidden">
             <p class="{% include 'symbols/sidenav/heading.txt' %}">Menü</p>
@@ -42,18 +43,19 @@
             </a>
         </div>
     </div>
+    {% endcomment %}
     <div class="{% include 'symbols/sidenav/section.txt' %}">
         <div class="{% include 'symbols/sidenav/top.txt' %}">
-            <p class="{% include 'symbols/sidenav/heading.txt' %}">Filterauswahl</p>
+            <p class="{% include 'symbols/sidenav/heading.txt' %} lg:hidden">Filterauswahl</p>
             {% include 'symbols/sidenav/button.html' with property='filterMenuOpen' text='Filtermenü öffnen' %}
         </div>
         <div :class="{ block: filterMenuOpen, hidden: !filterMenuOpen }"
-             class="{% include 'symbols/sidenav/content.txt' %}">
+             class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-5">
             {% include 'symbols/filters/index.html' %}
             <div class="pt-5 flex justify-between items-baseline">
                 <a class="{% include 'symbols/secondary_button.txt' %}"
                    href="{% url 'reset_training_filters' %}">Zurücksetzen</a>
-                <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings.count }} Trainings</div>
+                <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings_total }} Trainings</div>
             </div>
         </div>
     </div>

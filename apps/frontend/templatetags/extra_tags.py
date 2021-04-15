@@ -9,3 +9,8 @@ def get_item(dictionary, key):
 @register.filter
 def get(dictionary, key):
     return dictionary.get(key)
+
+
+@register.filter
+def splitlines(value):
+    return value.splitlines()

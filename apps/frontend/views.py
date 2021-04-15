@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
-from apps.trainings.models import Training, FilterGroup, TrainingFilter, AgeGroup
+from apps.trainings.models import Training, FilterGroup, TrainingFilter, AgeGroup, Difficulty
 from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
@@ -24,18 +24,22 @@ class SettingsContextMixin(ContextMixin):
 class FilterContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # get or create the settings
         settings, created = UserSettings.objects.get_or_create(user=self.request.user)
-        trainings = Training.objects.filter(difficulty__in=settings.difficulties.all())
-        context['groups'] = FilterGroup.get_groups_dict(settings=settings)
-        context['root_group_pks'] = [group.pk for group in FilterGroup.objects.filter(group=None)]
+        context['user_settings'] = settings
+        # forms
         context['age_group_form'] = SelectAgeGroupForm(instance=settings)
         context['difficulties_form'] = SelectDifficultiesForm(instance=settings)
-        context['trainings'] = trainings
+        # settings
         context['groups_open'] = self.request.user.settings.get_filter_groups()
         context['filters_selected'] = self.request.user.settings.get_training_filters()
-        for training_filter in list(settings.training_filters.all()):
-            trainings = trainings.filter(filters=training_filter.pk)
-        context['videos_count'] = trainings.count()
+        # calculate count
+        context['trainings_total'] = Training.objects.all().count()
+        # filters and groups
+        context['root_group_pks'] = [group.pk for group in FilterGroup.objects.filter(group=None)]
+        context['groups'] = FilterGroup.get_groups_dict(settings=settings)
+        context['training_filters'] = TrainingFilter.objects.all()
+        # return
         return context
 
 
@@ -64,47 +68,61 @@ class LogoutView(DjangoLogoutView):
 
 
 class TrainingListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMixin, generic.TemplateView):
-    template_name = 'training/list.html'
+    template_name = 'trainings.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['training_filters'] = TrainingFilter.objects.all()
+        # trainings
+        trainings = Training.get_trainings_list(context['user_settings'])
+        context['trainings'] = trainings
+        # count
+        trainings = Training.objects.all()
+        for training_filter in list(self.request.user.settings.training_filters.all()):
+            trainings = trainings.filter(filters=training_filter.pk)
+        context['trainings_count'] = trainings.count()
+        # return
         return context
 
 
 class SearchView(TrainingListView):
-    template_name = 'training/list.html'
+    template_name = 'trainings.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # search
         search = self.request.GET.get('suche')
         if search:
             trainings = Training.objects.filter(
                 Q(name__icontains=search) | Q(filters__name__icontains=search)
             ).distinct()
+            trainings = Training.get_trainings_list(context['user_settings'], trainings)
             context['trainings'] = trainings
-            context['videos_count'] = trainings.count()
+            context['search'] = search
+        context['trainings_count'] = '"?"'
+        # return
         return context
 
 
 class BookmarksView(TrainingListView):
-    template_name = 'training/list.html'
+    template_name = 'trainings.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        trainings = self.request.user.settings.bookmarks.all()
+        bookmarked_trainings = self.request.user.settings.bookmarks.all()
+        trainings = Training.get_trainings_list(context['user_settings'], bookmarked_trainings)
         context['trainings'] = trainings
-        context['videos_count'] = trainings.count()
+        context['trainings_count'] = '"?"'
         return context
 
 
 class TrainingDetailView(LoginRequiredMixin, SettingsContextMixin, FilterContextMixin, generic.DetailView):
-    template_name = 'training/detail.html'
+    template_name = 'training.html'
     model = Training
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['bookmarked'] = self.request.user.settings.bookmarks.filter(pk=self.object.pk).exists()
+        context['trainings_count'] = '"?"'
         return context
 
 
@@ -142,14 +160,14 @@ class ResetAgeGroupView(LoginRequiredMixin, generic.View):
 class ResetTrainingFiltersView(LoginRequiredMixin, generic.View):
     def get(self, request, *args, **kwargs):
         self.request.user.settings.training_filters.set([])
-        self.request.user.settings.filter_groups.set([])
+        self.request.user.settings.filter_groups.set(FilterGroup.objects.filter(group=None))
         self.request.user.settings.save()
         return HttpResponseRedirect(reverse('training_list'))
 
 
 class ResetDifficultyView(LoginRequiredMixin, generic.View):
     def get(self, request, *args, **kwargs):
-        self.request.user.settings.difficulties.set([])
+        self.request.user.settings.difficulties.set(Difficulty.objects.all())
         self.request.user.settings.save()
         return HttpResponseRedirect(reverse('training_list'))
 

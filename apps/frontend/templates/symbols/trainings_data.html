@@ -15,7 +15,7 @@
                 forEach(filter => this.filterSelected[filter] = true);
                 {{ groups_open }}.
                 forEach(pk => this.groupOpen[pk] = true);
-                this.showed = {{ videos_count }};
+                this.showed = {{ trainings_count|safe }};
             },
             get filtersTrue() {
                 return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
@@ -49,7 +49,10 @@
                         "Accept": "application/json",
                         "Content-Type": "application/json"
                     },
-                }).then(response => response.json()).then(data => this.showed = data['videos'])
+                }).then(response => response.json()).then(data => {
+                    if (this.showed !== "?")
+                        this.showed = data['videos'];
+                })
             }
         }
     }

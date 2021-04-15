@@ -9,7 +9,7 @@ urlpatterns = [
     path('', views.TrainingListView.as_view(), name='training_list'),
     path('training/<int:pk>/', views.TrainingDetailView.as_view(), name='training_detail'),
     path('suche/', views.SearchView.as_view(), name='search'),
-    path('lesezeichen/', views.BookmarksView.as_view(), name='training_bookmarks'),
+    path('favoriten/', views.BookmarksView.as_view(), name='training_bookmarks'),
     # form stuff
     path('altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),
     path('schwierigkeiten-speichern/', views.DifficultiesFormView.as_view(), name='save_difficulties'),

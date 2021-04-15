@@ -3,12 +3,17 @@ from apps.trainings.models import AgeGroup, FilterGroup, TrainingFilter, Difficu
 from django.db import models
 
 
+def get_difficulties_default():
+    return list(Difficulty.objects.all())
+
+
 class UserSettings(models.Model):
     user = models.OneToOneField(DjangoUser, related_name='settings', on_delete=models.CASCADE)
     age_group = models.ForeignKey(AgeGroup, related_name='users', on_delete=models.SET_NULL, null=True, blank=True)
     filter_groups = models.ManyToManyField(FilterGroup, related_name='users', blank=True)
     training_filters = models.ManyToManyField(TrainingFilter, related_name='users', blank=True)
-    difficulties = models.ManyToManyField(Difficulty, related_name='users', blank=True)
+    difficulties = models.ManyToManyField(Difficulty, related_name='users', blank=True,
+                                          default=get_difficulties_default)
     bookmarks = models.ManyToManyField(Training, related_name='users', blank=True)
 
     class Meta:

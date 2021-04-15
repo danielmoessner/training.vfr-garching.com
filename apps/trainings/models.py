@@ -73,13 +73,15 @@ class FilterGroup(models.Model):
     @staticmethod
     def get_groups_dict(settings=None, show_hidden=False):
         groups = {}
+        training_filters = TrainingFilter.objects.select_related('group').all()
+        if not show_hidden:
+            training_filters = training_filters.filter(hide=False)
+        if settings and settings.age_group:
+            training_filters = training_filters.filter(age_groups=settings.age_group)
+        training_filters = list(training_filters)
+
         for group in list(FilterGroup.objects.prefetch_related('training_filters', 'groups').all()):
-            group_filters = group.training_filters.all()
-            if not show_hidden:
-                group_filters = group_filters.filter(hide=False)
-            if settings and settings.age_group:
-                group_filters = group_filters.filter(age_groups=settings.age_group)
-            group_filters = list(group_filters)
+            group_filters = list(filter(lambda training_filter: training_filter.group.id == group.id, training_filters))
             data = {
                 'name': group.name,
                 'training_filters': [{'pk': training_filter.pk, 'name': training_filter.name} for training_filter in
@@ -162,6 +164,28 @@ class Training(models.Model):
         if self.created + timedelta(days=30) > timezone.now():
             return True
         return False
+
+    @staticmethod
+    def get_trainings_list(settings, trainings=None):
+        if trainings is None:
+            trainings = Training.objects.all()
+        trainings = (trainings
+                     .filter(difficulty__in=settings.difficulties.all())
+                     .select_related('difficulty')
+                     .prefetch_related('filters'))
+        trainings_list = []
+        for training in list(trainings):
+            data = {
+                "pk": training.pk,
+                "name": training.name,
+                "image1": training.image1,
+                "difficulty": training.difficulty,
+                "new": training.new,
+                "video": bool(training.video),
+                "filters": [training_filter.pk for training_filter in training.filters.all()]
+            }
+            trainings_list.append(data)
+        return trainings_list
 
     def get_video_code(self):
         if self.video:
