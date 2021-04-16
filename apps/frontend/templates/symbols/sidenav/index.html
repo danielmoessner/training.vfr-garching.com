@@ -50,7 +50,7 @@
             {% include 'symbols/sidenav/button.html' with property='filterMenuOpen' text='Filtermenü öffnen' %}
         </div>
         <div :class="{ block: filterMenuOpen, hidden: !filterMenuOpen }"
-             class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-5">
+             class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-4">
             {% include 'symbols/filters/index.html' %}
             <div class="pt-5 flex justify-between items-baseline">
                 <a class="{% include 'symbols/secondary_button.txt' %}"

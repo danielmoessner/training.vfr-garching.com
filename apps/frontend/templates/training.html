@@ -95,7 +95,7 @@
                             {% endif %}
                         </div>
                         <div class="xl:w-2/3 p-4 sm:px-6 sm:py-6">
-                            <div class="flex items-center">
+                            <div class="flex items-center print:hidden">
                                 <h1 class="text-2xl font-medium text-gray-900 mr-4 md:text-3xl md:font-bold">
                                     {{ object.name }}
                                 </h1>
@@ -103,18 +103,20 @@
                                     <a class="block transition p-1 rounded focus:outline-none text-red-400 hover:text-red-500 focus:text-red-600"
                                        href="{% url 'training_bookmark' object.pk %}"
                                     >
-                                        {% if bookmarked %}
-                                            {% include 'symbols/svg/solid-heart.svg' with size='h-6 w-6' %}
-                                        {% else %}
-                                            {% include 'symbols/svg/outline-heart.svg' %}
-                                        {% endif %}
+                                        <div class="print:hidden">
+                                            {% if bookmarked %}
+                                                {% include 'symbols/svg/solid-heart.svg' with size='h-6 w-6' %}
+                                            {% else %}
+                                                {% include 'symbols/svg/outline-heart.svg' %}
+                                            {% endif %}
+                                        </div>
                                     </a>
                                 </abbr>
                             </div>
-                            <div class="flex flex-row mt-2 text-yellow-400">
+                            <div class="flex flex-row mt-2 text-yellow-400 print:hidden">
                                 {% include 'symbols/stars.html' with training=object %}
                             </div>
-                            <div class="flex flex-row mt-3 text-gray-600">
+                            <div class="flex flex-row mt-3 text-gray-600 print:hidden">
                                 <svg class="h-5 w-5 text-gray-400 flex-none"
                                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                      fill="currentColor">
@@ -149,6 +151,7 @@
                                         }
                                     </style>
                                     {# endfix #}
+                                    <h1 class="hidden print:block">{{ object.name }}</h1>
                                     <h2>Beschreibung</h2>
                                     {{ training.description|safe }}
                                     {% with training_filters=training.get_detail_filters %}

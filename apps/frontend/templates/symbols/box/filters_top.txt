@@ -1,1 +1,1 @@
-flex flex-wrap -mx-2 -mt-3 mb-3
+flex flex-wrap -mx-2 -mt-3 mb-3 print:hidden
