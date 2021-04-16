@@ -138,8 +138,10 @@
                                     {% endwith %}
                                     <h2>Coachingpunkte</h2>
                                     {{ training.coaching|safe }}
-                                    <h2>Variationen</h2>
-                                    {{ training.variations|safe }}
+                                    {% if training.variations %}
+                                        <h2>Variationen</h2>
+                                        {{ training.variations|safe }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -203,8 +205,10 @@
             {% endwith %}
             <h2>Coachingpunkte</h2>
             {{ training.coaching|safe }}
-            <h2>Variationen</h2>
-            {{ training.variations|safe }}
+            {% if training.variations %}
+                <h2>Variationen</h2>
+                {{ training.variations|safe }}
+            {% endif %}
         </div>
     </section>
     {% include 'symbols/trainings_data.html' %}
