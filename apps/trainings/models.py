@@ -1,4 +1,5 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Q
 from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
@@ -201,3 +202,13 @@ class Training(models.Model):
 
     def get_detail_filters(self):
         return self.filters.filter(show_on_detail=True)
+
+    @staticmethod
+    def get_search_queryset(search, trainings=None):
+        if trainings is None:
+            trainings = Training.objects.all()
+        trainings = trainings.filter(
+            Q(name__icontains=search) |
+            Q(filters__name__icontains=search)
+        ).distinct()
+        return trainings

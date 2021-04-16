@@ -5,15 +5,22 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
-from apps.trainings.models import Training, FilterGroup, TrainingFilter, AgeGroup, Difficulty
+from apps.trainings.models import Training, FilterGroup, TrainingFilter, Difficulty
 from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
-from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm
+from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm
 from django.views import generic
 
 
 # mixins
+class SuccessUrlReverseMixin:
+    def get_success_url(self):
+        if self.request.GET.get('reverse'):
+            self.success_url = self.request.GET.get('reverse')
+        return self.success_url
+
+
 class SettingsContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,7 +60,7 @@ class UpdateUserSettingsMixin:
         form = self.get_form()
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 # views
@@ -73,10 +80,12 @@ class TrainingListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # trainings
-        trainings = Training.get_trainings_list(context['user_settings'])
-        context['trainings'] = trainings
-        # count
         trainings = Training.objects.all()
+        if context['user_settings'].search:
+            trainings = Training.get_search_queryset(context['user_settings'].search, trainings)
+        trainings_list = Training.get_trainings_list(context['user_settings'], trainings)
+        context['trainings'] = trainings_list
+        # count
         for training_filter in list(self.request.user.settings.training_filters.all()):
             trainings = trainings.filter(filters=training_filter.pk)
         context['trainings_count'] = trainings.count()
@@ -109,6 +118,8 @@ class BookmarksView(TrainingListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bookmarked_trainings = self.request.user.settings.bookmarks.all()
+        if context['user_settings'].search:
+            bookmarked_trainings = Training.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
         trainings = Training.get_trainings_list(context['user_settings'], bookmarked_trainings)
         context['trainings'] = trainings
         context['trainings_count'] = '"?"'
@@ -122,17 +133,21 @@ class TrainingDetailView(LoginRequiredMixin, SettingsContextMixin, FilterContext
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['bookmarked'] = self.request.user.settings.bookmarks.filter(pk=self.object.pk).exists()
-        context['trainings_count'] = '"?"'
+        context['trainings_count'] = '"1"'
         return context
 
 
 # save settings views
-class AgeGroupFormView(UpdateUserSettingsMixin, generic.UpdateView):
+class AgeGroupFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
     form_class = SelectAgeGroupForm
 
 
-class DifficultiesFormView(UpdateUserSettingsMixin, generic.UpdateView):
+class DifficultiesFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
     form_class = SelectDifficultiesForm
+
+
+class SearchFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
+    form_class = SearchForm
 
 
 # get change views
@@ -150,26 +165,41 @@ class BookmarkTrainingView(LoginRequiredMixin, generic.DetailView):
         return HttpResponseRedirect(reverse('training_detail', args=[self.object.pk]))
 
 
-class ResetAgeGroupView(LoginRequiredMixin, generic.View):
+class ResetSearchView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
+    success_url = reverse_lazy('training_list')
+
+    def get(self, request, *args, **kwargs):
+        self.request.user.settings.search = ''
+        self.request.user.settings.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class ResetAgeGroupView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
+    success_url = reverse_lazy('training_list')
+
     def get(self, request, *args, **kwargs):
         self.request.user.settings.age_group = None
         self.request.user.settings.save()
-        return HttpResponseRedirect(reverse('training_list'))
+        return HttpResponseRedirect(self.get_success_url())
 
 
-class ResetTrainingFiltersView(LoginRequiredMixin, generic.View):
+class ResetTrainingFiltersView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
+    success_url = reverse_lazy('training_list')
+
     def get(self, request, *args, **kwargs):
         self.request.user.settings.training_filters.set([])
         self.request.user.settings.filter_groups.set(FilterGroup.objects.filter(group=None))
         self.request.user.settings.save()
-        return HttpResponseRedirect(reverse('training_list'))
+        return HttpResponseRedirect(self.get_success_url())
 
 
-class ResetDifficultyView(LoginRequiredMixin, generic.View):
+class ResetDifficultyView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
+    success_url = reverse_lazy('training_list')
+
     def get(self, request, *args, **kwargs):
         self.request.user.settings.difficulties.set(Difficulty.objects.all())
         self.request.user.settings.save()
-        return HttpResponseRedirect(reverse('training_list'))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 # api views
@@ -190,7 +220,8 @@ class ToggleFilterGroupApiView(APIView):
 
 class ToggleTrainingFilterApiView(APIView):
     def post(self, request, pk=None):
-        user_training_filters = request.user.settings.training_filters
+        user_settings = request.user.settings
+        user_training_filters = user_settings.training_filters
         if user_training_filters.filter(pk=pk).exists():
             user_training_filters.remove(pk)
             action = 'removed'
@@ -198,6 +229,8 @@ class ToggleTrainingFilterApiView(APIView):
             user_training_filters.add(pk)
             action = 'added'
         trainings = Training.objects.all()
+        if user_settings.search:
+            trainings = Training.get_search_queryset(user_settings.search, trainings)
         for training_filter in list(user_training_filters.all()):
             trainings = trainings.filter(filters=training_filter.pk)
         data = {

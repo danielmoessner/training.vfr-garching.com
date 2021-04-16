@@ -18,3 +18,9 @@ class SelectDifficultiesForm(forms.ModelForm):
     class Meta:
         model = UserSettings
         fields = ('difficulties',)
+
+
+class SearchForm(forms.ModelForm):
+    class Meta:
+        model = UserSettings
+        fields = ('search', )

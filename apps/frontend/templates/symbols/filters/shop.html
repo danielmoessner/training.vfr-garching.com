@@ -1,3 +1,16 @@
+{% if user_settings.search %}
+    <a class="group flex items-center justify-center px-2 py-1 space-x-2 my-3 mx-2 bg-white rounded h-8"
+       href="{% url 'reset_search' %}?reverse={{ request.path }}"
+    >
+        <div class="text-gray-800 group-hover:text-gray-900">
+            Suche: {{ user_settings.search }}
+        </div>
+        <div class="text-gray-400 group-hover:text-gray-500">
+            {% include 'symbols/svg/outline-x-circle.svg' %}
+        </div>
+
+    </a>
+{% endif %}
 {% for training_filter in training_filters %}
     <button class="group flex items-center justify-center px-2 py-1 space-x-2 h-8 my-3 mx-2 bg-white rounded focus:outline-none"
             type="button"

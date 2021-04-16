@@ -50,7 +50,7 @@
                         "Content-Type": "application/json"
                     },
                 }).then(response => response.json()).then(data => {
-                    if (this.showed !== "?")
+                    if (typeof(this.showed) !== "string")
                         this.showed = data['videos'];
                 })
             }

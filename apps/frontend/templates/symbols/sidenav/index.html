@@ -54,7 +54,7 @@
             {% include 'symbols/filters/index.html' %}
             <div class="pt-5 flex justify-between items-baseline">
                 <a class="{% include 'symbols/secondary_button.txt' %}"
-                   href="{% url 'reset_training_filters' %}">Zurücksetzen</a>
+                   href="{% url 'reset_training_filters' %}?reverse={{ request.path }}">Zurücksetzen</a>
                 <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings_total }} Trainings</div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         </div>
         <div :class="{ block: difficultyMenuOpen, hidden: !difficultyMenuOpen }"
              class="{% include 'symbols/sidenav/content.txt' %}">
-            <form action="{% url 'save_difficulties' %}" method="post" class="django-form">
+            <form action="{% url 'save_difficulties' %}?reverse={{ request.path }}" method="post" class="django-form">
                 {{ difficulties_form.as_p }}
                 {% csrf_token %}
                 <div class="mt-5">
@@ -75,7 +75,7 @@
                         Absenden
                     </button>
                     <a class="{% include 'symbols/secondary_button.txt' %}"
-                       href="{% url 'reset_difficulty' %}">Zurücksetzen</a>
+                       href="{% url 'reset_difficulty' %}?reverse={{ request.path }}">Zurücksetzen</a>
                 </div>
             </form>
         </div>
@@ -87,7 +87,7 @@
         </div>
         <div :class="{ block: trainerMenuOpen, hidden: !trainerMenuOpen }"
              class="{% include 'symbols/sidenav/content.txt' %}">
-            <form action="{% url 'save_age_group' %}" method="post" class="django-form">
+            <form action="{% url 'save_age_group' %}?reverse={{ request.path }}" method="post" class="django-form">
                 {{ age_group_form.as_p }}
                 {% csrf_token %}
                 <div class="mt-5">
@@ -96,7 +96,7 @@
                         Absenden
                     </button>
                     <a class="{% include 'symbols/secondary_button.txt' %}"
-                       href="{% url 'reset_age_group' %}">Zurücksetzen</a>
+                       href="{% url 'reset_age_group' %}?reverse={{ request.path }}">Zurücksetzen</a>
                 </div>
             </form>
         </div>

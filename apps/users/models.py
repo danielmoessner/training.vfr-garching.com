@@ -15,6 +15,7 @@ class UserSettings(models.Model):
     difficulties = models.ManyToManyField(Difficulty, related_name='users', blank=True,
                                           default=get_difficulties_default)
     bookmarks = models.ManyToManyField(Training, related_name='users', blank=True)
+    search = models.CharField(verbose_name='Suche', blank=True, max_length=100)
 
     class Meta:
         verbose_name = 'Benutzereinstellung'

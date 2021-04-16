@@ -8,12 +8,13 @@ urlpatterns = [
     # view stuff
     path('', views.TrainingListView.as_view(), name='training_list'),
     path('training/<int:pk>/', views.TrainingDetailView.as_view(), name='training_detail'),
-    path('suche/', views.SearchView.as_view(), name='search'),
     path('favoriten/', views.BookmarksView.as_view(), name='training_bookmarks'),
     # form stuff
+    path('suche/', views.SearchFormView.as_view(), name='search'),
     path('altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),
     path('schwierigkeiten-speichern/', views.DifficultiesFormView.as_view(), name='save_difficulties'),
     # save stuff on get
+    path('suche-zuruecksetzen/', views.ResetSearchView.as_view(), name='reset_search'),
     path('training/<int:pk>/lesezeichen/', views.BookmarkTrainingView.as_view(), name='training_bookmark'),
     path('altersgruppe-zuruecksetzen/', views.ResetAgeGroupView.as_view(), name='reset_age_group'),
     path('filter-zuruecksetzen/', views.ResetTrainingFiltersView.as_view(), name='reset_training_filters'),
