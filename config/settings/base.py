@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.trainings.apps.TrainingsConfig',
     'apps.settings.apps.SettingsConfig',
     'apps.frontend.apps.FrontendConfig',
+    'apps.generator.apps.GeneratorConfig'
 ]
 
 MIDDLEWARE = [

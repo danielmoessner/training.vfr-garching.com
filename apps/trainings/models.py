@@ -20,15 +20,15 @@ class Difficulty(models.Model):
         ordering = ['ordering']
 
 
-class AgeGroup(models.Model):
+class Youth(models.Model):
     name = models.CharField(max_length=80, verbose_name='Name')
     ordering = models.IntegerField(verbose_name='Sortierung', default=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Altersgruppe'
-        verbose_name_plural = 'Altersgruppen'
+        verbose_name = 'Jugend'
+        verbose_name_plural = 'Jugenden'
         ordering = ['ordering']
 
     def __str__(self):
@@ -38,11 +38,11 @@ class AgeGroup(models.Model):
         create = False if self.pk else True
         super().save(*args, **kwargs)
         if create:
-            for training_filter in TrainingFilter.objects.all():
+            for training_filter in Filter.objects.all():
                 training_filter.age_groups.add(self)
 
 
-class FilterGroup(models.Model):
+class Group(models.Model):
     name = models.CharField(max_length=80, verbose_name='Name')
     group = models.ForeignKey('self', verbose_name='Gruppe', null=True, blank=True, on_delete=models.PROTECT,
                               related_name='groups')
@@ -74,14 +74,14 @@ class FilterGroup(models.Model):
     @staticmethod
     def get_groups_dict(settings=None, show_hidden=False):
         groups = {}
-        training_filters = TrainingFilter.objects.select_related('group').all()
+        training_filters = Filter.objects.select_related('group').all()
         if not show_hidden:
             training_filters = training_filters.filter(hide=False)
         if settings and settings.age_group:
             training_filters = training_filters.filter(age_groups=settings.age_group)
         training_filters = list(training_filters)
 
-        for group in list(FilterGroup.objects.prefetch_related('training_filters', 'groups').all()):
+        for group in list(Group.objects.prefetch_related('training_filters', 'groups').all()):
             group_filters = list(filter(lambda training_filter: training_filter.group.id == group.id, training_filters))
             data = {
                 'name': group.name,
@@ -94,12 +94,12 @@ class FilterGroup(models.Model):
         return groups
 
 
-class TrainingFilter(models.Model):
-    group = models.ForeignKey(FilterGroup, on_delete=models.PROTECT, verbose_name='Gruppe',
+class Filter(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.PROTECT, verbose_name='Gruppe',
                               related_name='training_filters')
     name = models.CharField(max_length=80, verbose_name='Name')
     ordering = models.IntegerField(verbose_name='Sortierung')
-    age_groups = models.ManyToManyField(AgeGroup, verbose_name='Altersgruppen', blank=True)
+    age_groups = models.ManyToManyField(Youth, verbose_name='Altersgruppen', blank=True)
     hide = models.BooleanField(default=False, verbose_name='Versteckt')
     show_on_detail = models.BooleanField(verbose_name='Auf der Detailseite anzeigen', default=False)
     description = models.TextField(verbose_name='Beschreibung', blank=True)
@@ -125,7 +125,7 @@ class TrainingFilter(models.Model):
     @staticmethod
     def get_filters_dict(settings=None):
         filters = {}
-        training_filters = TrainingFilter.objects.filter(hide=False)
+        training_filters = Filter.objects.filter(hide=False)
         if settings and settings.age_group:
             training_filters.filter(age_groups=settings.age_group)
         for training_filter in list(training_filters):
@@ -136,7 +136,7 @@ class TrainingFilter(models.Model):
         return filters
 
 
-class Training(models.Model):
+class Exercise(models.Model):
     name = models.CharField(max_length=80, verbose_name='Name')
     difficulty = models.ForeignKey(Difficulty, verbose_name='Schwierigkeit', null=True, on_delete=models.PROTECT)
     focus = models.CharField(max_length=50, verbose_name='Fokus', blank=True)
@@ -148,13 +148,13 @@ class Training(models.Model):
     image3 = models.ImageField(upload_to='training/', verbose_name='Bild', null=True, blank=True)
     image4 = models.ImageField(upload_to='training/', verbose_name='Bild', null=True, blank=True)
     video = models.CharField(verbose_name='Video', blank=True, null=True, max_length=600)
-    filters = models.ManyToManyField(TrainingFilter, verbose_name='Filter', blank=True, related_name='trainings')
+    filters = models.ManyToManyField(Filter, verbose_name='Filter', blank=True, related_name='trainings')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Training'
-        verbose_name_plural = 'Trainings'
+        verbose_name = 'Übung'
+        verbose_name_plural = 'Übungen'
         ordering = ['-created']
 
     def __str__(self):
@@ -169,7 +169,7 @@ class Training(models.Model):
     @staticmethod
     def get_trainings_list(settings, trainings=None):
         if trainings is None:
-            trainings = Training.objects.all()
+            trainings = Exercise.objects.all()
         trainings = (trainings
                      .filter(difficulty__in=settings.difficulties.all())
                      .select_related('difficulty')
@@ -206,9 +206,35 @@ class Training(models.Model):
     @staticmethod
     def get_search_queryset(search, trainings=None):
         if trainings is None:
-            trainings = Training.objects.all()
+            trainings = Exercise.objects.all()
         trainings = trainings.filter(
             Q(name__icontains=search) |
             Q(filters__name__icontains=search)
         ).distinct()
         return trainings
+
+
+class Training(models.Model):
+    name = models.CharField(verbose_name='Name', max_length=80)
+    topic = models.ForeignKey('generator.Topic', on_delete=models.PROTECT, related_name='trainings',
+                              blank=True, null=True)
+    structure = models.ForeignKey('generator.Structure', on_delete=models.PROTECT, related_name='trainings',
+                                  blank=True, null=True)
+    exercise1 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings1', verbose_name='Übung 1',
+                                  blank=True, null=True)
+    exercise2 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings2', verbose_name='Übung 2',
+                                  blank=True, null=True)
+    exercise3 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings3', verbose_name='Übung 3',
+                                  blank=True, null=True)
+    exercise4 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings4', verbose_name='Übung 4',
+                                  blank=True, null=True)
+    exercise5 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings5', verbose_name='Übung 5',
+                                  blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Training'
+        verbose_name_plural = 'Trainings'
+        ordering = ['name']
+
+    def __str__(self):
+        return '{}'.format(self.name)

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User as DjangoUser
-from apps.trainings.models import AgeGroup, FilterGroup, TrainingFilter, Difficulty, Training
+from apps.trainings.models import Youth, Group, Filter, Difficulty, Exercise
 from django.db import models
 
 
@@ -9,12 +9,12 @@ def get_difficulties_default():
 
 class UserSettings(models.Model):
     user = models.OneToOneField(DjangoUser, related_name='settings', on_delete=models.CASCADE)
-    age_group = models.ForeignKey(AgeGroup, related_name='users', on_delete=models.SET_NULL, null=True, blank=True)
-    filter_groups = models.ManyToManyField(FilterGroup, related_name='users', blank=True)
-    training_filters = models.ManyToManyField(TrainingFilter, related_name='users', blank=True)
+    age_group = models.ForeignKey(Youth, related_name='users', on_delete=models.SET_NULL, null=True, blank=True)
+    filter_groups = models.ManyToManyField(Group, related_name='users', blank=True)
+    training_filters = models.ManyToManyField(Filter, related_name='users', blank=True)
     difficulties = models.ManyToManyField(Difficulty, related_name='users', blank=True,
                                           default=get_difficulties_default)
-    bookmarks = models.ManyToManyField(Training, related_name='users', blank=True)
+    bookmarks = models.ManyToManyField(Exercise, related_name='users', blank=True)
     search = models.CharField(verbose_name='Suche', blank=True, max_length=100)
 
     class Meta:

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
-from apps.trainings.models import Training, FilterGroup, TrainingFilter, Difficulty
+from apps.trainings.models import Exercise, Group, Filter, Difficulty
 from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
@@ -41,11 +41,11 @@ class FilterContextMixin(ContextMixin):
         context['groups_open'] = self.request.user.settings.get_filter_groups()
         context['filters_selected'] = self.request.user.settings.get_training_filters()
         # calculate count
-        context['trainings_total'] = Training.objects.all().count()
+        context['trainings_total'] = Exercise.objects.all().count()
         # filters and groups
-        context['root_group_pks'] = [group.pk for group in FilterGroup.objects.filter(group=None)]
-        context['groups'] = FilterGroup.get_groups_dict(settings=settings)
-        context['training_filters'] = TrainingFilter.objects.all()
+        context['root_group_pks'] = [group.pk for group in Group.objects.filter(group=None)]
+        context['groups'] = Group.get_groups_dict(settings=settings)
+        context['training_filters'] = Filter.objects.all()
         # return
         return context
 
@@ -80,10 +80,10 @@ class TrainingListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # trainings
-        trainings = Training.objects.all()
+        trainings = Exercise.objects.all()
         if context['user_settings'].search:
-            trainings = Training.get_search_queryset(context['user_settings'].search, trainings)
-        trainings_list = Training.get_trainings_list(context['user_settings'], trainings)
+            trainings = Exercise.get_search_queryset(context['user_settings'].search, trainings)
+        trainings_list = Exercise.get_trainings_list(context['user_settings'], trainings)
         context['trainings'] = trainings_list
         # count
         for training_filter in list(self.request.user.settings.training_filters.all()):
@@ -101,10 +101,10 @@ class SearchView(TrainingListView):
         # search
         search = self.request.GET.get('suche')
         if search:
-            trainings = Training.objects.filter(
+            trainings = Exercise.objects.filter(
                 Q(name__icontains=search) | Q(filters__name__icontains=search)
             ).distinct()
-            trainings = Training.get_trainings_list(context['user_settings'], trainings)
+            trainings = Exercise.get_trainings_list(context['user_settings'], trainings)
             context['trainings'] = trainings
             context['search'] = search
         context['trainings_count'] = '"?"'
@@ -119,8 +119,8 @@ class BookmarksView(TrainingListView):
         context = super().get_context_data(**kwargs)
         bookmarked_trainings = self.request.user.settings.bookmarks.all()
         if context['user_settings'].search:
-            bookmarked_trainings = Training.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
-        trainings = Training.get_trainings_list(context['user_settings'], bookmarked_trainings)
+            bookmarked_trainings = Exercise.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
+        trainings = Exercise.get_trainings_list(context['user_settings'], bookmarked_trainings)
         context['trainings'] = trainings
         context['trainings_count'] = '"?"'
         return context
@@ -128,7 +128,7 @@ class BookmarksView(TrainingListView):
 
 class TrainingDetailView(LoginRequiredMixin, SettingsContextMixin, FilterContextMixin, generic.DetailView):
     template_name = 'training.html'
-    model = Training
+    model = Exercise
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -152,7 +152,7 @@ class SearchFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSetti
 
 # get change views
 class BookmarkTrainingView(LoginRequiredMixin, generic.DetailView):
-    model = Training
+    model = Exercise
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -188,7 +188,7 @@ class ResetTrainingFiltersView(LoginRequiredMixin, SuccessUrlReverseMixin, gener
 
     def get(self, request, *args, **kwargs):
         self.request.user.settings.training_filters.set([])
-        self.request.user.settings.filter_groups.set(FilterGroup.objects.filter(group=None))
+        self.request.user.settings.filter_groups.set(Group.objects.filter(group=None))
         self.request.user.settings.save()
         return HttpResponseRedirect(self.get_success_url())
 
@@ -228,9 +228,9 @@ class ToggleTrainingFilterApiView(APIView):
         else:
             user_training_filters.add(pk)
             action = 'added'
-        trainings = Training.objects.all()
+        trainings = Exercise.objects.all()
         if user_settings.search:
-            trainings = Training.get_search_queryset(user_settings.search, trainings)
+            trainings = Exercise.get_search_queryset(user_settings.search, trainings)
         for training_filter in list(user_training_filters.all()):
             trainings = trainings.filter(filters=training_filter.pk)
         data = {

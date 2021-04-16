@@ -1,4 +1,4 @@
-from apps.trainings.models import TrainingFilter, Training, FilterGroup, AgeGroup, Difficulty
+from apps.trainings.models import Filter, Exercise, Group, Youth, Difficulty, Training
 from django.contrib import admin
 from django import forms
 from datetime import date
@@ -32,12 +32,16 @@ class DateSelectorWidget(forms.MultiWidget):
 
 
 # overwrite training admin
-class TrainingFilterWidget(forms.Widget):
+class FilterWidget(forms.Widget):
     template_name = 'trainings/training_filter_widget.html'
+
+    def __init__(self, name=None, attrs=None):
+        super().__init__(attrs)
+        self.name = name if name else ''
 
     def get_inputs(self, values):
         inputs = {}
-        for training_filter in TrainingFilter.objects.all():
+        for training_filter in Filter.objects.all():
             checkbox = forms.CheckboxInput()
             attrs = {
                 'label': training_filter.name,
@@ -46,32 +50,34 @@ class TrainingFilterWidget(forms.Widget):
             checked = False
             if values and training_filter.pk in values:
                 checked = True
-            inputs[training_filter.pk] = checkbox.get_context(training_filter.pk, checked, attrs)['widget']
+            name = '{}{}'.format(self.name, training_filter.pk)
+            inputs[training_filter.pk] = checkbox.get_context(name, checked, attrs)['widget']
         return inputs
 
     def get_context(self, name, values, attrs):
         context = super().get_context(name, values, attrs)
         context['widgets'] = self.get_inputs(values)
-        context['groups'] = FilterGroup.get_groups_dict(show_hidden=True)
-        context['root_group_pks'] = [group.pk for group in FilterGroup.objects.filter(group=None)]
+        context['groups'] = Group.get_groups_dict(show_hidden=True)
+        context['root_group_pks'] = [group.pk for group in Group.objects.filter(group=None)]
         return context
 
     def value_from_datadict(self, data, files, name):
         values = []
-        for training_filter in TrainingFilter.objects.all():
-            if str(training_filter.pk) in data:
+        for training_filter in Filter.objects.all():
+            name = '{}{}'.format(self.name, training_filter.pk)
+            if name in data:
                 values.append(training_filter.pk)
         return values
 
 
 class TrainingForm(forms.ModelForm):
     filters = forms.ModelMultipleChoiceField(
-        queryset=TrainingFilter.objects.all(),
-        widget=TrainingFilterWidget(),
-        label="Filteroptionen", required=False)
+        queryset=Filter.objects.all(),
+        widget=FilterWidget(),
+        label="Filter", required=False)
 
     class Meta:
-        model = Training
+        model = Exercise
         fields = '__all__'
 
 
@@ -79,15 +85,15 @@ class TrainingAdmin(admin.ModelAdmin):
     form = TrainingForm
 
 
-admin.site.register(Training, TrainingAdmin)
+admin.site.register(Exercise, TrainingAdmin)
 
 
 # overwrite training filter admin
 class TrainingFilterForm(forms.ModelForm):
-    trainings = forms.ModelMultipleChoiceField(queryset=Training.objects.all(), required=False)
+    trainings = forms.ModelMultipleChoiceField(queryset=Exercise.objects.all(), required=False)
 
     class Meta:
-        model = TrainingFilter
+        model = Filter
         fields = '__all__'
 
 
@@ -110,9 +116,10 @@ class TrainingFilterAdmin(admin.ModelAdmin):
         return super(TrainingFilterAdmin, self).get_form(request, obj, **kwargs)
 
 
-admin.site.register(TrainingFilter, TrainingFilterAdmin)
+admin.site.register(Filter, TrainingFilterAdmin)
 
 # default admin for filter and group
-admin.site.register(FilterGroup)
-admin.site.register(AgeGroup)
+admin.site.register(Group)
+admin.site.register(Youth)
 admin.site.register(Difficulty)
+admin.site.register(Training)
