@@ -7,7 +7,7 @@
   "repository": "none",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build:css && npm run build:js && python manage.py collectstatic --noinput --clear",
+    "build": "npm run build:css && npm run build:js && tmp/venv/bin/python manage.py collectstatic --noinput --clear",
     "css": "postcss static/src/css/main.css -o static/dist/css/main.css",
     "build:css": "cross-env NODE_ENV=production postcss static/src/css/main.css -o static/dist/css/main.css",
     "watch:css": "postcss static/src/css/main.css -o static/dist/css/main.css -w",
