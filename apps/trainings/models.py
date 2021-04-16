@@ -182,6 +182,7 @@ class Training(models.Model):
                 "difficulty": training.difficulty,
                 "new": training.new,
                 "video": bool(training.video),
+                "focus": training.focus,
                 "filters": [training_filter.pk for training_filter in training.filters.all()]
             }
             trainings_list.append(data)

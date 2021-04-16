@@ -100,7 +100,7 @@
                                     {{ object.name }}
                                 </h1>
                                 <abbr class="" title="Lesezeichen setzen">
-                                    <a class="block transition p-1 rounded focus:outline-none text-gray-400 hover:text-gray-600 focus:text-gray-700"
+                                    <a class="block transition p-1 rounded focus:outline-none text-red-400 hover:text-red-500 focus:text-red-600"
                                        href="{% url 'training_bookmark' object.pk %}"
                                     >
                                         {% if bookmarked %}
@@ -111,7 +111,7 @@
                                     </a>
                                 </abbr>
                             </div>
-                            <div class="flex flex-row mt-2 text-gray-400">
+                            <div class="flex flex-row mt-2 text-yellow-400">
                                 {% include 'symbols/stars.html' with training=object %}
                             </div>
                             <div class="flex flex-row mt-3 text-gray-600">
