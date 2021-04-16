@@ -148,7 +148,7 @@
             </div>
         </div>
     </main>
-    <section class="hidden print:block">
+    <section class="print:block">
         {# fix a weird printing issue #}
         <style>
             @media print {
@@ -170,19 +170,21 @@
         <div class="prose max-w-none w-full">
             <h1 style="margin: 0;">{{ object.name }}</h1>
             <p style="margin: 0;">{{ training.focus }}</p>
-            <img class="inline w-1/4 float-left" src="{{ training.image1.url }}" alt="Bild 1">
-            {% if training.image2 %}
-                <img class="inline w-1/4 float-left" src="{{ training.image2.url }}"
-                     alt="Bild 2">
-            {% endif %}
-            {% if training.image3 %}
-                <img class="inline w-1/4 float-left" src="{{ training.image3.url }}"
-                     alt="Bild 3">
-            {% endif %}
-            {% if training.image4 %}
-                <img class="inline w-1/4 float-left" src="{{ training.image4.url }}"
-                     alt="Bild 4">
-            {% endif %}
+            <div class="-ml-2">
+                <img class="inline w-1/4 float-left p-2" src="{{ training.image1.url }}" alt="Bild 1">
+                {% if training.image2 %}
+                    <img class="inline w-1/4 float-left p-2" src="{{ training.image2.url }}"
+                         alt="Bild 2">
+                {% endif %}
+                {% if training.image3 %}
+                    <img class="inline w-1/4 float-left p-2" src="{{ training.image3.url }}"
+                         alt="Bild 3">
+                {% endif %}
+                {% if training.image4 %}
+                    <img class="inline w-1/4 float-left p-2" src="{{ training.image4.url }}"
+                         alt="Bild 4">
+                {% endif %}
+            </div>
             <div class="clear-both"></div>
             <h2 style="margin-top: 0;">Beschreibung</h2>
             {{ training.description|safe }}
