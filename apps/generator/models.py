@@ -19,12 +19,31 @@ class Block(models.Model):
 
 class Structure(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
-    block1 = models.ForeignKey(Block, verbose_name='Baustein 1', on_delete=models.PROTECT, blank=True, null=True, related_name='structures1')
-    block2 = models.ForeignKey(Block, verbose_name='Baustein 2', on_delete=models.PROTECT, blank=True, null=True, related_name='structures2')
-    block3 = models.ForeignKey(Block, verbose_name='Baustein 3', on_delete=models.PROTECT, blank=True, null=True, related_name='structures3')
-    block4 = models.ForeignKey(Block, verbose_name='Baustein 4', on_delete=models.PROTECT, blank=True, null=True, related_name='structures4')
-    block5 = models.ForeignKey(Block, verbose_name='Baustein 5', on_delete=models.PROTECT, blank=True, null=True, related_name='structures5')
-    blocks = models.ManyToManyField(Block, through='StructureBlock')
+    PHASE_CHOICES = (
+        ('START', 'Warm-Up'),
+        ('MAIN', 'Hauptteil'),
+        ('END', 'Abschluss')
+    )
+    block1 = models.ForeignKey(Block, verbose_name='Baustein 1', on_delete=models.PROTECT, blank=True, null=True,
+                               related_name='structures1')
+    phase1 = models.CharField(verbose_name='Baustein 1 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
+                              null=True)
+    block2 = models.ForeignKey(Block, verbose_name='Baustein 2', on_delete=models.PROTECT, blank=True, null=True,
+                               related_name='structures2')
+    phase2 = models.CharField(verbose_name='Baustein 2 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
+                              null=True)
+    block3 = models.ForeignKey(Block, verbose_name='Baustein 3', on_delete=models.PROTECT, blank=True, null=True,
+                               related_name='structures3')
+    phase3 = models.CharField(verbose_name='Baustein 3 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
+                              null=True)
+    block4 = models.ForeignKey(Block, verbose_name='Baustein 4', on_delete=models.PROTECT, blank=True, null=True,
+                               related_name='structures4')
+    phase4 = models.CharField(verbose_name='Baustein 4 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
+                              null=True)
+    block5 = models.ForeignKey(Block, verbose_name='Baustein 5', on_delete=models.PROTECT, blank=True, null=True,
+                               related_name='structures5')
+    phase5 = models.CharField(verbose_name='Baustein 5 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
+                              null=True)
 
     class Meta:
         verbose_name = 'Struktur'
@@ -33,20 +52,6 @@ class Structure(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
-
-
-class StructureBlock(models.Model):
-    structure = models.ForeignKey(Structure, on_delete=models.CASCADE, verbose_name='Struktur')
-    block = models.ForeignKey(Block, on_delete=models.CASCADE, verbose_name='Block')
-    order = models.IntegerField(verbose_name='Sortierung')
-
-    class Meta:
-        ordering = ['structure', 'order']
-        verbose_name = 'Struktur-Block-Verbindung'
-        verbose_name_plural = 'Struktur-Block-Verbindungen'
-
-    def __str__(self):
-        return '{} - Block {}'.format(self.structure.name, self.order)
 
 
 class Topic(models.Model):

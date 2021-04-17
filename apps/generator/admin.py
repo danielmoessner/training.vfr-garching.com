@@ -1,4 +1,4 @@
-from apps.generator.models import Block, Topic, Structure, StructureBlock
+from apps.generator.models import Block, Topic, Structure
 from apps.trainings.models import Filter
 from apps.trainings.admin import FilterWidget
 from django.contrib import admin
@@ -54,4 +54,3 @@ admin.site.register(Topic, TopicAdmin)
 
 # normal admins
 admin.site.register(Structure)
-admin.site.register(StructureBlock)
