@@ -1,0 +1,26 @@
+<div class="flex items-center w-full">
+    <div class="px-6 py-4 flex items-center text-sm font-medium">
+        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border-2
+                    {% if state == 'future' %} border-gray-300
+                    {% elif state == 'active' %} border-red-600
+                    {% elif state == 'done' %} bg-red-600 border-red-600
+                    {% endif %}"
+        >
+            {% if state == 'future' %}
+                <div class="text-gray-500">{{ step }}</div>
+            {% elif state == 'active' %}
+                <div class="text-red-600">{{ step }}</div>
+            {% elif state == 'done' %}
+                <div class="text-white">
+                    {% include 'svg/solid/check.svg' %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="ml-4 text-sm font-medium
+                    {% if state == 'future' %} text-gray-500
+                    {% elif state == 'active' %} text-red-600
+                    {% elif state == 'done' %} text-gray-900
+                    {% endif %}"
+        >{{ text }}</div>
+    </div>
+</div>

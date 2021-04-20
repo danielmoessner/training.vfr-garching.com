@@ -15,7 +15,8 @@
                 {% include 'symbols/navigation/link.html' with text='Übungsdatenbank' href=url %}
                 {% url 'training_bookmarks' as url %}
                 {% include 'symbols/navigation/link.html' with text='Favoriten' href=url %}
-                {% include 'symbols/navigation/link.html' with text='Trainingsgenerator' href='#' %}
+                {% url 'generator' as url %}
+                {% include 'symbols/navigation/link.html' with text='Trainingsgenerator' href=url %}
             </nav>
         </div>
         <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -84,7 +85,7 @@
                                         x-on:click="open = !open"
                                         class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
                                     <span class="sr-only">Menü schließen menu</span>
-                                    {% include 'symbols/svg/outline-x.svg' %}
+                                    {% include 'svg/outline-x.svg' %}
                                 </button>
                             </div>
                         </div>
@@ -93,7 +94,8 @@
                             {% include 'symbols/navigation/mobile_link.html' with text='Übungsdatenbank' href=url %}
                             {% url 'training_bookmarks' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Favoriten' href=url %}
-                            {% include 'symbols/navigation/mobile_link.html' with text='Trainingsgenerator' href='#' %}
+                            {% url 'generator' as url %}
+                            {% include 'symbols/navigation/mobile_link.html' with text='Trainingsgenerator' href=url %}
                         </div>
                     </div>
                     <div class="pt-4 pb-2">

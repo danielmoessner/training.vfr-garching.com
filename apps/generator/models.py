@@ -53,6 +53,9 @@ class Structure(models.Model):
     def __str__(self):
         return '{}'.format(self.name)
 
+    def get_blocks(self):
+        return [self.block1, self.block2, self.block3, self.block4, self.block5]
+
 
 class Topic(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)

@@ -213,13 +213,40 @@ class Exercise(models.Model):
         ).distinct()
         return trainings
 
+    @staticmethod
+    def filter_by_block(exercises, block):
+        or_filters = block.or_filters.all()
+        and_filters = list(block.and_filters.all())
+        if or_filters.count() > 0:
+            exercises = exercises.filter(filters__in=or_filters).distinct()
+        for training_filter in and_filters:
+            exercises = exercises.filter(filters=training_filter)
+        return exercises
+
+    @staticmethod
+    def filter_by_topic(exercises, topic):
+        filters = topic.or_filters.all()
+        if filters.count() > 0:
+            exercises = exercises.filter(filters__in=filters).distinct()
+        return exercises
+
+    @staticmethod
+    def filter_by_topic_and_block(topic, block, phase):
+        if block is None or topic is None or phase is None:
+            return Exercise.objects.none()
+        exercises = Exercise.objects.all()
+        exercises = Exercise.filter_by_block(exercises, block)
+        if phase == 'MAIN':
+            exercises = Exercise.filter_by_topic(exercises, topic)
+        return exercises
+
 
 class Training(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
     topic = models.ForeignKey('generator.Topic', on_delete=models.PROTECT, related_name='trainings',
-                              blank=True, null=True)
+                              blank=True, null=True, verbose_name='Thema')
     structure = models.ForeignKey('generator.Structure', on_delete=models.PROTECT, related_name='trainings',
-                                  blank=True, null=True)
+                                  blank=True, null=True, verbose_name='Trainingsstruktur')
     exercise1 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings1', verbose_name='Übung 1',
                                   blank=True, null=True)
     exercise2 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings2', verbose_name='Übung 2',

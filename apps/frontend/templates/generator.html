@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% load extra_tags %}
+
+{% block content %}
+
+    <section class="max-w-7xl mx-auto pt-10">
+        <nav aria-label="Progress">
+            <ol class="border border-gray-300 rounded-md divide-y divide-gray-300 md:flex md:divide-y-0">
+                <li class="relative md:flex-1 md:flex">
+                    {% if step == 1 %}
+                        {% include 'symbols/pages/generator/step.html' with state='active' step='01' text='Thema & Struktur' %}
+                    {% elif step == 2 or step == 3 %}
+                        {% include 'symbols/pages/generator/step.html' with state='done' step='01' text='Thema & Struktur' %}
+                    {% endif %}
+                    <!-- Arrow separator for lg screens and up -->
+                    <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
+                        <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
+                             preserveAspectRatio="none">
+                            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                </li>
+
+                <li class="relative md:flex-1 md:flex">
+                    {% if step == 1 %}
+                        {% include 'symbols/pages/generator/step.html' with state='future' step='02' text='Übungen' %}
+                    {% elif step == 2 %}
+                        {% include 'symbols/pages/generator/step.html' with state='active' step='02' text='Übungen' %}
+                    {% elif step == 3 %}
+                        {% include 'symbols/pages/generator/step.html' with state='done' step='02' text='Übungen' %}
+                    {% endif %}
+
+                    <!-- Arrow separator for lg screens and up -->
+                    <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
+                        <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
+                             preserveAspectRatio="none">
+                            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                </li>
+
+                <li class="relative md:flex-1 md:flex">
+                    {% if step == 1 or step == 2 %}
+                        {% include 'symbols/pages/generator/step.html' with state='future' step='03' text='Übersicht' %}
+                    {% elif step == 3 %}
+                        {% include 'symbols/pages/generator/step.html' with state='active' step='03' text='Übersicht' %}
+                    {% endif %}
+                </li>
+            </ol>
+        </nav>
+    </section>
+
+    {% if step == 3 %}
+        <section class="max-w-7xl mx-auto pt-10 pb-64">
+            <h1 class="text-3xl mb-10">{{ name }}</h1>
+            <div class="bg-white rounded overflow-hidden shadow">
+                <div class="px-8 py-2 text-2xl font-bold text-center">{{ structure.name }}</div>
+                <div class="grid grid-cols-5">
+                    <div class="flex flex-col">
+                        <div class="px-4 py-2 font-medium text-lg text-center">{{ structure.block1.name }}</div>
+                        <div>
+                            <div class="text-center">{{ exercise1.name }}</div>
+                            <img class="max-w-full h-auto" src="{{ exercise1.image1.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="px-4 py-2 font-medium text-lg text-center">{{ structure.block2.name }}</div>
+                        <div>
+                            <div class="text-center">{{ exercise2.name }}</div>
+                            <img class="max-w-full h-auto" src="{{ exercise2.image1.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="px-4 py-2 font-medium text-lg text-center">{{ structure.block3.name }}</div>
+                        <div>
+                            <div class="text-center">{{ exercise3.name }}</div>
+                            <img class="max-w-full h-auto" src="{{ exercise3.image1.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="px-4 py-2 font-medium text-lg text-center">{{ structure.block4.name }}</div>
+                        <div>
+                            <div class="text-center">{{ exercise4.name }}</div>
+                            <img class="max-w-full h-auto" src="{{ exercise4.image1.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="px-4 py-2 font-medium text-lg text-center">{{ structure.block5.name }}</div>
+                        <div>
+                            <div class="text-center">{{ exercise5.name }}</div>
+                            <img class="max-w-full h-auto" src="{{ exercise5.image1.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if step == 2 %}
+        <section class="max-w-7xl mx-auto pt-10"
+                 x-data="{ exercise1: -1, exercise2: -1, exercise3: -1, exercise4: -1, exercise5: -1 }">
+            <div class="space-y-16">
+                {% for key, exercises in possible_exercises.items %}
+                    <div class="">
+                        <div class="text-2xl font-bold">Übung {{ key }}</div>
+                        <ul class="mt-4 grid grid-cols-4 gap-4">
+                            {% for exercise in exercises %}
+                                <li>
+                                    <button class="relative border-2 overflow-hidden block border-transparent ring-offset-2 ring-red-600 focus:rin focus:outline-none sm:rounded-lg"
+                                            x-on:click="exercise{{ key }} = {{ exercise.pk }}"
+                                            onclick="document.querySelector('#id_exercise{{ key }}').value = {{ exercise.pk }};"
+                                            type="button"
+                                    >
+                                        {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
+                                        <div class="absolute inset-0 border-2 border-red-600 z-50 rounded-lg"
+                                             :class="{ hidden: exercise{{ key }} !== {{ exercise.pk }} }"
+                                        ></div>
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if step == 1 or step == 2 %}
+        <section class="max-w-7xl mx-auto pt-10 pb-64">
+            <form class="django-form-2" method="POST" action="{% url 'generator' %}?step={{ step|add:1 }}">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <div class="flex items-end col-start-1">
+                    <button class="{% include 'symbols/primary_button.txt' %}" type="submit">Weiter</button>
+                </div>
+            </form>
+        </section>
+    {% endif %}
+
+    {% if step == 3 %}
+        <section class="max-w-7xl mx-auto pt-10 pb-64">
+            <form class="django-form-2" method="POST" action="{% url 'generator' %}?step={{ step|add:1 }}">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <div class="flex items-end col-start-1">
+                    <button class="{% include 'symbols/primary_button.txt' %}" type="submit">Speichern</button>
+                </div>
+            </form>
+            <button class="{% include 'symbols/secondary_button.txt' %} mt-4" type="button">Ausdrucken</button>
+        </section>
+    {% endif %}
+
+{% endblock content %}

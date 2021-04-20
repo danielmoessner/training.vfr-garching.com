@@ -43,7 +43,7 @@
                        href="{% url 'training_list' %}"
                     >
                         <div class="text-gray-400 group-hover:text-gray-500">
-                            {% include 'symbols/svg/solid-arrow-narrow-left.svg' %}
+                            {% include 'svg/solid-arrow-narrow-left.svg' %}
                         </div>
                         <div class="text-gray-800 group-hover:text-gray-900">
                             Zurück
@@ -94,9 +94,9 @@
                                     >
                                         <div class="">
                                             {% if bookmarked %}
-                                                {% include 'symbols/svg/solid-heart.svg' with size='h-6 w-6' %}
+                                                {% include 'svg/solid-heart.svg' with size='h-6 w-6' %}
                                             {% else %}
-                                                {% include 'symbols/svg/outline-heart.svg' %}
+                                                {% include 'svg/outline-heart.svg' %}
                                             {% endif %}
                                         </div>
                                     </a>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="flex flex-row text-gray-600">
                                     <div class="text-gray-400 flex-none">
-                                        {% include 'symbols/svg/solid-filter.svg' %}
+                                        {% include 'svg/solid-filter.svg' %}
                                     </div>
                                     <div class="flex flex-row flex-wrap text-xs -mb-1 space-x-3 -mb-2">
                                         {% for training_filter in object.get_filters %}
