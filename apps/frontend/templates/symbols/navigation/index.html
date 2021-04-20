@@ -17,6 +17,7 @@
                 {% include 'symbols/navigation/link.html' with text='Favoriten' href=url %}
                 {% url 'generator' as url %}
                 {% include 'symbols/navigation/link.html' with text='Trainingsgenerator' href=url %}
+                {% include 'symbols/navigation/link.html' with text='Ausbildungskonzept' href=settings.link %}
             </nav>
         </div>
         <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -96,6 +97,7 @@
                             {% include 'symbols/navigation/mobile_link.html' with text='Favoriten' href=url %}
                             {% url 'generator' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Trainingsgenerator' href=url %}
+                            {% include 'symbols/navigation/mobile_link.html' with text='Ausbildungskonzept' href=settings.link %}
                         </div>
                     </div>
                     <div class="pt-4 pb-2">

@@ -209,7 +209,8 @@ class Exercise(models.Model):
             trainings = Exercise.objects.all()
         trainings = trainings.filter(
             Q(name__icontains=search) |
-            Q(filters__name__icontains=search)
+            Q(filters__name__icontains=search) |
+            Q(focus__icontains=search)
         ).distinct()
         return trainings
 
