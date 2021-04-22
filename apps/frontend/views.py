@@ -6,6 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
 
+from apps.generator.models import Structure, Topic
 from apps.trainings.forms import TrainingForm, Step1Form, Step2Form
 from apps.trainings.models import Exercise, Group, Filter, Difficulty
 from apps.settings.models import General
@@ -144,21 +145,25 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.CreateView
 
     def get_form_class(self):
         step = self.request.GET.get('step', default='1')
-        if step == "1":
-            return Step1Form
-        elif step == "2":
-            return Step2Form
+        # if step == "1":
+        #     return Step1Form
+        # elif step == "2":
+        #     return Step2Form
         return TrainingForm
 
     def form_valid(self, form):
         step = self.request.GET.get('step', '1')
         if step == '1' or step == '2' or step == '3':
             context = self.get_context_data(form=form)
+            context['formdata'] = form.cleaned_data
             return self.render_to_response(context)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['structures'] = Structure.objects.all()
+        context['topics'] = Topic.objects.select_related('block1', 'block2', 'block3', 'block4', 'block5').all()
+        context['step1form'] = Step1Form()
         step = self.request.GET.get('step', default='1')
         if step == '1':
             context['step'] = 1

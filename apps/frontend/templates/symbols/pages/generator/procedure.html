@@ -1,0 +1,9 @@
+<div class="flow-root">
+    <ul class="-mb-8">
+        {% include 'symbols/pages/generator/procedure_item.html' with step=1 block=structure.block1 phase=structure.get_phase1_display next=structure.block2 %}
+        {% include 'symbols/pages/generator/procedure_item.html' with step=2 block=structure.block2 phase=structure.get_phase2_display next=structure.block3 %}
+        {% include 'symbols/pages/generator/procedure_item.html' with step=3 block=structure.block3 phase=structure.get_phase3_display next=structure.block4 %}
+        {% include 'symbols/pages/generator/procedure_item.html' with step=4 block=structure.block4 phase=structure.get_phase4_display next=structure.block5 %}
+        {% include 'symbols/pages/generator/procedure_item.html' with step=5 block=structure.block5 phase=structure.get_phase5_display next=False %}
+    </ul>
+</div>
