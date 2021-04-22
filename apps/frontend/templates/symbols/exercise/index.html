@@ -3,7 +3,7 @@
         <div class="px-3 py-2 md:pl-5 md:pr-4 md:py-3">
             <div class="flex justify-between">
                 {% if state == 'select' %}
-                    {% include 'symbols/exercise/top_div.html' %}
+                    {% include 'symbols/exercise/top_select.html' %}
                 {% else %}
                     {% include 'symbols/exercise/top_link.html' %}
                 {% endif %}
@@ -26,7 +26,7 @@
         </div>
         <div class="relative overflow-hidden">
             {% if state == 'select' %}
-                {% include 'symbols/exercise/image_div.html' %}
+                {% include 'symbols/exercise/image_select.html' %}
             {% else %}
                 {% include 'symbols/exercise/image_link.html' %}
             {% endif %}

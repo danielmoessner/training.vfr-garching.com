@@ -1,7 +1,9 @@
-<a class="group overflow-hidden block"
-   href="{% url 'training_detail' exercise.pk %}">
+<button class="group overflow-hidden focus:outline-none block"
+        type="button"
+        x-on:click="show = {{ exercise.pk }}"
+>
     <div class="transform group-hover:scale-105 transition bg-green-600">
         <img class="mw-full w-full h-auto" src="{{ exercise.image1.url }}"
              alt="{{ exercise.name }}">
     </div>
-</a>
+</button>

@@ -1,1 +1,1 @@
-inline-flex items-center {{ size|default:'px-2.5 py-1.5 text-xs' }} border border-transparent font-medium rounded text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500
+inline-flex items-center {{ size|default:'px-2.5 py-1.5 text-xs' }} border border-transparent font-medium rounded text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 {{ ring_offset|default:'ring-offset-2' }} focus:ring-gray-500

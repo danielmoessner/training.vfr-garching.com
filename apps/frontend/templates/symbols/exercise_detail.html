@@ -1,0 +1,100 @@
+<div class="bg-white border border-gray-300 shadow sm:rounded-lg">
+    <div class="flex flex-col xl:flex-row">
+        <div class="xl:w-1/3 space-y-5" x-data="{ image: '{{ exercise.image1.url }}', alt: 'Bild 1' }">
+            <div>
+                <img @click="$dispatch('img-modal', {  imgModalSrc: image, imgModalDesc: '' })"
+                     class="mw-full cursor-pointer h-auto sm:rounded-t-lg lg:rounded-tr-none"
+                     :src="image"
+                     :alt="`{{ exercise.name }} ${alt}`">
+                {% if exercise.image2 or exercise.image3 or exercise.image4 %}
+                    <div class="p-1">
+                        <div class="flex flex-row h-20 space-x-1 overflow-x-scroll md:overflow-auto">
+                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image1 alt=exercise.name|add:' Bild 1' %}
+                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image2 alt=exercise.name|add:' Bild 2' %}
+                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image3 alt=exercise.name|add:' Bild 3' %}
+                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image4 alt=exercise.name|add:' Bild 4' %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {% if exercise.video %}
+                <div class="">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe class=""
+                                src="https://www.youtube.com/embed/{{ exercise.get_video_code }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="xl:w-2/3 p-4 sm:px-6 sm:py-6">
+
+            <div class="flex items-center mb-1.5">
+                <h1 class="text-2xl font-medium text-gray-900 mr-4 md:text-3xl md:font-bold">
+                    {{ exercise.name }}
+                </h1>
+                <abbr class="" title="Lesezeichen setzen">
+                    <a class="block transition p-1 rounded focus:outline-none text-red-400 hover:text-red-500 focus:text-red-600"
+                       href="{% url 'training_bookmark' exercise.pk %}"
+                    >
+                        <div class="">
+                            {% if bookmarked %}
+                                {% include 'svg/solid-heart.svg' with size='h-6 w-6' %}
+                            {% else %}
+                                {% include 'svg/outline-heart.svg' %}
+                            {% endif %}
+                        </div>
+                    </a>
+                </abbr>
+            </div>
+            <div class="flex flex-col space-y-3">
+                <div class="flex flex-row text-yellow-400">
+                    {% include 'symbols/stars.html' with training=exercise %}
+                </div>
+                <div class="flex flex-row text-gray-600">
+                    <div class="text-gray-400 flex-none">
+                        {% include 'svg/solid-filter.svg' %}
+                    </div>
+                    <div class="flex flex-row flex-wrap text-xs -mb-1 space-x-3 -mb-2">
+                        {% for training_filter in exercise.get_filters %}
+                            <div class="mb-2">{% if forloop.counter != 1 %} | {% endif %}</div>
+                            <div class="mb-2">{{ training_filter.name }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="">
+                    <button class="{% include 'symbols/secondary_button.txt' %}" type="button"
+                            onclick="window.print(); return false;">Training drucken
+                    </button>
+                </div>
+            </div>
+            <div class="mt-10 md:mt-12">
+                <div class="prose-sm prose md:prose max-w-full md:max-w-full">
+                    <h2>Beschreibung</h2>
+                    {{ exercise.description|safe }}
+                    {% with training_filters=exercise.get_detail_filters %}
+                        {% if training_filters %}
+                            <h2>Spielprinzipien & Methoden</h2>
+                            {% for filter in training_filters %}
+                                <h3>{{ filter.name }}</h3>
+                                <ul>
+                                    {% for item in filter.description|splitlines %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <h2>Coachingpunkte</h2>
+                    {{ exercise.coaching|safe }}
+                    {% if exercise.variations %}
+                        <h2>Variationen</h2>
+                        {{ exercise.variations|safe }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
