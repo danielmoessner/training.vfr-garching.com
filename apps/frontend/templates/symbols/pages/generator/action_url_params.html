@@ -1,0 +1,13 @@
+{% spaceless %}
+    {% if step == '1' %}
+        ?schritt={{ step|add:1 }}&uebung={{ exercise_step|add:1 }}
+    {% elif step == '2' %}
+        {% if exercise_step == '5' %}
+            ?schritt={{ step|add:1 }}&uebung={{ exercise_step }}
+        {% else %}
+            ?schritt={{ step }}&uebung={{ exercise_step|add:1 }}
+        {% endif %}
+    {% elif step == '3' %}
+        ?schritt={{ step }}&uebung={{ exercise_step }}
+    {% endif %}
+{% endspaceless %}

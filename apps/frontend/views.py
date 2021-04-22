@@ -142,14 +142,7 @@ class TrainingDetailView(LoginRequiredMixin, SettingsContextMixin, FilterContext
 
 class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.CreateView):
     template_name = 'generator.html'
-
-    def get_form_class(self):
-        step = self.request.GET.get('step', default='1')
-        # if step == "1":
-        #     return Step1Form
-        # elif step == "2":
-        #     return Step2Form
-        return TrainingForm
+    form_class = TrainingForm
 
     def form_valid(self, form):
         step = self.request.GET.get('step', '1')
@@ -161,45 +154,37 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.CreateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['structures'] = Structure.objects.all()
-        context['topics'] = Topic.objects.select_related('block1', 'block2', 'block3', 'block4', 'block5').all()
+        context['structures'] = Structure.objects.select_related('block1', 'block2', 'block3', 'block4', 'block5').all()
+        context['topics'] = Topic.objects.all()
         context['step1form'] = Step1Form()
-        step = self.request.GET.get('step', default='1')
-        if step == '1':
-            context['step'] = 1
-        elif step == '2':
+        context['exercises_total'] = Exercise.objects.all().count()
+        context['exercises'] = Exercise.objects.all()
+        step = self.request.GET.get('schritt', default='1')
+        context['step'] = step
+        exercise_step = self.request.GET.get('uebung', default='0')
+        context['exercise_step'] = exercise_step
+        if step == '2':
             if 'form' in kwargs:
                 form = kwargs['form']
                 structure = form.cleaned_data['structure']
                 topic = form.cleaned_data['topic']
-                context['possible_exercises'] = {
-                    1: Exercise.filter_by_topic_and_block(topic, structure.block1, structure.phase1),
-                    2: Exercise.filter_by_topic_and_block(topic, structure.block2, structure.phase2),
-                    3: Exercise.filter_by_topic_and_block(topic, structure.block3, structure.phase3),
-                    4: Exercise.filter_by_topic_and_block(topic, structure.block4, structure.phase4),
-                    5: Exercise.filter_by_topic_and_block(topic, structure.block5, structure.phase5),
-                }
+                block = getattr(structure, 'block{}'.format(exercise_step))
+                phase = getattr(structure, 'phase{}'.format(exercise_step))
+                possible_exercises = Exercise.filter_by_topic_and_block(topic, block, phase)
             else:
-                context['possible_exercises'] = {
-                    1: Exercise.objects.all(),
-                    2: Exercise.objects.all(),
-                    3: Exercise.objects.all(),
-                    4: Exercise.objects.all(),
-                    5: Exercise.objects.all(),
-                }
-            context['step'] = 2
-        elif step == '3':
-            if 'form' in kwargs:
-                data = kwargs['form'].cleaned_data
-                context['topic'] = data['topic']
-                context['name'] = data['name']
-                context['structure'] = data['structure']
-                context['exercise1'] = data['exercise1']
-                context['exercise2'] = data['exercise2']
-                context['exercise3'] = data['exercise3']
-                context['exercise4'] = data['exercise4']
-                context['exercise5'] = data['exercise5']
-            context['step'] = 3
+                possible_exercises = Exercise.objects.all()
+            context['possible_exercises'] = possible_exercises
+        # elif step == '3':
+        #     if 'form' in kwargs:
+        #         data = kwargs['form'].cleaned_data
+        #         context['topic'] = data['topic']
+        #         context['name'] = data['name']
+        #         context['structure'] = data['structure']
+        #         context['exercise1'] = data['exercise1']
+        #         context['exercise2'] = data['exercise2']
+        #         context['exercise3'] = data['exercise3']
+        #         context['exercise4'] = data['exercise4']
+        #         context['exercise5'] = data['exercise5']
         return context
 
 

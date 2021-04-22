@@ -1,0 +1,14 @@
+{% load extra_tags %}
+
+{% if formdata|get_item:'topic' %}
+    {% with topic=formdata|get_item:'topic' %}
+        <div>{{ topic.name }}</div>
+    {% endwith %}
+{% else %}
+    {% for topic in topics %}
+        <div x-cloak x-show="String(topic) === '{{ topic.pk }}'">{{ topic.name }}</div>
+    {% endfor %}
+    <template x-if="String(topic) === '0' || String(topic) === ''">
+        <div class="rounded bg-gray-300 w-64 animate-pulse">&nbsp;</div>
+    </template>
+{% endif %}

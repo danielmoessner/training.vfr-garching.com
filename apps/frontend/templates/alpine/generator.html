@@ -5,13 +5,14 @@
     window.generator = () => {
         return {
             name: '{{ formdata|get_item:'name'|default:'' }}',
-            topic: {{ formdata|get_item:'topic'|default:0 }},
-            structure: {{ formdata|get_item:'structure'|default:0 }},
-            exercise1: {{ formdata|get_item:'exercise1'|default:0 }},
-            exercise2: {{ formdata|get_item:'exercise2'|default:0 }},
-            exercise3: {{ formdata|get_item:'exercise3'|default:0 }},
-            exercise4: {{ formdata|get_item:'exercise4'|default:0 }},
-            exercise5: {{ formdata|get_item:'exercise5'|default:0 }},
+            topic: {{ formdata|get_item2:'topic.pk'|default:0 }},
+            structure: {{ formdata|get_item2:'structure.pk'|default:0 }},
+            exercise1: {{ formdata|get_item2:'exercise1.pk'|default:0 }},
+            exercise2: {{ formdata|get_item2:'exercise2.pk'|default:0 }},
+            exercise3: {{ formdata|get_item2:'exercise3.pk'|default:0 }},
+            exercise4: {{ formdata|get_item2:'exercise4.pk'|default:0 }},
+            exercise5: {{ formdata|get_item2:'exercise5.pk'|default:0 }},
+            amount: {% if formdata|get_item:'structure' and not formdata|get_item2:'structure.block5' %}4{% else %}5{% endif %},
         }
     }
 </script>

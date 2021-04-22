@@ -10,6 +10,8 @@ class Difficulty(models.Model):
     name = models.CharField(max_length=80, verbose_name='Name')
     ordering = models.IntegerField(verbose_name='Sortierung')
     stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)], verbose_name='Sterne')
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -258,6 +260,8 @@ class Training(models.Model):
                                   blank=True, null=True)
     exercise5 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings5', verbose_name='Übung 5',
                                   blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Training'

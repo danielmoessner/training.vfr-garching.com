@@ -1,0 +1,11 @@
+{% if step == '2' or step == '3' %}
+    <div class="grid grid-cols-5 gap-4">
+        {% include 'symbols/pages/generator/exercises_exercise.html' with exercises=exercises number='1' %}
+        {% include 'symbols/pages/generator/exercises_exercise.html' with exercises=exercises number='2' %}
+        {% include 'symbols/pages/generator/exercises_exercise.html' with exercises=exercises number='3' %}
+        {% include 'symbols/pages/generator/exercises_exercise.html' with exercises=exercises number='4' %}
+        <template x-if="amount === 5">
+            {% include 'symbols/pages/generator/exercises_exercise.html' with exercises=exercises number='5' %}
+        </template>
+    </div>
+{% endif %}

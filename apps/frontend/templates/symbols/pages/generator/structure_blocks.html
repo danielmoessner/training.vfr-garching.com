@@ -1,0 +1,16 @@
+{% load extra_tags %}
+
+{% if formdata|get_item:'structure' %}
+    {% with structure=formdata|get_item:'structure' %}
+        {% include 'symbols/pages/generator/blocks.html' with structure=structure %}
+    {% endwith %}
+{% else %}
+    {% for structure in structures %}
+        <div x-cloak x-show="String(structure) === '{{ structure.pk }}'">
+            {% include 'symbols/pages/generator/blocks.html' with structure=structure %}
+        </div>
+    {% endfor %}
+    <div x-show="String(structure) === '0' || String(structure) === ''">
+        {% include 'symbols/pages/generator/blocks.html' with placeholder=True %}
+    </div>
+{% endif %}

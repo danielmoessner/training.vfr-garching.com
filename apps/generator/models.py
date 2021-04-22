@@ -7,6 +7,8 @@ class Block(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
     and_filters = models.ManyToManyField(Filter, verbose_name='UND Filter', blank=True, related_name='or_blocks')
     or_filters = models.ManyToManyField(Filter, verbose_name='ODER Filter', blank=True, related_name='and_blocks')
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Baustein'
@@ -44,6 +46,8 @@ class Structure(models.Model):
                                related_name='structures5')
     phase5 = models.CharField(verbose_name='Baustein 5 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Struktur'
@@ -60,6 +64,8 @@ class Structure(models.Model):
 class Topic(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
     or_filters = models.ManyToManyField(Filter, verbose_name='ODER Filter', blank=True, related_name='topics')
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Thema'

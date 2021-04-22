@@ -16,6 +16,8 @@ class UserSettings(models.Model):
                                           default=get_difficulties_default)
     bookmarks = models.ManyToManyField(Exercise, related_name='users', blank=True)
     search = models.CharField(verbose_name='Suche', blank=True, max_length=100)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Benutzereinstellung'

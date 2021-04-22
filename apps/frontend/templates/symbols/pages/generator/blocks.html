@@ -1,0 +1,11 @@
+<div class="grid grid-cols-5 gap-4" id="blocks">
+    {% include 'symbols/pages/generator/blocks_block.html' with number=1 block=structure.block1 phase=structure.get_phase1_display %}
+    {% include 'symbols/pages/generator/blocks_block.html' with number=2 block=structure.block2 phase=structure.get_phase2_display %}
+    {% include 'symbols/pages/generator/blocks_block.html' with number=3 block=structure.block3 phase=structure.get_phase3_display %}
+    {% include 'symbols/pages/generator/blocks_block.html' with number=4 block=structure.block4 phase=structure.get_phase4_display %}
+    {% if placeholder or structure.block5 %}
+        {% include 'symbols/pages/generator/blocks_block.html' with number=5 block=structure.block5 phase=structure.get_phase5_display %}
+    {% endif %}
+</div>
+
+

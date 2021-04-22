@@ -1,0 +1,14 @@
+{% load extra_tags %}
+
+{% if formdata|get_item:'structure' %}
+    {% with structure=formdata|get_item:'structure' %}
+        <div>{{ structure.name }}</div>
+    {% endwith %}
+{% else %}
+    {% for structure in structures %}
+        <div x-cloak x-show="String(structure) === '{{ structure.pk }}'">{{ structure.name }}</div>
+    {% endfor %}
+    <template x-if="String(structure) === '0' || String(structure) === ''">
+        <div class="rounded bg-gray-300 w-40 animate-pulse">&nbsp;</div>
+    </template>
+{% endif %}

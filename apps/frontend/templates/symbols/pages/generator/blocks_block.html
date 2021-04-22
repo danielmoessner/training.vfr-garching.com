@@ -1,0 +1,37 @@
+<div class="flex flex-col">
+    <div class="relative pb-4 overflow-hidden">
+        <div class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+             aria-hidden="true">
+        </div>
+        <div class="relative flex space-x-2 mb-3">
+            <div>
+                <div class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-gray-100">
+                    <div class="w-5 h-5 text-white flex items-center justify-center">
+                        {{ number }}
+                    </div>
+                </div>
+            </div>
+            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                <div>
+                    <p class="text-sm text-gray-500">
+                        {% if phase %}
+                            {{ phase }}:
+                        {% else %}
+                            <span class="inline-block bg-gray-300 animate-pulse w-16 rounded">&nbsp;</span>:
+                        {% endif %}
+                        <span class="font-medium text-gray-900">
+                            {% if block %}
+                                {{ block.name }}
+                            {% else %}
+                                <span class="inline-block bg-gray-300 animate-pulse w-24 rounded">&nbsp;</span>
+                            {% endif %}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if step == '1' %}
+        {% include 'symbols/pages/generator/exercise_placeholder.html' %}
+    {% endif %}
+</div>

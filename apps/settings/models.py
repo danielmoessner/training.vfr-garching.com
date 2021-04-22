@@ -8,6 +8,8 @@ class General(SingletonModel):
     meta_description = models.CharField(verbose_name='Meta-Beschreibung', max_length=120)
     meta_image = models.ImageField(upload_to='general/', verbose_name='Meta-Bild')
     link = models.URLField(verbose_name='Ausbildungskonzept-Link', max_length=120)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Allgemein'
