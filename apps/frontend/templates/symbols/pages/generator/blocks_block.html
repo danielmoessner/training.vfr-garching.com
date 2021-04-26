@@ -13,25 +13,43 @@
             </div>
             <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                 <div>
-                    <p class="text-sm text-gray-500">
+                    <div class="text-sm text-gray-500">
                         {% if phase %}
-                            {{ phase }}:
+                            <div class="inline-block align-top">{{ phase }}:</div>
                         {% else %}
-                            <span class="inline-block bg-gray-300 animate-pulse w-16 rounded">&nbsp;</span>:
+                            <div class="inline-block w-16 rounded bg-gray-200 {% if step == '2' %}bg-gray-300 animate-pulse{% endif %}">
+                                &nbsp;
+                            </div>:
                         {% endif %}
-                        <span class="font-medium text-gray-900">
-                            {% if block %}
-                                {{ block.name }}
+                        <div class="inline-block font-medium text-gray-900">
+                            {% if blocks %}
+                                {% for block in blocks.all %}
+                                    <div x-cloak x-show="String(block{{ number }}) === '{{ block.pk }}'">
+                                        <div class="inline-block">{{ block.name }}</div>
+                                    </div>
+                                {% endfor %}
+                                <div x-show="String(block{{ number }}) === '0' || String(block{{ number }}) === ''">
+                                    {% for item in blocks.all %}
+                                        <div class="inline-block relative">
+                                            {% if step == '3' or step == '2' %}
+                                                <div class="inset-0 bg-gray-200 absolute rounded {% if step == '3' %}animate-pulse bg-gray-300{% endif %}"></div>
+                                            {% endif %}
+                                            <span class="relative {% if step == '3' %}animate-pulse{% endif %}">{{ item.name }}</span>
+                                        </div><br>
+                                    {% endfor %}
+                                </div>
                             {% else %}
-                                <span class="inline-block bg-gray-300 animate-pulse w-24 rounded">&nbsp;</span>
+                                <div class="inline-block w-24 rounded bg-gray-200 {% if step == 3 %}bg-gray-300 animate-pulse{% endif %}">
+                                    &nbsp;
+                                </div>
                             {% endif %}
-                        </span>
-                    </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    {% if step == '1' %}
+    {% if step == '1' or step == '2' or step == '3' %}
         {% include 'symbols/pages/generator/exercise_placeholder.html' %}
     {% endif %}
 </div>

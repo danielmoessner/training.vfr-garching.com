@@ -26,24 +26,19 @@ class Structure(models.Model):
         ('MAIN', 'Hauptteil'),
         ('END', 'Abschluss')
     )
-    block1 = models.ForeignKey(Block, verbose_name='Baustein 1', on_delete=models.PROTECT, blank=True, null=True,
-                               related_name='structures1')
+    blocks1 = models.ManyToManyField(Block, verbose_name='Baustein 1', related_name='structures1')
     phase1 = models.CharField(verbose_name='Baustein 1 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
-    block2 = models.ForeignKey(Block, verbose_name='Baustein 2', on_delete=models.PROTECT, blank=True, null=True,
-                               related_name='structures2')
+    blocks2 = models.ManyToManyField(Block, verbose_name='Baustein 2', related_name='structures2')
     phase2 = models.CharField(verbose_name='Baustein 2 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
-    block3 = models.ForeignKey(Block, verbose_name='Baustein 3', on_delete=models.PROTECT, blank=True, null=True,
-                               related_name='structures3')
+    blocks3 = models.ManyToManyField(Block, verbose_name='Baustein 3', related_name='structures3')
     phase3 = models.CharField(verbose_name='Baustein 3 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
-    block4 = models.ForeignKey(Block, verbose_name='Baustein 4', on_delete=models.PROTECT, blank=True, null=True,
-                               related_name='structures4')
+    blocks4 = models.ManyToManyField(Block, verbose_name='Baustein 4', related_name='structures4')
     phase4 = models.CharField(verbose_name='Baustein 4 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
-    block5 = models.ForeignKey(Block, verbose_name='Baustein 5', on_delete=models.PROTECT, blank=True, null=True,
-                               related_name='structures5')
+    blocks5 = models.ManyToManyField(Block, verbose_name='Baustein 5', related_name='structures5')
     phase5 = models.CharField(verbose_name='Baustein 5 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
     updated = models.DateTimeField(auto_now=True)
@@ -60,10 +55,17 @@ class Structure(models.Model):
     def get_blocks(self):
         return [self.block1, self.block2, self.block3, self.block4, self.block5]
 
+    def get_block5_exists(self):
+        return self.block5.all().exists()
+
 
 class Topic(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
-    or_filters = models.ManyToManyField(Filter, verbose_name='ODER Filter', blank=True, related_name='topics')
+    or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
+                                        related_name='main_topics')
+    warm_up_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
+                                                related_name='warm_up_topics')
+    structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

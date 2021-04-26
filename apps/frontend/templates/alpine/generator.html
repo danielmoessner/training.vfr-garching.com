@@ -12,8 +12,13 @@
             exercise3: {{ formdata|get_item2:'exercise3.pk'|default:0 }},
             exercise4: {{ formdata|get_item2:'exercise4.pk'|default:0 }},
             exercise5: {{ formdata|get_item2:'exercise5.pk'|default:0 }},
+            block1: {{ formdata|get_item2:'block1.pk'|default:0 }},
+            block2: {{ formdata|get_item2:'block2.pk'|default:0 }},
+            block3: {{ formdata|get_item2:'block3.pk'|default:0 }},
+            block4: {{ formdata|get_item2:'block4.pk'|default:0 }},
+            block5: {{ formdata|get_item2:'block5.pk'|default:0 }},
             amount: {% if formdata|get_item:'structure' and not formdata|get_item2:'structure.block5' %}4{% else %}5{% endif %},
-            show: 0
+            show: 0,
         }
     }
 </script>

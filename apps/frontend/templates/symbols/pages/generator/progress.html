@@ -2,11 +2,7 @@
     <nav aria-label="Progress">
         <ol class="border border-gray-300 rounded-md divide-y divide-gray-300 md:flex md:divide-y-0">
             <li class="relative md:flex-1 md:flex">
-                {% if step == '1' %}
-                    {% include 'symbols/pages/generator/step.html' with state='active' step='01' text='Thema & Struktur' %}
-                {% elif step == '2' or step == '3' %}
-                    {% include 'symbols/pages/generator/step.html' with state='done' step='01' text='Thema & Struktur' %}
-                {% endif %}
+                {% include 'symbols/pages/generator/step.html' with step=step number='01' text='Thema' %}
                 <!-- Arrow separator for lg screens and up -->
                 <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
                     <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
@@ -18,14 +14,7 @@
             </li>
 
             <li class="relative md:flex-1 md:flex">
-                {% if step == '1' %}
-                    {% include 'symbols/pages/generator/step.html' with state='future' step='02' text='Übungen' %}
-                {% elif step == '2' %}
-                    {% include 'symbols/pages/generator/step.html' with state='active' step='02' text='Übungen' %}
-                {% elif step == '3' %}
-                    {% include 'symbols/pages/generator/step.html' with state='done' step='02' text='Übungen' %}
-                {% endif %}
-
+                {% include 'symbols/pages/generator/step.html' with step=step number='02' text='Struktur' %}
                 <!-- Arrow separator for lg screens and up -->
                 <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
                     <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
@@ -37,11 +26,31 @@
             </li>
 
             <li class="relative md:flex-1 md:flex">
-                {% if step == '1' or step == '2' %}
-                    {% include 'symbols/pages/generator/step.html' with state='future' step='03' text='Übersicht' %}
-                {% elif step == '3' %}
-                    {% include 'symbols/pages/generator/step.html' with state='active' step='03' text='Übersicht' %}
-                {% endif %}
+                {% include 'symbols/pages/generator/step.html' with step=step number='03' text='Blöcke' %}
+                <!-- Arrow separator for lg screens and up -->
+                <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
+                    <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
+                         preserveAspectRatio="none">
+                        <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </li>
+
+            <li class="relative md:flex-1 md:flex">
+               {% include 'symbols/pages/generator/step.html' with step=step number='04' text='Übungen' %}
+                <!-- Arrow separator for lg screens and up -->
+                <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
+                    <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
+                         preserveAspectRatio="none">
+                        <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </li>
+
+            <li class="relative md:flex-1 md:flex">
+                {% include 'symbols/pages/generator/step.html' with step=step number='05' text='Übersicht' %}
             </li>
         </ol>
     </nav>

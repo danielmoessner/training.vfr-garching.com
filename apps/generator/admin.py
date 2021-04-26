@@ -36,8 +36,14 @@ admin.site.register(Block, BlockAdmin)
 class TopicForm(forms.ModelForm):
     or_filters = forms.ModelMultipleChoiceField(
         queryset=Filter.objects.all(),
-        widget=FilterWidget(name='or'),
-        label="ODER Filter",
+        widget=FilterWidget(name='main_or'),
+        label="HAUPTTEIL ODER Filter",
+        required=False
+    )
+    warm_up_or_filters = forms.ModelMultipleChoiceField(
+        queryset=Filter.objects.all(),
+        widget=FilterWidget(name='warm_up_or'),
+        label="WARM-UP ODER Filter",
         required=False
     )
 

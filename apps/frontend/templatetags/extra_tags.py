@@ -23,10 +23,11 @@ def get_item2(data, key):
         return data
     else:
         return get_item2(data, '.'.join(keys[1:]))
-    # except AttributeError:
-    #     return None
-    # except TypeError:
-    #     return None
+
+
+@register.filter
+def to_int(value):
+    return int(value)
 
 
 @register.filter

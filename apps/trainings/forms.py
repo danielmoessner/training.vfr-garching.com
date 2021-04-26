@@ -12,25 +12,3 @@ class TrainingForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs = {'x-model': field}
             self.fields[field].required = False
-
-
-class Step1Form(forms.ModelForm):
-    class Meta:
-        model = Training
-        fields = ['topic', 'structure']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs = {'x-model': field}
-
-
-class Step2Form(forms.ModelForm):
-    class Meta:
-        model = Training
-        fields = ['name', 'topic', 'structure', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['topic'].required = True
-        self.fields['structure'].required = True

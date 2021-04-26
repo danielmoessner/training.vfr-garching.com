@@ -227,8 +227,13 @@ class Exercise(models.Model):
         return exercises
 
     @staticmethod
-    def filter_by_topic(exercises, topic):
-        filters = topic.or_filters.all()
+    def filter_by_topic(exercises, topic, phase):
+        if phase == 'MAIN':
+            filters = topic.or_filters.all()
+        elif phase == 'START':
+            filters = topic.warm_up_or_filters.all()
+        else:
+            return exercises
         if filters.count() > 0:
             exercises = exercises.filter(filters__in=filters).distinct()
         return exercises
@@ -239,8 +244,7 @@ class Exercise(models.Model):
             return Exercise.objects.none()
         exercises = Exercise.objects.all()
         exercises = Exercise.filter_by_block(exercises, block)
-        if phase == 'MAIN':
-            exercises = Exercise.filter_by_topic(exercises, topic)
+        exercises = Exercise.filter_by_topic(exercises, topic, phase)
         return exercises
 
 
@@ -252,14 +256,24 @@ class Training(models.Model):
                                   blank=True, null=True, verbose_name='Trainingsstruktur')
     exercise1 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings1', verbose_name='Übung 1',
                                   blank=True, null=True)
+    block1 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings1',
+                               verbose_name='Block 1', blank=True, null=True)
     exercise2 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings2', verbose_name='Übung 2',
                                   blank=True, null=True)
+    block2 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings2',
+                               verbose_name='Block 2', blank=True, null=True)
     exercise3 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings3', verbose_name='Übung 3',
                                   blank=True, null=True)
+    block3 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings3',
+                               verbose_name='Block 3', blank=True, null=True)
     exercise4 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings4', verbose_name='Übung 4',
                                   blank=True, null=True)
+    block4 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings4',
+                               verbose_name='Block 4', blank=True, null=True)
     exercise5 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings5', verbose_name='Übung 5',
                                   blank=True, null=True)
+    block5 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings5',
+                               verbose_name='Block 5', blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

@@ -4,7 +4,7 @@
 
 {% block main %}
 
-    {% if step == '1' or step == '2' or step == '3' %}
+    {% if step in '12345'|make_list %}
 
         <main x-data="generator()">
 
@@ -16,18 +16,18 @@
                         {% include 'symbols/pages/generator/topics.html' with topics=topics %}
                     </div>
                     <div class="mt-2 text-2xl font-medium text-gray-700">
-                        {% include 'symbols/pages/generator/structure_names.html' with topics=topics %}
+                        {% include 'symbols/pages/generator/structure_names.html' with structures=structures %}
                     </div>
                     <div class="mt-10">
                         {% include 'symbols/pages/generator/structure_blocks.html' with structures=structures %}
                     </div>
                     <div class="relative z-10">
-                        {% include 'symbols/pages/generator/exercises.html' with exercises=exercises %}
+                        {% include 'symbols/pages/generator/exercises.html' with exercises=exercises exercise_step=exercise_step %}
                     </div>
                 </div>
             </section>
 
-            {% if step == '2' and exercise_step in '12345'|make_list %}
+            {% if step == '4' and exercise_step in '12345'|make_list %}
                 <section class="max-w-7xl mx-auto">
                     <div class="flex justify-between items-baseline">
                         <h2 class="font-medium text-lg">Übung {{ exercise_step }} auswählen</h2>
@@ -38,9 +38,9 @@
                         {% for exercise in possible_exercises %}
                             <li class="relative">
                                 <div class="relative border-2 overflow-hidden block border-transparent focus:outline-none sm:rounded-lg">
-{#                                    <div class="hidden absolute inset-0 border-2 border-red-600 rounded-lg"#}
-{#                                         :class="{ hidden: exercise{{ exercise_step }} !== {{ exercise.pk }} }"#}
-{#                                    ></div>#}
+                                    {#                                    <div class="hidden absolute inset-0 border-2 border-red-600 rounded-lg"#}
+                                    {#                                         :class="{ hidden: exercise{{ exercise_step }} !== {{ exercise.pk }} }"#}
+                                    {#                                    ></div>#}
                                     {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
                                 </div>
                                 <div class="absolute bottom-3 right-3 z-10">
@@ -72,6 +72,24 @@
                 </section>
             {% endif %}
 
+            {% if step == '2' %}
+                <section class="max-w-7xl mx-auto">
+                    <form class="django-form-2">
+                        {{ step2form.as_p }}
+                        {% csrf_token %}
+                    </form>
+                </section>
+            {% endif %}
+
+            {% if step == '3' %}
+                <section class="max-w-7xl mx-auto">
+                    <form class="django-form-2">
+                        {{ step3form.as_p }}
+                        {% csrf_token %}
+                    </form>
+                </section>
+            {% endif %}
+
             <section class="max-w-7xl mx-auto pt-10 pb-64">
                 <form class="django-form-2" method="POST"
                       action="{% url 'generator' %}{% include 'symbols/pages/generator/action_url_params.html' %}">
@@ -80,7 +98,7 @@
                     </div>
                     {% csrf_token %}
                     <div class="flex items-end justify-end col-span-6 space-x-3">
-                        {% if step == '3' %}
+                        {% if step == '5' %}
                             <button class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
                                     type="button">
                                 Ausdrucken
@@ -88,9 +106,9 @@
                         {% endif %}
                         <button class="{% include 'symbols/primary_button.txt' with size='px-6 py-3 text-base' %}"
                                 type="submit">
-                            {% if step == '1' or step == '2' %}
+                            {% if step == '1' or step == '2' or step == '3' or step == '4' %}
                                 Weiter
-                            {% elif step == '3' %}
+                            {% elif step == '5' %}
                                 Speichern
                             {% endif %}
                         </button>
@@ -98,46 +116,48 @@
                 </form>
             </section>
 
-            <section x-cloak>
-                {% for exercise in possible_exercises %}
-                    <div x-on:keydown.window.escape="show = 0" x-show="show == {{ exercise.pk }}"
-                         class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" x-ref="dialog"
-                         aria-modal="true"
-                    >
-                        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                            <div x-show="show == {{ exercise.pk }}" x-transition:enter="ease-out duration-300"
-                                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                 x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
-                                 x-transition:leave-end="opacity-0"
-                                 x-description="Background overlay, show/hide based on modal state."
-                                 class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                                 @click="show = 0"
-                                 aria-hidden="true"
-                            ></div>
-                            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&ZeroWidthSpace;</span>
-                            <div x-show="show == {{ exercise.pk }}" x-transition:enter="ease-out duration-300"
-                                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                                 x-transition:leave="ease-in duration-200"
-                                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                 x-description="Modal panel, show/hide based on modal state."
-                                 class="inline-block text-left align-bottom my-8 overflow-hidden shadow-xl transform transition-all sm:align-middle sm:max-w-7xl sm:w-full"
-                            >
-                                <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
-                                    <button type="button"
-                                            class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                                            @click="show = 0">
-                                        <span class="sr-only">Close</span>
-                                        {% include 'svg/outline/x.svg' %}
-                                    </button>
+            {% if step == '4' or step == '5' %}
+                <section x-cloak>
+                    {% for exercise in possible_exercises %}
+                        <div x-on:keydown.window.escape="show = 0" x-show="show == {{ exercise.pk }}"
+                             class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" x-ref="dialog"
+                             aria-modal="true"
+                        >
+                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                <div x-show="show == {{ exercise.pk }}" x-transition:enter="ease-out duration-300"
+                                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                     x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
+                                     x-transition:leave-end="opacity-0"
+                                     x-description="Background overlay, show/hide based on modal state."
+                                     class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                                     @click="show = 0"
+                                     aria-hidden="true"
+                                ></div>
+                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&ZeroWidthSpace;</span>
+                                <div x-show="show == {{ exercise.pk }}" x-transition:enter="ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                     x-transition:leave="ease-in duration-200"
+                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                     x-description="Modal panel, show/hide based on modal state."
+                                     class="inline-block text-left align-bottom my-8 overflow-hidden shadow-xl transform transition-all sm:align-middle sm:max-w-7xl sm:w-full"
+                                >
+                                    <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+                                        <button type="button"
+                                                class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                                @click="show = 0">
+                                            <span class="sr-only">Close</span>
+                                            {% include 'svg/outline/x.svg' %}
+                                        </button>
+                                    </div>
+                                    {% include 'symbols/exercise_detail.html' with exercise=exercise %}
                                 </div>
-                                {% include 'symbols/exercise_detail.html' with exercise=exercise  %}
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </section>
+                    {% endfor %}
+                </section>
+            {% endif %}
 
         </main>
 
