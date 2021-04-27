@@ -37,7 +37,7 @@ class FilterContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # user settings
-        settings = context['user_settings']
+        settings, created = UserSettings.objects.get_or_create(user=self.request.user)
         # forms
         context['age_group_form'] = SelectAgeGroupForm(instance=settings)
         context['difficulties_form'] = SelectDifficultiesForm(instance=settings)
@@ -284,7 +284,7 @@ class BookmarkTrainingView(LoginRequiredMixin, generic.DetailView):
         else:
             self.request.user.settings.bookmarks.add(self.object.pk)
         self.request.user.settings.save()
-        return HttpResponseRedirect(reverse('training', args=[self.object.pk]))
+        return HttpResponseRedirect(reverse('exercise', args=[self.object.pk]))
 
 
 class ResetSearchView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
