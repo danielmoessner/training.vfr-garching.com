@@ -1,0 +1,16 @@
+{% spaceless %}
+    {% load extra_tags %}
+    {% if step == '1' or step == '2' or step == '3'%}
+        {{ step|add:1 }}
+    {% elif step == '4' %}
+        {% if exercise_step == '5' %}
+            {{ step|add:1 }}
+        {% elif exercise_step == '4' and structure and not structure.phase5 %}
+            {{ step|add:1 }}
+        {% else %}
+            {{ step }}
+        {% endif %}
+    {% elif step == '5' %}
+        {{ step }}
+    {% endif %}
+{% endspaceless %}

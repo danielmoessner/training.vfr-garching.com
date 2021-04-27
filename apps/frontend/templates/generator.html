@@ -27,6 +27,47 @@
                 </div>
             </section>
 
+
+            <section class="max-w-7xl mx-auto pt-10 pb-10">
+                <form class="django-form-2" method="GET" action="{% url 'generator' %}">
+                    {{ form.as_p }}
+                    <input type="hidden" name="step"
+                           value="{% include 'symbols/pages/generator/url_params_step.html' %}">
+                    <input type="hidden" name="exercise_step"
+                           value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
+                    <div class="flex items-end justify-end col-span-6 space-x-3">
+                        {% if step == '1' %}
+                            <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
+                               href="{% url 'generator' %}?step=4&exercise_step=1"
+                            >
+                                Freie Auswahl
+                            </a>
+                        {% endif %}
+                        {% if step in '2345'|make_list %}
+                            <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
+                               href="{% url 'generator' %}?{% include 'symbols/pages/generator/url_params_back.html' %}{% include 'symbols/pages/generator/url_params_back_exercise.html' %}&{% include 'symbols/pages/generator/url_params_back_step.html' %}"
+                            >
+                                Zurück
+                            </a>
+                        {% endif %}
+                        {% if step == '5' %}
+                            <button class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
+                                    type="button">
+                                Ausdrucken
+                            </button>
+                        {% endif %}
+                        <button class="{% include 'symbols/primary_button.txt' with size='px-6 py-3 text-base' %}"
+                                type="submit">
+                            {% if step == '1' or step == '2' or step == '3' or step == '4' %}
+                                Weiter
+                            {% elif step == '5' %}
+                                Speichern
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+            </section>
+
             {% if step == '4' and exercise_step in '12345'|make_list %}
                 <section class="max-w-7xl mx-auto">
                     <div class="flex justify-between items-baseline">
@@ -63,62 +104,9 @@
                 </section>
             {% endif %}
 
-            {% if step == '1' %}
-                <section class="max-w-7xl mx-auto">
-                    <form class="django-form-2">
-                        {{ step1form.as_p }}
-                        {% csrf_token %}
-                    </form>
-                </section>
-            {% endif %}
-
-            {% if step == '2' %}
-                <section class="max-w-7xl mx-auto">
-                    <form class="django-form-2">
-                        {{ step2form.as_p }}
-                        {% csrf_token %}
-                    </form>
-                </section>
-            {% endif %}
-
-            {% if step == '3' %}
-                <section class="max-w-7xl mx-auto">
-                    <form class="django-form-2">
-                        {{ step3form.as_p }}
-                        {% csrf_token %}
-                    </form>
-                </section>
-            {% endif %}
-
-            <section class="max-w-7xl mx-auto pt-10 pb-64">
-                <form class="django-form-2" method="POST"
-                      action="{% url 'generator' %}{% include 'symbols/pages/generator/action_url_params.html' %}">
-                    <div class="hidden">
-                        {{ form.as_p }}
-                    </div>
-                    {% csrf_token %}
-                    <div class="flex items-end justify-end col-span-6 space-x-3">
-                        {% if step == '5' %}
-                            <button class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
-                                    type="button">
-                                Ausdrucken
-                            </button>
-                        {% endif %}
-                        <button class="{% include 'symbols/primary_button.txt' with size='px-6 py-3 text-base' %}"
-                                type="submit">
-                            {% if step == '1' or step == '2' or step == '3' or step == '4' %}
-                                Weiter
-                            {% elif step == '5' %}
-                                Speichern
-                            {% endif %}
-                        </button>
-                    </div>
-                </form>
-            </section>
-
             {% if step == '4' or step == '5' %}
                 <section x-cloak>
-                    {% for exercise in possible_exercises %}
+                    {% for exercise in exercises %}
                         <div x-on:keydown.window.escape="show = 0" x-show="show == {{ exercise.pk }}"
                              class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" x-ref="dialog"
                              aria-modal="true"
@@ -158,6 +146,8 @@
                     {% endfor %}
                 </section>
             {% endif %}
+
+            <div class="h-64"></div>
 
         </main>
 

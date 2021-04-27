@@ -27,18 +27,14 @@ class Structure(models.Model):
         ('END', 'Abschluss')
     )
     blocks1 = models.ManyToManyField(Block, verbose_name='Baustein 1', related_name='structures1')
-    phase1 = models.CharField(verbose_name='Baustein 1 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
-                              null=True)
+    phase1 = models.CharField(verbose_name='Baustein 1 Phase', choices=PHASE_CHOICES, max_length=50)
     blocks2 = models.ManyToManyField(Block, verbose_name='Baustein 2', related_name='structures2')
-    phase2 = models.CharField(verbose_name='Baustein 2 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
-                              null=True)
+    phase2 = models.CharField(verbose_name='Baustein 2 Phase', choices=PHASE_CHOICES, max_length=50)
     blocks3 = models.ManyToManyField(Block, verbose_name='Baustein 3', related_name='structures3')
-    phase3 = models.CharField(verbose_name='Baustein 3 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
-                              null=True)
+    phase3 = models.CharField(verbose_name='Baustein 3 Phase', choices=PHASE_CHOICES, max_length=50)
     blocks4 = models.ManyToManyField(Block, verbose_name='Baustein 4', related_name='structures4')
-    phase4 = models.CharField(verbose_name='Baustein 4 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
-                              null=True)
-    blocks5 = models.ManyToManyField(Block, verbose_name='Baustein 5', related_name='structures5')
+    phase4 = models.CharField(verbose_name='Baustein 4 Phase', choices=PHASE_CHOICES, max_length=50)
+    blocks5 = models.ManyToManyField(Block, verbose_name='Baustein 5', related_name='structures5', blank=True)
     phase5 = models.CharField(verbose_name='Baustein 5 Phase', choices=PHASE_CHOICES, max_length=50, blank=True,
                               null=True)
     updated = models.DateTimeField(auto_now=True)

@@ -1,9 +1,9 @@
 {% load extra_tags %}
 
-{% if formdata|get_item:'topic' %}
-    {% with topic=formdata|get_item:'topic' %}
-        <div>{{ topic.name }}</div>
-    {% endwith %}
+{% if topic %}
+    <div>{{ topic.name }}</div>
+{% elif step != '1' %}
+    <div class="rounded bg-gray-200 w-40">&nbsp;</div>
 {% else %}
     {% for topic in topics %}
         <div x-cloak x-show="String(topic) === '{{ topic.pk }}'">{{ topic.name }}</div>

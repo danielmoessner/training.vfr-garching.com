@@ -3,9 +3,8 @@ from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView a
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
 from apps.trainings.models import Exercise, Group, Filter, Difficulty
-from apps.generator.models import Structure, Topic
-from apps.generator.forms import Step1Form, Step2Form, Step3Form
-from apps.trainings.forms import TrainingForm
+from apps.generator.models import Structure, Topic, Block
+from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form
 from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
@@ -142,46 +141,127 @@ class TrainingDetailView(LoginRequiredMixin, SettingsContextMixin, FilterContext
 
 class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.CreateView):
     template_name = 'generator.html'
-    form_class = TrainingForm
 
-    def form_valid(self, form):
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+        if form_class is None:
+            form_class = self.get_form_class()
+        # set initial data from get parameters
+        initial_data_from_get_parameters = dict()
+        for key, value in self.request.GET.items():
+            initial_data_from_get_parameters[key] = self.request.GET.get(key)
+        kwargs = self.get_form_kwargs()
+        initial_data = {**initial_data_from_get_parameters, **kwargs['initial']}
+        kwargs.pop('initial')
+        return form_class(initial=initial_data, **kwargs)
+
+    def get_form_class(self):
         step = self.request.GET.get('step', '1')
-        if step in ['1', '2', '3', '4']:
-            context = self.get_context_data(form=form)
-            context['formdata'] = form.cleaned_data
-            return self.render_to_response(context)
-        return super().form_valid(form)
+        if step == '1':
+            return Step1Form
+        elif step == '2':
+            return Step2Form
+        elif step == '3':
+            return Step3Form
+        elif step == '4':
+            return Step4Form
+        elif step == '5':
+            return Step5Form
+        return TrainingForm
+
+    # def form_valid(self, form):
+    #     step = self.request.GET.get('step', '1')
+    #     if step in ['1', '2', '3', '4']:
+    #         context = self.get_context_data(form=form)
+    #         context['formdata'] = form.cleaned_data
+    #         return self.render_to_response(context)
+    #     return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # steps
-        step = self.request.GET.get('schritt', default='1')
+        step = self.request.GET.get('step', default='1')
         context['step'] = step
-        exercise_step = self.request.GET.get('uebung', default='0')
+        exercise_step = self.request.GET.get('exercise_step', default='1')
         context['exercise_step'] = exercise_step
-        # steps related context
+        # add all selected values to the context
+        if int(step) >= 2:
+            if 'topic' in context['form'].initial and context['form'].initial['topic'] != '':
+                context['topic'] = Topic.objects.get(pk=context['form'].initial['topic'])
+        if int(step) >= 3:
+            if 'structure' in context['form'].initial and context['form'].initial['structure'] != '':
+                context['structure'] = Structure.objects.get(pk=context['form'].initial['structure'])
+        if int(step) >= 4:
+            for i in range(1, 6):
+                if (
+                        'block{}'.format(i) in context['form'].initial and
+                        context['form'].initial['block{}'.format(i)] != ''
+                ):
+                    context['block{}'.format(i)] = Block.objects.get(
+                        pk=context['form'].initial['block{}'.format(i)])
+            for i in range(1, 6):
+                exercise_pk = self.request.GET.get('exercise{}'.format(i), default=None)
+                if exercise_pk and exercise_pk != '0':
+                    context['exercise{}'.format(i)] = Exercise.objects.get(pk=exercise_pk)
+        # step specific context of what the user can select
         if step == '1':
-            context['step1form'] = Step1Form()
             context['topics'] = Topic.objects.all()
         elif step == '2':
             context['structures'] = Structure.objects.all()
-            if 'form' in kwargs:
-                context['step2form'] = Step2Form(kwargs['form'].cleaned_data['topic'])
         elif step == '3':
-            if 'form' in kwargs:
-                context['step3form'] = Step3Form(kwargs['form'].cleaned_data['structure'])
+            for i in range(1, 6):
+                context['block{}'.format(i)] = context['form'].fields['block{}'.format(i)].queryset.first()
         elif step == '4':
             context['exercises_total'] = Exercise.objects.all().count()
-            if 'form' in kwargs:
-                form = kwargs['form']
-                structure = form.cleaned_data['structure']
-                topic = form.cleaned_data['topic']
-                block = form.cleaned_data['block{}'.format(exercise_step)]
+            if 'structure' in context and 'topic' in context:
+                structure = context['structure']
+                topic = context['topic']
+                block = context['block{}'.format(exercise_step)]
                 phase = getattr(structure, 'phase{}'.format(exercise_step))
-                possible_exercises = Exercise.filter_by_topic_and_block(topic, block, phase)
+                context['possible_exercises'] = Exercise.filter_by_topic_and_block(topic, block, phase)
             else:
-                possible_exercises = Exercise.objects.all()
-            context['possible_exercises'] = possible_exercises
+                context['possible_exercises'] = Exercise.objects.all()
+            exercise_pks = []
+            for i in range(1, int(exercise_step)):
+                exercise_pks.append(context['exercise{}'.format(i)].pk)
+            context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks).order_by().union(
+                context['possible_exercises'].order_by())
+        elif step == '5':
+            exercise_pks = []
+            for i in range(1, int(exercise_step)):
+                exercise_pks.append(context['exercise{}'.format(i)].pk)
+            context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks)
+
+        # elif step == '2':
+        #     context['structures'] = Structure.objects.all()
+        #     if 'form' in kwargs:
+        #         context['step2form'] = Step2Form(kwargs['form'].cleaned_data['topic'])
+        # elif step == '3':
+        #     if 'form' in kwargs:
+        #         context['step3form'] = Step3Form(kwargs['form'].cleaned_data['structure'])
+        # elif step == '4':
+        #     context['exercises_total'] = Exercise.objects.all().count()
+        #     if 'form' in kwargs:
+        #         form = kwargs['form']
+        #         context['structure'] = form.cleaned_data['structure']
+        #         structure = form.cleaned_data['structure']
+        #         topic = form.cleaned_data['topic']
+        #         block = form.cleaned_data['block{}'.format(exercise_step)]
+        #         phase = getattr(structure, 'phase{}'.format(exercise_step))
+        #         possible_exercises = Exercise.filter_by_topic_and_block(topic, block, phase)
+        #         exercise_pks = []
+        #         for i in range(1, 6):
+        #             exercise_pks.append(getattr(kwargs['form'].cleaned_data['exercise{}'.format(i)], 'pk', 0))
+        #         context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks).order_by().union(possible_exercises.order_by())
+        #     else:
+        #         possible_exercises = Exercise.objects.all()
+        #     context['possible_exercises'] = possible_exercises
+        # elif step == '5':
+        #     context['step5form'] = Step5Form()
+        #     exercise_pks = []
+        #     for i in range(1, 6):
+        #         exercise_pks.append(kwargs['form'].cleaned_data['exercise{}'.format(i)].pk)
+        #     context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks)
         return context
 
 

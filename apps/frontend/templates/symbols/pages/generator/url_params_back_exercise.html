@@ -1,0 +1,8 @@
+{% spaceless %}
+    {% load extra_tags %}
+    {% if step in '45'|make_list and exercise_step in '23456'|make_list %}
+        exercise_step={{ exercise_step|add:'-1' }}
+    {% elif step in '12345'|make_list and exercise_step == '1' %}
+        exercise_step={{ exercise_step }}
+    {% endif %}
+{% endspaceless %}

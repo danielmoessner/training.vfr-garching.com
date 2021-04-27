@@ -1,20 +1,16 @@
 {% load extra_tags %}
 
-{% with exercise_formdata='exercise'|add:number %}
-    {% if formdata|get_item:exercise_formdata %}
-        {% with exercise=formdata|get_item:exercise_formdata %}
+{% if exercise and exercise_step != number %}
+    {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
+{% elif exercise_step != number %}
+    {% include 'symbols/pages/generator/exercise_placeholder.html' %}
+{% else %}
+    {% for exercise in possible_exercises %}
+        <div x-cloak x-show="String(exercise{{ number }}) === '{{ exercise.pk }}'">
             {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
-        {% endwith %}
-    {% elif exercise_step != number %}
-        {% include 'symbols/pages/generator/exercise_placeholder.html' %}
-    {% else %}
-        {% for exercise in possible_exercises %}
-            <div x-cloak x-show="String(exercise{{ number }}) === '{{ exercise.pk }}'">
-                {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
-            </div>
-        {% endfor %}
-        <div x-show="String(exercise{{ number }}) === '0' || String(exercise{{ number }}) === ''">
-            {% include 'symbols/pages/generator/exercise_placeholder.html' with class='animate-pulse bg-gray-300' %}
         </div>
-    {% endif %}
-{% endwith %}
+    {% endfor %}
+    <div x-show="String(exercise{{ number }}) === '0' || String(exercise{{ number }}) === ''">
+        {% include 'symbols/pages/generator/exercise_placeholder.html' with class='animate-pulse bg-gray-300' %}
+    </div>
+{% endif %}

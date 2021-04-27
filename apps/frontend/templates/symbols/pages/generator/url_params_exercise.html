@@ -1,0 +1,10 @@
+{% spaceless %}
+    {% load extra_tags %}
+    {% if step in '123'|make_list %}
+        {{ exercise_step }}
+    {% elif step == '4' %}
+        {{ exercise_step|add:'1' }}
+    {% elif step == '5' %}
+        {{ exercise_step }}
+    {% endif %}
+{% endspaceless %}

@@ -1,9 +1,7 @@
 {% load extra_tags %}
 
-{% if formdata|get_item:'structure' %}
-    {% with structure=formdata|get_item:'structure' %}
-        {% include 'symbols/pages/generator/blocks.html' with structure=structure %}
-    {% endwith %}
+{% if structure %}
+    {% include 'symbols/pages/generator/blocks.html' with structure=structure %}
 {% else %}
     {% for structure in structures %}
         <div x-cloak x-show="String(structure) === '{{ structure.pk }}'">

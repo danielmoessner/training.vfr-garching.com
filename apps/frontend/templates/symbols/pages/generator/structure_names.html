@@ -1,9 +1,7 @@
 {% load extra_tags %}
 
-{% if formdata|get_item:'structure' %}
-    {% with structure=formdata|get_item:'structure' %}
-        <div>{{ structure.name }}</div>
-    {% endwith %}
+{% if structure %}
+    <div>{{ structure.name }}</div>
 {% else %}
     {% for structure in structures %}
         <div x-cloak x-show="String(structure) === '{{ structure.pk }}'">{{ structure.name }}</div>
