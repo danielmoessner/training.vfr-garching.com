@@ -1,39 +1,31 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load extra_tags %}
 
 {% block main %}
-    <main class="{% include 'symbols/main.txt' %}" x-data="trainingsData()" x-init="init()">
-        <div class="{% include 'symbols/container.txt' %} lg:w-80">
-            {% include 'symbols/sidenav/index.html' %}
-        </div>
-        <div class="lg:flex-1">
-            <div class="{% include 'symbols/container.txt' %}">
-                <div x-cloak class="{% include 'symbols/box/filters_top.txt' %}">
-                    {% include 'symbols/filters/shop.html' %}
-                </div>
-                <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
-                    <div class="hidden" x-show="showTraining([-1])"></div>
-                    {% for training in trainings %}
-                        <li x-show="showTraining({{ training.filters }})"
-                            class="video">
-                            {% include 'symbols/exercise/index.html' with exercise=training %}
-                        </li>
-                    {% endfor %}
-                    <div class="hidden" x-show="showTraining([-2])"></div>
-                </ul>
-            </div>
-        </div>
-    </main>
-    <div class="fixed right-3 sm:right-6 lg:right-10 bottom-10">
-        <a class="{% include 'symbols/secondary_button.txt' %}" href="#top">
-            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-            </svg>
-        </a>
-    </div>
-    {% include 'alpine/trainings.html' %}
 
-{% endblock main %}
+    <section class="max-w-7xl mx-auto py-16">
+        <div class="space-y-20">
+            {% for object in object_list %}
+
+                {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
+                    <div>
+                        <div class="tracking-wide font-light">{{ object.name }}</div>
+                        {% include 'symbols/training/index.html' %}
+                        <div class="flex space-x-3 mt-5">
+                            <a class="{% include 'symbols/secondary_button.txt' %}" href="#">Drucken</a>
+                            <a class="{% include 'symbols/secondary_button.txt' %}"
+                               href="{{ object.get_edit_url }}">Bearbeiten</a>
+                            <form method="POST" action="{% url 'training_delete' object.pk %}">
+                                {% csrf_token %}
+                                <button class="{% include 'symbols/secondary_button.txt' %}" type="submit">Löschen
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

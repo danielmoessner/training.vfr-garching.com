@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+    <main class="{% include 'symbols/main.txt' %}" x-data="trainingsData()" x-init="init()">
+        <div class="{% include 'symbols/container.txt' %} lg:w-80">
+            {% include 'symbols/sidenav/index.html' %}
+        </div>
+        <div class="lg:flex-1">
+            <div class="{% include 'symbols/container.txt' %}">
+                <div x-cloak class="{% include 'symbols/box/filters_top.txt' %}">
+                    {% include 'symbols/filters/shop.html' %}
+                </div>
+                <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
+                    <div class="hidden" x-show="showTraining([-1])"></div>
+                    {% for training in trainings %}
+                        <li x-show="showTraining({{ training.filters }})"
+                            class="video">
+                            {% include 'symbols/exercise/index.html' with exercise=training %}
+                        </li>
+                    {% endfor %}
+                    <div class="hidden" x-show="showTraining([-2])"></div>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <div class="fixed right-3 sm:right-6 lg:right-10 bottom-10">
+        <a class="{% include 'symbols/secondary_button.txt' %}" href="#top">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </a>
+    </div>
+    {% include 'alpine/trainings.html' %}
+
+{% endblock main %}

@@ -1,0 +1,16 @@
+{% load extra_tags %}
+
+{% if step == '4' and exercise_step == number %}
+    {% for exercise in exercises %}
+        <div x-cloak x-show="String(exercise{{ number }}) === '{{ exercise.pk }}'">
+            {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
+        </div>
+    {% endfor %}
+    <div x-show="String(exercise{{ number }}) === '0' || String(exercise{{ number }}) === ''">
+        {% include 'symbols/training/exercise_placeholder.html' with class='animate-pulse bg-gray-300' %}
+    </div>
+{% elif exercise %}
+    {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
+{% else %}
+    {% include 'symbols/training/exercise_placeholder.html' %}
+{% endif %}

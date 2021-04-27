@@ -1,14 +1,14 @@
 {% load extra_tags %}
 
-{% if topic %}
-    <div>{{ topic.name }}</div>
-{% elif step != '1' %}
-    <div class="rounded bg-gray-200 w-40">&nbsp;</div>
-{% else %}
+{% if step == '1' %}
     {% for topic in topics %}
         <div x-cloak x-show="String(topic) === '{{ topic.pk }}'">{{ topic.name }}</div>
     {% endfor %}
     <template x-if="String(topic) === '0' || String(topic) === ''">
         <div class="rounded bg-gray-300 w-40 animate-pulse">&nbsp;</div>
     </template>
+{% elif topic %}
+    <div>{{ topic.name }}</div>
+{% else %}
+    <div class="rounded bg-gray-200 w-40">&nbsp;</div>
 {% endif %}

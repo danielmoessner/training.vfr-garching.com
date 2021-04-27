@@ -6,10 +6,13 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     # view stuff
-    path('', views.TrainingListView.as_view(), name='training_list'),
-    path('training/<int:pk>/', views.TrainingDetailView.as_view(), name='training_detail'),
-    path('favoriten/', views.BookmarksView.as_view(), name='training_bookmarks'),
+    path('', views.ExerciseListView.as_view(), name='exercises'),
+    path('uebung/<int:pk>/', views.ExerciseDetailView.as_view(), name='exercise'),
+    path('favoriten/', views.BookmarksView.as_view(), name='favorites'),
     path('generator/', views.GeneratorView.as_view(), name='generator'),
+    path('trainings/', views.TrainingsView.as_view(), name='trainings'),
+    path('training/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),
+    path('training/<int:pk>/bearbeiten/', views.GeneratorView.as_view(), name='training_update'),
     # form stuff
     path('suche/', views.SearchFormView.as_view(), name='search'),
     path('altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),

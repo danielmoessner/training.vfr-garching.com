@@ -4,19 +4,21 @@
     <div class="flex justify-between " x-data="{open: false}">
         <div class="flex px-2 lg:px-0">
             <div class="flex-shrink-0 flex items-center">
-                <a href="{% url 'training_list' %}">
+                <a href="{% url 'exercises' %}">
                     <img class="block w-auto h-12 lg:h-14"
                          src="{% static 'img/generation-vfr-logo.png' %}"
                          alt="VfR Garching">
                 </a>
             </div>
             <nav aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
-                {% url 'training_list' as url %}
+                {% url 'exercises' as url %}
                 {% include 'symbols/navigation/link.html' with text='Übungsdatenbank' href=url %}
-                {% url 'training_bookmarks' as url %}
+                {% url 'favorites' as url %}
                 {% include 'symbols/navigation/link.html' with text='Favoriten' href=url %}
                 {% url 'generator' as url %}
                 {% include 'symbols/navigation/link.html' with text='Trainingsgenerator' href=url %}
+                {% url 'trainings' as url %}
+                {% include 'symbols/navigation/link.html' with text='Trainings' href=url %}
                 {% include 'symbols/navigation/link.html' with text='Ausbildungskonzept' target='_blank' href=settings.link %}
             </nav>
         </div>
@@ -91,11 +93,14 @@
                             </div>
                         </div>
                         <div class="mt-3 px-2 space-y-1">
-                            {% url 'training_list' as url %}
+                            {% url 'exercises' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Übungsdatenbank' href=url %}
-                            {% url 'training_bookmarks' as url %}
+                            {% url 'favorites' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Favoriten' href=url %}
                             {% url 'generator' as url %}
+                            {% include 'symbols/navigation/mobile_link.html' with text='Trainingsgenerator' href=url %}
+                            {% url 'trainings' as url %}
+                            {% include 'symbols/navigation/mobile_link.html' with text='Trainings' href=url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Trainingsgenerator' href=url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Ausbildungskonzept' target='_blank' href=settings.link %}
                         </div>

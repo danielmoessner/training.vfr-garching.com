@@ -6,7 +6,7 @@
             {% include 'symbols/sidenav/button.html' with property='menuOpen' %}
         </div>
         <div :class="{ block: menuOpen, hidden: !menuOpen }" class="{% include 'symbols/sidenav/content.txt' %}">
-            {% url 'training_list' as url %}
+            {% url 'exercises' as url %}
             <a href="{{ url }}"
                class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md {% if request.path == url %}bg-white{% endif %}"
                aria-current="page">
@@ -19,7 +19,7 @@
                 <span class="truncate">Übungsdatenbank</span>
             </a>
 
-            {% url 'training_bookmarks' as url %}
+            {% url 'favorites' as url %}
             <a href="{{ url }}"
                class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md {% if request.path == url %}bg-white{% endif %}"
                aria-current="page">

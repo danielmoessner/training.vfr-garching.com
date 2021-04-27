@@ -4,20 +4,19 @@
 <script>
     window.generator = () => {
         return {
-            name: '{{ formdata|get_item:'name'|default:'' }}',
-            topic: {{ topic.pk|default:0 }},
-            structure: {{ structure.pk|default:0 }},
-            block1: {{ block1.pk|default:0 }},
-            block2: {{ block2.pk|default:0 }},
-            block3: {{ block3.pk|default:0 }},
-            block4: {{ block4.pk|default:0 }},
-            block5: {{ block5.pk|default:0 }},
-            exercise1: {{ exercise1.pk|default:0 }},
-            exercise2: {{ exercise2.pk|default:0 }},
-            exercise3: {{ exercise3.pk|default:0 }},
-            exercise4: {{ exercise4.pk|default:0 }},
-            exercise5: {{ exercise5.pk|default:0 }},
-            amount: {% if formdata|get_item:'structure' and not formdata|get_item2:'structure.phase5' %}4{% else %}5{% endif %},
+            name: "{{ training.name|default:'' }}",
+            topic: {{ topic.pk|default:"''" }},
+            structure: {{ structure.pk|default:"''" }},
+            block1: {{ block1.pk|default:"''" }},
+            block2: {{ block2.pk|default:"''" }},
+            block3: {{ block3.pk|default:"''" }},
+            block4: {{ block4.pk|default:"''" }},
+            block5: {{ block5.pk|default:"''" }},
+            exercise1: {{ exercise1.pk|default:"''" }},
+            exercise2: {{ exercise2.pk|default:"''" }},
+            exercise3: {{ exercise3.pk|default:"''" }},
+            exercise4: {{ exercise4.pk|default:"''" }},
+            exercise5: {{ exercise5.pk|default:"''" }},
             show: 0,
         }
     }

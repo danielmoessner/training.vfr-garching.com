@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Q
+from django.urls import reverse
 from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
@@ -284,3 +285,32 @@ class Training(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+    def get_exercise_pk(self, number):
+        exercise = getattr(self, 'exercise{}'.format(number), None)
+        if exercise:
+            return exercise.pk
+        return ''
+
+    def get_block_pk(self, number):
+        block = getattr(self, 'block{}'.format(number), None)
+        if block:
+            return block.pk
+        return ''
+
+    def get_edit_url(self):
+        part1 = '{}?training={}'.format(reverse('generator'),
+                                        self.pk)
+        part2 = '&topic={}&structure={}'.format(self.topic.pk,
+                                                self.structure.pk)
+        part3 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
+                                                                            self.get_block_pk(2),
+                                                                            self.get_block_pk(3),
+                                                                            self.get_block_pk(4),
+                                                                            self.get_block_pk(5))
+        part4 = '&exercise1={}&exercise2={}&exercise3={}&exercise4={}&exercise5={}'.format(self.get_exercise_pk(1),
+                                                                                           self.get_exercise_pk(2),
+                                                                                           self.get_exercise_pk(3),
+                                                                                           self.get_exercise_pk(4),
+                                                                                           self.get_exercise_pk(5))
+        return '{}{}{}{}'.format(part1, part2, part3, part4)

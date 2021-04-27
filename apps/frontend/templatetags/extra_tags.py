@@ -31,6 +31,12 @@ def to_int(value):
 
 
 @register.filter
+def default2(value, arg):
+    a = 2
+    return value or arg or None
+
+
+@register.filter
 def get(dictionary, key):
     return dictionary.get(key)
 

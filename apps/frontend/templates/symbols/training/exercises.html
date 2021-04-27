@@ -1,0 +1,11 @@
+{% if show or training or step in '45'|make_list %}
+    <div class="grid grid-cols-5 gap-4">
+        {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise1 exercise_step=exercise_step number='1' %}
+        {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise2 exercise_step=exercise_step number='2' %}
+        {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise3 exercise_step=exercise_step number='3' %}
+        {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise4 exercise_step=exercise_step number='4' %}
+        {% if structure.phase5 %}
+            {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise5 exercise_step=exercise_step number='5' %}
+        {% endif %}
+    </div>
+{% endif %}

@@ -1,0 +1,14 @@
+<div class="">
+    <div class="text-5xl font-bold text-gray-900">
+        {% include 'symbols/training/topics.html' with topics=topics %}
+    </div>
+    <div class="mt-2 text-2xl font-medium text-gray-700">
+        {% include 'symbols/training/structure_names.html' with structures=structures %}
+    </div>
+    <div class="mt-10">
+        {% include 'symbols/training/structure_blocks.html' with structures=structures %}
+    </div>
+    <div class="relative z-10">
+        {% include 'symbols/training/exercises.html' with exercises=exercises exercise_step=exercise_step %}
+    </div>
+</div>
