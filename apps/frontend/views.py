@@ -126,6 +126,9 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
     template_name = 'trainings.html'
     model = Training
 
+    def get_queryset(self):
+        return self.request.user.settings.trainings.all()
+
 
 class DeleteTrainingView(LoginRequiredMixin, SettingsContextMixin, generic.DeleteView):
     model = Training
@@ -152,6 +155,8 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         kwargs = self.get_form_kwargs()
         initial_data = {**initial_data_from_get_parameters, **kwargs['initial']}
         kwargs.pop('initial')
+        if self.request.method == 'POST':
+            return form_class(user=self.request.user, initial=initial_data, **kwargs)
         return form_class(initial=initial_data, **kwargs)
 
     def get_form_class(self):

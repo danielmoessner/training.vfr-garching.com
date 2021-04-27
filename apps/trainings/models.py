@@ -275,6 +275,7 @@ class Training(models.Model):
                                   blank=True, null=True)
     block5 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings5',
                                verbose_name='Block 5', blank=True, null=True)
+    user = models.ForeignKey('users.UserSettings', on_delete=models.PROTECT, related_name='trainings', verbose_name='Nutzer')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

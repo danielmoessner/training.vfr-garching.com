@@ -2,6 +2,8 @@ from apps.generator.models import Topic, Structure
 from apps.trainings.models import Training
 from django import forms
 
+from apps.users.models import UserSettings
+
 
 class Step1Form(forms.ModelForm):
     class Meta:
@@ -86,3 +88,12 @@ class TrainingForm(forms.ModelForm):
     class Meta:
         model = Training
         fields = '__all__'
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        settings, created = UserSettings.objects.get_or_create(user=user)
+        self.settings = settings
+        self.fields['user'].required = False
+
+    def clean_user(self):
+        return self.settings
