@@ -25,8 +25,9 @@
         <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <div class="w-full">
                 <label for="search" class="sr-only">Suche</label>
-                <form method="POST" action="{% url 'search' %}?reverse={{ request.path }}" class="relative">
+                <form method="POST" action="{% url 'search' %}" class="relative">
                     {% csrf_token %}
+                    <input type="hidden" name="reverse" value="{{ request.get_full_path }}">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                              fill="currentColor" aria-hidden="true">
@@ -38,7 +39,7 @@
                     <input id="search" name="search"
                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-gray-600 focus:border-gray-600 sm:text-sm"
                            placeholder="Suche" type="search"
-                           {% if user_settings.search %}value="{{ user_settings.search }}"{% endif %}
+                           value="{{ user_settings.search|default:'' }}"
                     >
                 </form>
             </div>

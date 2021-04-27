@@ -27,15 +27,17 @@ class SettingsContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['settings'] = General.get_solo()
+        # get or create the settings
+        settings, created = UserSettings.objects.get_or_create(user=self.request.user)
+        context['user_settings'] = settings
         return context
 
 
 class FilterContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # get or create the settings
-        settings, created = UserSettings.objects.get_or_create(user=self.request.user)
-        context['user_settings'] = settings
+        # user settings
+        settings = context['user_settings']
         # forms
         context['age_group_form'] = SelectAgeGroupForm(instance=settings)
         context['difficulties_form'] = SelectDifficultiesForm(instance=settings)
@@ -91,25 +93,6 @@ class ExerciseListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
         for training_filter in list(self.request.user.settings.training_filters.all()):
             trainings = trainings.filter(filters=training_filter.pk)
         context['trainings_count'] = trainings.count()
-        # return
-        return context
-
-
-class SearchView(ExerciseListView):
-    template_name = 'exercises.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # search
-        search = self.request.GET.get('suche')
-        if search:
-            trainings = Exercise.objects.filter(
-                Q(name__icontains=search) | Q(filters__name__icontains=search)
-            ).distinct()
-            trainings = Exercise.get_trainings_list(context['user_settings'], trainings)
-            context['trainings'] = trainings
-            context['search'] = search
-        context['trainings_count'] = '"?"'
         # return
         return context
 
@@ -254,6 +237,9 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
                 context['possible_exercises'] = Exercise.filter_by_topic_and_block(topic, block, phase)
             else:
                 context['possible_exercises'] = Exercise.objects.all()
+            if context['user_settings'].search:
+                context['possible_exercises'] = Exercise.get_search_queryset(context['user_settings'].search,
+                                                                             context['possible_exercises'])
             exercise_pks = []
             for i in range(1, 6):
                 exercise_pks.append(self.request.GET.get('exercise{}'.format(i), default='0'))
@@ -279,8 +265,11 @@ class DifficultiesFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUse
     form_class = SelectDifficultiesForm
 
 
-class SearchFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
+class SearchFormView(LoginRequiredMixin, UpdateUserSettingsMixin, generic.UpdateView):
     form_class = SearchForm
+
+    def get_success_url(self):
+        return self.request.POST.get('reverse')
 
 
 # get change views
