@@ -28,8 +28,9 @@ class SettingsContextMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         context['settings'] = General.get_solo()
         # get or create the settings
-        settings, created = UserSettings.objects.get_or_create(user=self.request.user)
-        context['user_settings'] = settings
+        if self.request.user.is_authenticated:
+            settings, created = UserSettings.objects.get_or_create(user=self.request.user)
+            context['user_settings'] = settings
         return context
 
 
