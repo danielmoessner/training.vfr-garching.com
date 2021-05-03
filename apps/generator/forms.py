@@ -26,7 +26,7 @@ class Step2Form(forms.ModelForm):
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
         if initial and 'topic' in initial and initial['topic'] != '':
-            initial['topic'] = initial['topic'][0]
+            initial['topic'] = initial['topic']
             topic = Topic.objects.get(pk=initial['topic'])
             self.fields['structure'].queryset = topic.structures.all()
         for field in self.fields:
