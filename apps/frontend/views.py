@@ -9,7 +9,6 @@ from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
 from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm
-from django.db.models import Q
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -130,6 +129,11 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
     def get_queryset(self):
         return self.request.user.settings.trainings.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['exercises'] = Exercise.objects.all()
+        return context
+
 
 class DeleteTrainingView(LoginRequiredMixin, SettingsContextMixin, generic.DeleteView):
     model = Training
@@ -191,14 +195,6 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         form.save()
         return super().form_valid(form)
 
-    # def form_valid(self, form):
-    #     step = self.request.GET.get('step', '1')
-    #     if step in ['1', '2', '3', '4']:
-    #         context = self.get_context_data(form=form)
-    #         context['formdata'] = form.cleaned_data
-    #         return self.render_to_response(context)
-    #     return super().form_valid(form)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # try to edit
@@ -208,7 +204,7 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         # steps
         step = self.request.GET.get('step', default='1')
         context['step'] = step
-        exercise_step = self.request.GET.get('exercise_step', default='1')
+        exercise_step = self.request.GET.get('exercise_step', default='0')
         context['exercise_step'] = exercise_step
         # add all selected values to the context
         topic_pk = self.request.GET.get('topic', default=None)
@@ -231,8 +227,10 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         elif step == '2':
             context['structures'] = Structure.objects.all()
         elif step == '3':
+            context['blocks'] = Block.objects.all()
             for i in range(1, 6):
-                context['block{}'.format(i)] = context['form'].fields['block{}'.format(i)].queryset.first()
+                if context['form'].fields['block{}'.format(i)].queryset.count() == 1:
+                    context['block{}'.format(i)] = context['form'].fields['block{}'.format(i)].queryset.first()
         elif step == '4':
             context['exercises_total'] = Exercise.objects.all().count()
             if 'structure' in context and 'topic' in context:

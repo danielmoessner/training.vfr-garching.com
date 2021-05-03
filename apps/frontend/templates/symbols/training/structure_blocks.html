@@ -7,10 +7,10 @@
         </div>
     {% endfor %}
     <div x-show="String(structure) === '0' || String(structure) === ''">
-        {% include 'symbols/training/blocks.html' with placeholder=True %}
+        {% include 'symbols/training/blocks.html' with structure=None %}
     </div>
 {% elif structure %}
-    {% include 'symbols/training/blocks.html' with structure=structure %}
+    {% include 'symbols/training/blocks.html' %}
 {% else %}
-    {% include 'symbols/training/blocks.html' with placeholder=True %}
+    {% include 'symbols/training/blocks.html' %}
 {% endif %}

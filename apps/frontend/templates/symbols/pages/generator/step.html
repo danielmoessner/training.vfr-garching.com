@@ -1,6 +1,6 @@
 {% load extra_tags %}
 
-<div class="flex items-center w-full">
+<a href="{% url 'generator' %}?{% include 'symbols/pages/generator/url_params.html' %}step={{ number|add:'0' }}&exercise_step=1" class="flex items-center w-full">
     <div class="px-6 py-4 flex items-center text-sm font-medium">
         <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border-2
                     {% if number|to_int > step|to_int %} border-gray-300
@@ -25,4 +25,4 @@
                     {% endif %}"
         >{{ text }}</div>
     </div>
-</div>
+</a>

@@ -1,59 +1,10 @@
 {% load static %}
+{% load extra_tags %}
 
 <script>
-    window.trainingsData = () => {
+    window.trainings = () => {
         return {
-            filterSelected: {},
-            groupOpen: {},
-            filterMenuOpen: false,
-            menuOpen: false,
-            trainerMenuOpen: false,
-            difficultyMenuOpen: false,
-            showed: 0,
-            init() {
-                {{ filters_selected }}.
-                forEach(filter => this.filterSelected[filter] = true);
-                {{ groups_open }}.
-                forEach(pk => this.groupOpen[pk] = true);
-                this.showed = {{ trainings_count|safe }};
-            },
-            get filtersTrue() {
-                return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
-            },
-            showTraining(filterPks) {
-                return this.filtersTrue.map(filter => filterPks.includes(filter)).every(_ => _);
-            },
-            showFilter(filterPk) {
-                return this.filtersTrue.includes(filterPk);
-            },
-            groupClicked(groupPk) {
-                this.groupOpen[groupPk] = !this.groupOpen[groupPk];
-                fetch(`/api/filter_groups/${groupPk}/`, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken"),
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    },
-                })
-            },
-            filterClicked(filterPk, set = false) {
-                if (set)
-                    this.filterSelected[filterPk] = !this.filterSelected[filterPk];
-                fetch(`/api/training_filters/${filterPk}/`, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken"),
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    },
-                }).then(response => response.json()).then(data => {
-                    if (typeof(this.showed) !== "string")
-                        this.showed = data['videos'];
-                })
-            }
+            show: 0,
         }
     }
 </script>

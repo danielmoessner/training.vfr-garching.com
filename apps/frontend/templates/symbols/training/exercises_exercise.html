@@ -7,7 +7,7 @@
         </div>
     {% endfor %}
     <div x-show="String(exercise{{ number }}) === '0' || String(exercise{{ number }}) === ''">
-        {% include 'symbols/training/exercise_placeholder.html' with class='animate-pulse bg-gray-300' %}
+        {% include 'symbols/training/exercise_placeholder.html' with class='bg-gray-300' %}
     </div>
 {% elif exercise %}
     {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}

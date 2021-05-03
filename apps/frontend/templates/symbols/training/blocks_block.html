@@ -5,8 +5,8 @@
         </div>
         <div class="relative flex space-x-2 mb-3">
             <div>
-                <div class="h-8 w-8 rounded-full bg-red-600 flex items-center justify-center ring-gray-100">
-                    <div class="w-5 h-5 text-white flex items-center justify-center">
+                <div class="h-8 w-8 rounded-full flex items-center justify-center border {% if number == exercise_step %}bg-red-600 border-red-600 text-white{% else %}text-gray-500 border-gray-300 bg-gray-100{% endif %}">
+                    <div class="w-5 h-5 flex items-center justify-center">
                         {{ number }}
                     </div>
                 </div>
@@ -17,39 +17,35 @@
                         {% if phase %}
                             <div class="inline-block align-top">{{ phase }}:</div>
                         {% else %}
-                            <div class="inline-block w-16 rounded bg-gray-200 {% if step == '2' %}bg-gray-300 animate-pulse{% endif %}">
+                            <div class="inline-block w-16 rounded bg-gray-200 {% if step == '2' %}bg-gray-300{% endif %}">
                                 &nbsp;
                             </div>:
                         {% endif %}
                         <div class="inline-block font-medium text-gray-900">
                             {% if step == '2' %}
-                                {% if placeholder %}
+                                {% for block in blocks.all %}
+                                    <div>
+                                        <div class="inline-block relative">
+                                            <div class="inset-0 bg-gray-200 absolute rounded"></div>
+                                            <span class="relative">{{ block.name }}</span>
+                                        </div>
+                                    </div>
+                                {% empty %}
                                     <div class="inline-block">
                                         <div class="w-24 bg-gray-200 rounded">&nbsp;</div>
                                     </div>
-                                {% else %}
-                                    {% for block in blocks.all %}
-                                        <div>
-                                            <div class="inline-block relative">
-                                                <div class="inset-0 bg-gray-200 absolute rounded"></div>
-                                                <span class="relative">{{ block.name }}</span>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
+                                {% endfor %}
                             {% elif step == '3' %}
                                 {% for block in blocks.all %}
                                     <div x-cloak x-show="String(block{{ number }}) === '{{ block.pk }}'">
                                         <div class="inline-block">{{ block.name }}</div>
                                     </div>
-                                    <div x-show="String(block{{ number }}) === '0' || String(block{{ number }}) === ''">
-                                        <div class="inline-block relative">
-                                            <div class="inset-0 bg-gray-200 absolute rounded {% if step == '3' %}animate-pulse bg-gray-300{% endif %}"></div>
-                                            <span class="relative {% if step == '3' %}animate-pulse{% endif %}">{{ block.name }}</span>
-                                        </div>
-                                        <br>
-                                    </div>
                                 {% endfor %}
+                                <div x-show="String(block{{ number }}) === '0' || String(block{{ number }}) === ''">
+                                    <div class="inline-block w-24 rounded bg-gray-300">
+                                        &nbsp;
+                                    </div>
+                                </div>
                             {% elif block %}
                                 <div class="inline-block">{{ block.name }}</div>
                             {% else %}

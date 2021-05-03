@@ -25,7 +25,7 @@ class Step2Form(forms.ModelForm):
 
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
-        if initial and 'topic' in initial and initial['topic'] != ['']:
+        if initial and 'topic' in initial and initial['topic'] != '':
             initial['topic'] = initial['topic'][0]
             topic = Topic.objects.get(pk=initial['topic'])
             self.fields['structure'].queryset = topic.structures.all()
@@ -43,18 +43,26 @@ class Step3Form(forms.ModelForm):
 
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
-        if initial and 'structure' in initial and initial['structure'] != ['']:
+        if initial and 'structure' in initial and initial['structure'] != '':
             structure = Structure.objects.get(pk__in=initial['structure'])
             for i in range(1, 6):
-                self.fields['block{}'.format(i)].queryset = getattr(structure, 'blocks{}'.format(i)).all()
-                self.fields['block{}'.format(i)].empty_label = None
+                queryset = getattr(structure, 'blocks{}'.format(i)).all()
+                self.fields['block{}'.format(i)].queryset = queryset
+                if queryset.count() == 1:
+                    self.fields['block{}'.format(i)].empty_label = None
             if not structure.phase5:
                 self.fields['block5'].widget = forms.HiddenInput()
+                self.fields['block4'].label = 'Bitte wähle die Übungsart für den Abschluss aus'
         for field in self.fields:
             if field[:5] != 'block':
                 self.fields[field].widget = forms.HiddenInput()
+            else:
+                if self.fields[field].queryset.count() == 1:
+                    self.fields[field].widget = forms.HiddenInput()
             self.fields[field].widget.attrs = {'x-model': field}
         self.fields['topic'].widget = forms.HiddenInput()
+        self.fields['block1'].label = 'Bitte wähle die Übungsart für das Warm-Up aus'
+        self.fields['block5'].label = 'Bitte wähle die Übungsart für den Abschluss aus'
         self.fields['structure'].widget = forms.HiddenInput()
 
 
@@ -82,6 +90,7 @@ class Step5Form(forms.ModelForm):
             if field != 'name':
                 self.fields[field].widget = forms.HiddenInput()
             self.fields[field].widget.attrs = {'x-model': field}
+        self.fields['name'].label = 'Bitte gib einen Namen für die Trainingseinheit an'
 
 
 class TrainingForm(forms.ModelForm):

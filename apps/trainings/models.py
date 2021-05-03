@@ -314,4 +314,5 @@ class Training(models.Model):
                                                                                            self.get_exercise_pk(3),
                                                                                            self.get_exercise_pk(4),
                                                                                            self.get_exercise_pk(5))
-        return '{}{}{}{}'.format(part1, part2, part3, part4)
+        part5 = '&step=4&exercise_step=1'
+        return '{}{}{}{}{}'.format(part1, part2, part3, part4, part5)

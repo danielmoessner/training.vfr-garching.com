@@ -4,28 +4,45 @@
 
 {% block main %}
 
-    <section class="max-w-7xl mx-auto py-16">
-        <div class="space-y-20">
-            {% for object in object_list %}
+    <main x-data="trainings()">
 
-                {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
-                    <div>
-                        <div class="tracking-wide font-light">{{ object.name }}</div>
-                        {% include 'symbols/training/index.html' %}
-                        <div class="flex space-x-3 mt-5">
-                            <a class="{% include 'symbols/secondary_button.txt' %}" href="#">Drucken</a>
-                            <a class="{% include 'symbols/secondary_button.txt' %}"
-                               href="{{ object.get_edit_url }}">Bearbeiten</a>
-                            <form method="POST" action="{% url 'training_delete' object.pk %}">
-                                {% csrf_token %}
-                                <button class="{% include 'symbols/secondary_button.txt' %}" type="submit">Löschen
-                                </button>
-                            </form>
+        <section class="max-w-screen-2xl mx-auto py-16">
+            <div class="space-y-20">
+                <a class="{% include 'symbols/secondary_button.txt' %}" href="{% url 'generator' %}">Zum
+                    Trainingsgenerator</a>
+                {% for object in object_list %}
+                    {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
+                        <div>
+                            <div class="tracking-wide font-light">{{ object.name }}</div>
+                            {% include 'symbols/training/index.html' %}
+                            <div class="mt-5 flex justify-between">
+                                <div class="flex space-x-3">
+                                    <a class="{% include 'symbols/secondary_button.txt' %}" href="#">Drucken</a>
+                                    <a class="{% include 'symbols/secondary_button.txt' %}"
+                                       href="whatsapp://send?text={{ object.get_edit_url }}"
+                                       data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <a class="{% include 'symbols/secondary_button.txt' %}"
+                                       href="{{ object.get_edit_url }}">Bearbeiten</a>
+                                    <form method="POST" action="{% url 'training_delete' object.pk %}">
+                                        {% csrf_token %}
+                                        <button class="{% include 'symbols/secondary_button.txt' %}" type="submit">
+                                            Löschen
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% endwith %}
-            {% endfor %}
-        </div>
-    </section>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </section>
+
+        {% include 'symbols/exercise_popups.html' %}
+
+    </main>
+
+    {% include 'alpine/trainings.html' %}
 
 {% endblock %}

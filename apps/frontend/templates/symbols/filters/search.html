@@ -1,0 +1,18 @@
+{% if user_settings.search %}
+    <form action="{% url 'search' %}" method="POST">
+        <input type="hidden" name="search" value="">
+        {% csrf_token %}
+        <input type="hidden" name="reverse" value="{{ request.get_full_path }}">
+        <button class="group flex items-center justify-center px-2 py-1 space-x-2 my-3 mx-2 bg-white rounded h-8 focus:outline-none"
+                type="submit"
+                {#       href="{% url 'reset_search' %}?reverse={{ request.get_full_path }}"#}
+        >
+            <div class="text-gray-800 group-hover:text-gray-900">
+                Suche: {{ user_settings.search }}
+            </div>
+            <div class="text-gray-400 group-hover:text-gray-500">
+                {% include 'svg/outline-x-circle.svg' %}
+            </div>
+        </button>
+    </form>
+{% endif %}

@@ -10,12 +10,32 @@
 
             {% include 'symbols/pages/generator/progress.html' with step=step %}
 
-            <section class="max-w-7xl mx-auto pt-10 pb-24">
-                {% include 'symbols/training/index.html' %}
-            </section>
-
-
-            <section class="max-w-7xl mx-auto pt-10 pb-10">
+            <section class="{% include 'symbols/pages/generator/container.txt' %} pt-10 pb-10">
+                <p class="max-w-3xl mb-6">
+                    {% if step == '1' %}
+                        Für dein Training solltest du als erstes festlegen, welches Thema du behandeln möchtest. <br>
+                        Bitte wähle ein Thema für dein Training aus:
+                    {% elif step == '2' %}
+                        Für dein ausgewähltes Thema bieten wir sinnvolle Trainingsstrukturen an. Diese sorgt dafür, dass
+                        dein Training einem logischen Aufbau folgt und die Phasen deines Trainings aufeinander aufbauen.
+                        Mit deiner Auswahl legst du die Übungsarten für den Hauptteil fest.
+                        <br>
+                        Bitte wähle eine der Trainingsstrukturen aus:
+                    {% elif step == '3' %}
+                        Du kannst für das Warm-Up und den Abschluss deines Trainings eine Übungsart auswählen. Die
+                        Übungsarten für den Hauptteil hast du durch die Trainingsstruktur bereits festgelegt.
+                    {% elif step == '4' %}
+                        Bitte wähle einer der vorgeschlagenen Übungen für die aktuelle Trainingsphase aus. Du kannst
+                        auch mit Hilfe der Suchfunktion die Übungsauswahl weiter einschränken. Klicke auf "Weiter", ohne
+                        eine Übung auszuwählen, wenn du diese Trainingsphase überspringen möchtest.
+                    {% elif step == '5' %}
+                        Gratuliere! Du hast deine Trainingseinheit fertig gestellt. <br><br>
+                        Du kannste diese nun als PDF-Datei ausdrucken oder an deine Trainerkollegen verschicken. <br>
+                        <br>
+                        Möchtest du dieses Training langfristig Speichern, dann vergib einen Namen für deine
+                        Trainingseinheit und klicke auf "Speichern".
+                    {% endif %}
+                </p>
                 <form class="django-form-2" method="{% if step == '5' %}POST{% else %}GET{% endif %}"
                       action="{% url 'generator' %}{% if training %}?training={{ training.pk }}{% endif %}">
                     {{ form.as_p }}
@@ -29,49 +49,66 @@
                            value="{% include 'symbols/pages/generator/url_params_step.html' %}">
                     <input type="hidden" name="exercise_step"
                            value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
-                    <div class="flex items-end justify-end col-span-6 space-x-3">
-                        {% if step == '1' %}
-                            <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
-                               href="{% url 'generator' %}?step=4&exercise_step=1"
-                            >
-                                Freie Auswahl
-                            </a>
-                        {% endif %}
-                        {% if step in '2345'|make_list %}
-                            {% include 'symbols/pages/generator/back_button.html' %}
-                        {% endif %}
-                        {% if step == '5' %}
-                            <button class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %} mt-4"
-                                    type="button">
-                                Ausdrucken
-                            </button>
-                        {% endif %}
-                        <button class="{% include 'symbols/primary_button.txt' with size='px-6 py-3 text-base' %}"
-                                type="submit">
-                            {% if step == '1' or step == '2' or step == '3' or step == '4' %}
-                                Weiter
-                            {% elif step == '5' %}
-                                Speichern
+                    <div class="flex items-end justify-end col-span-6">
+                        <div class="mr-auto">
+                            {% if step in '2345'|make_list %}
+                                <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %}"
+                                   href="{% url 'generator' %}"
+                                >
+                                    Neustarten
+                                </a>
                             {% endif %}
-                        </button>
+                        </div>
+                        <div class="space-x-3 flex">
+                            {% if step == '1' %}
+                                <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %}"
+                                   href="{% url 'generator' %}?step=4&exercise_step=1"
+                                >
+                                    Freie Auswahl
+                                </a>
+                            {% endif %}
+                            {% if step in '2345'|make_list %}
+                                {% include 'symbols/pages/generator/back_button.html' %}
+                            {% endif %}
+                            {% if step == '5' %}
+                                <button class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %}"
+                                        type="button">
+                                    Ausdrucken
+                                </button>
+                            {% endif %}
+                            <button class="{% include 'symbols/primary_button.txt' with size='px-6 py-3 text-base' %}"
+                                    type="submit">
+                                {% if step == '1' or step == '2' or step == '3' or step == '4' %}
+                                    Weiter
+                                {% elif step == '5' %}
+                                    Speichern
+                                {% endif %}
+                            </button>
+                        </div>
                     </div>
                 </form>
             </section>
 
+            <section class="{% include 'symbols/pages/generator/container.txt' %} pt-10 pb-24">
+                {% include 'symbols/training/index.html' %}
+            </section>
+
             {% if step == '4' and exercise_step in '12345'|make_list %}
-                <section class="max-w-7xl mx-auto">
+                <section class="{% include 'symbols/pages/generator/container.txt' %}">
                     <div class="flex justify-between items-baseline">
-                        <h2 class="font-medium text-lg">Übung {{ exercise_step }} auswählen</h2>
+                        <h2 class="font-medium text-lg">Bitte wähle die Übung für die aktuelle Trainingsphase aus:</h2>
                         <div class="text-gray-800 text-sm font-medium">{{ possible_exercises.count }}
                             von {{ exercises_total }}</div>
+                    </div>
+                    <div class="mt-4">
+                        <div x-cloak class="{% include 'symbols/box/filters_top.txt' %}">
+                            {% include 'symbols/filters/search.html' %}
+                        </div>
                     </div>
                     <ul class="mt-4 grid grid-cols-4 gap-4">
                         {% for exercise in possible_exercises %}
                             <li class="relative">
                                 <div class="relative border-2 overflow-hidden block border-transparent focus:outline-none sm:rounded-lg">
-                                    {#                                    <div class="hidden absolute inset-0 border-2 border-red-600 rounded-lg"#}
-                                    {#                                         :class="{ hidden: exercise{{ exercise_step }} !== {{ exercise.pk }} }"#}
-                                    {#                                    ></div>#}
                                     {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
                                 </div>
                                 <div class="absolute bottom-3 right-3 z-10">
@@ -95,51 +132,14 @@
             {% endif %}
 
             {% if step == '4' or step == '5' %}
-                <section x-cloak>
-                    {% for exercise in exercises %}
-                        <div x-on:keydown.window.escape="show = 0" x-show="show == {{ exercise.pk }}"
-                             class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" x-ref="dialog"
-                             aria-modal="true"
-                        >
-                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                <div x-show="show == {{ exercise.pk }}" x-transition:enter="ease-out duration-300"
-                                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                     x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
-                                     x-transition:leave-end="opacity-0"
-                                     x-description="Background overlay, show/hide based on modal state."
-                                     class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                                     @click="show = 0"
-                                     aria-hidden="true"
-                                ></div>
-                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&ZeroWidthSpace;</span>
-                                <div x-show="show == {{ exercise.pk }}" x-transition:enter="ease-out duration-300"
-                                     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                                     x-transition:leave="ease-in duration-200"
-                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                     x-description="Modal panel, show/hide based on modal state."
-                                     class="inline-block text-left align-bottom my-8 overflow-hidden shadow-xl transform transition-all sm:align-middle sm:max-w-7xl sm:w-full"
-                                >
-                                    <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
-                                        <button type="button"
-                                                class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                                                @click="show = 0">
-                                            <span class="sr-only">Close</span>
-                                            {% include 'svg/outline/x.svg' %}
-                                        </button>
-                                    </div>
-                                    {% include 'symbols/exercise_detail.html' with exercise=exercise %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </section>
+                {% include 'symbols/exercise_popups.html' %}
             {% endif %}
 
             <div class="h-64"></div>
 
         </main>
+
+        {% include 'symbols/button_to_top.html' %}
 
         {% include 'alpine/generator.html' %}
 
