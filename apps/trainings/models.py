@@ -300,10 +300,20 @@ class Training(models.Model):
             return block.pk
         return ''
 
+    def get_structure_pk(self):
+        if self.structure:
+            return self.structure.pk
+        return ''
+
+    def get_topic_pk(self):
+        if self.topic:
+            return self.topic.pk
+        return ''
+
     def get_base_url(self):
         part1 = '{}'.format(reverse('generator'))
-        part2 = '?topic={}&structure={}'.format(self.topic.pk,
-                                                self.structure.pk)
+        part2 = '?topic={}&structure={}'.format(self.get_topic_pk(),
+                                                self.get_structure_pk())
         part3 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
                                                                             self.get_block_pk(2),
                                                                             self.get_block_pk(3),
