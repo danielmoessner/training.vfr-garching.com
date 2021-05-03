@@ -6,7 +6,7 @@
 
     <main x-data="trainings()">
 
-        <section class="max-w-screen-2xl mx-auto py-16">
+        <section class="max-w-screen-2xl mx-auto py-16 px-4 sm:px-6 xl:px-8">
             <div class="space-y-20">
                 <a class="{% include 'symbols/secondary_button.txt' %}" href="{% url 'generator' %}">Zum
                     Trainingsgenerator</a>
@@ -19,7 +19,7 @@
                                 <div class="flex space-x-3">
                                     <a class="{% include 'symbols/secondary_button.txt' %}" href="#">Drucken</a>
                                     <a class="{% include 'symbols/secondary_button.txt' %}"
-                                       href="whatsapp://send?text={{ object.get_edit_url }}"
+                                       href="whatsapp://send?text={{ object.get_whatsapp_url }}"
                                        data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
                                 </div>
                                 <div class="flex space-x-3">

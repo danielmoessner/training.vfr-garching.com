@@ -5,6 +5,7 @@ from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
+import urllib.parse
 
 
 class Difficulty(models.Model):
@@ -299,10 +300,9 @@ class Training(models.Model):
             return block.pk
         return ''
 
-    def get_edit_url(self):
-        part1 = '{}?training={}'.format(reverse('generator'),
-                                        self.pk)
-        part2 = '&topic={}&structure={}'.format(self.topic.pk,
+    def get_base_url(self):
+        part1 = '{}'.format(reverse('generator'))
+        part2 = '?topic={}&structure={}'.format(self.topic.pk,
                                                 self.structure.pk)
         part3 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
                                                                             self.get_block_pk(2),
@@ -316,3 +316,14 @@ class Training(models.Model):
                                                                                            self.get_exercise_pk(5))
         part5 = '&step=4&exercise_step=1'
         return '{}{}{}{}{}'.format(part1, part2, part3, part4, part5)
+
+    def get_whatsapp_url(self):
+        part1 = 'https://training.vfr-garching.com/'
+        part2 = self.get_edit_url()
+        url = '{}{}'.format(part1, part2)
+        return urllib.parse.quote(url)
+
+    def get_edit_url(self):
+        part1 = self.get_base_url()
+        part2 = '&training={}'.format(self.pk)
+        return '{}{}'.format(part1, part2)
