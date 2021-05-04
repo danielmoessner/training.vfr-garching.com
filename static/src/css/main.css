@@ -29,7 +29,7 @@
 }
 
 .django-form-2 {
-    @apply grid grid-cols-1 gap-y-6 gap-x-4 md:grid-cols-6;
+    @apply grid gap-y-6 gap-x-4 grid-cols-6;
     label {
         @apply block text-sm font-medium text-gray-700 cursor-pointer;
     }
@@ -40,7 +40,7 @@
         @apply mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm rounded-md;
     }
     p {
-        @apply sm:col-span-2;
+        @apply col-span-6 xl:col-span-2;
     }
 }
 

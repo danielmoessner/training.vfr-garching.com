@@ -49,11 +49,11 @@
                            value="{% include 'symbols/pages/generator/url_params_step.html' %}">
                     <input type="hidden" name="exercise_step"
                            value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
-                    <div class="flex items-end justify-end col-span-6">
-                        <div class="mr-auto">
+                    <div class="flex items-end md:justify-end col-span-6">
+                        <div class="md:mr-auto">
 
                         </div>
-                        <div class="space-x-3 flex">
+                        <div class="flex flex-col space-y-3 items-start md:space-x-3 md:flex-row">
                             {% if step in '2345'|make_list %}
                                 {% include 'symbols/pages/generator/back_button.html' %}
                             {% endif %}
