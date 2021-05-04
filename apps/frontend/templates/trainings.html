@@ -25,6 +25,7 @@
                                     <a class="{% include 'symbols/button_gray.txt' %} lg:hidden"
                                        href="whatsapp://send?text={{ object.get_whatsapp_url }}"
                                        data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
+                                    {% include 'symbols/button_copy.html' with text='Link kopieren' link=object.get_share_url id=object.pk %}
                                     {% if object.user %}
                                         <a class="{% include 'symbols/button_gray.txt' %}"
                                            href="{{ object.get_edit_url }}">Bearbeiten</a>

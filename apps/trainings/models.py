@@ -325,16 +325,24 @@ class Training(models.Model):
                                                                                            self.get_exercise_pk(3),
                                                                                            self.get_exercise_pk(4),
                                                                                            self.get_exercise_pk(5))
-        part5 = '&step=4&exercise_step=1'
-        return '{}{}{}{}{}'.format(part1, part2, part3, part4, part5)
+        return '{}{}{}{}'.format(part1, part2, part3, part4)
 
     def get_whatsapp_url(self):
-        part1 = 'https://training.vfr-garching.com/'
-        part2 = self.get_edit_url()
-        url = '{}{}'.format(part1, part2)
+        part1 = 'https://training.vfr-garching.com'
+        part2 = self.get_base_url()
+        part3 = '&step=5&exercise_step=6'
+        url = '{}{}{}'.format(part1, part2, part3)
         return urllib.parse.quote(url)
+
+    def get_share_url(self):
+        part1 = 'https://training.vfr-garching.com'
+        part2 = self.get_base_url()
+        part3 = '&step=5&exercise_step=6'
+        url = '{}{}{}'.format(part1, part2, part3)
+        return url
 
     def get_edit_url(self):
         part1 = self.get_base_url()
         part2 = '&training={}'.format(self.pk)
-        return '{}{}'.format(part1, part2)
+        part3 = '&step=4&exercise_step=1'
+        return '{}{}{}'.format(part1, part2, part3)
