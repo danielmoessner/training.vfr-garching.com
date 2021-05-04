@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load extra_tags %}
+{% load static %}
 
 {% block main %}
 
@@ -8,29 +9,36 @@
 
         <section class="max-w-screen-2xl mx-auto py-16 px-4 sm:px-6 xl:px-8">
             <div class="space-y-20">
-                <a class="{% include 'symbols/secondary_button.txt' %}" href="{% url 'generator' %}">Zum
-                    Trainingsgenerator</a>
+                <a class="bg-white block rounded-lg overflow-hidden" href="{% url 'generator' %}">
+                    <img class="w-full max-w-full h-auto" src="{% static 'img/trainingsgenerator.png' %}"
+                         alt="Zum Trainingsgenerator">
+                </a>
                 {% for object in object_list %}
                     {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
                         <div>
                             <div class="tracking-wide font-light">{{ object.name }}</div>
                             {% include 'symbols/training/index.html' %}
                             <div class="mt-5 flex justify-between">
-                                <div class="flex space-x-3">
-                                    <a class="{% include 'symbols/secondary_button.txt' %}" target="_blank" href="{% url 'training_pdf' object.pk %}">PDF erstellen</a>
-                                    <a class="{% include 'symbols/secondary_button.txt' %}"
+                                <div class="flex flex-col space-y-3 lg:space-y-0 lg:flex-row lg:space-x-3">
+                                    <a class="{% include 'symbols/button_gray.txt' %}" target="_blank"
+                                       href="{% url 'training_pdf' object.pk %}">PDF erstellen</a>
+                                    <a class="{% include 'symbols/button_gray.txt' %} lg:hidden"
                                        href="whatsapp://send?text={{ object.get_whatsapp_url }}"
                                        data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
+                                    {% if object.user %}
+                                        <a class="{% include 'symbols/button_gray.txt' %}"
+                                           href="{{ object.get_edit_url }}">Bearbeiten</a>
+                                    {% endif %}
                                 </div>
                                 <div class="flex space-x-3">
-                                    <a class="{% include 'symbols/secondary_button.txt' %}"
-                                       href="{{ object.get_edit_url }}">Bearbeiten</a>
-                                    <form method="POST" action="{% url 'training_delete' object.pk %}">
-                                        {% csrf_token %}
-                                        <button class="{% include 'symbols/secondary_button.txt' %}" type="submit">
-                                            Löschen
-                                        </button>
-                                    </form>
+                                    {% if object.user %}
+                                        <form method="POST" action="{% url 'training_delete' object.pk %}">
+                                            {% csrf_token %}
+                                            <button class="{% include 'symbols/button_red.txt' %}" type="submit">
+                                                Löschen
+                                            </button>
+                                        </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

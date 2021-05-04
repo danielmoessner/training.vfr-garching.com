@@ -5,6 +5,7 @@ from apps.trainings.models import Filter
 
 class Block(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+    ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     and_filters = models.ManyToManyField(Filter, verbose_name='UND Filter', blank=True, related_name='or_blocks')
     or_filters = models.ManyToManyField(Filter, verbose_name='ODER Filter', blank=True, related_name='and_blocks')
     updated = models.DateTimeField(auto_now=True)
@@ -13,7 +14,7 @@ class Block(models.Model):
     class Meta:
         verbose_name = 'Baustein'
         verbose_name_plural = 'Bausteine'
-        ordering = ['name']
+        ordering = ['ordering']
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -21,6 +22,7 @@ class Block(models.Model):
 
 class Structure(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+    ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     PHASE_CHOICES = (
         ('START', 'Warm-Up'),
         ('MAIN', 'Hauptteil'),
@@ -43,7 +45,7 @@ class Structure(models.Model):
     class Meta:
         verbose_name = 'Struktur'
         verbose_name_plural = 'Strukturen'
-        ordering = ['name']
+        ordering = ['ordering']
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -57,6 +59,7 @@ class Structure(models.Model):
 
 class Topic(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+    ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
                                         related_name='main_topics')
     warm_up_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
@@ -68,7 +71,7 @@ class Topic(models.Model):
     class Meta:
         verbose_name = 'Thema'
         verbose_name_plural = 'Themen'
-        ordering = ['name']
+        ordering = ['ordering']
 
     def __str__(self):
         return '{}'.format(self.name)

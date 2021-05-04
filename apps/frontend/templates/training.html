@@ -8,7 +8,6 @@
         }
 
         @page {
-            size: landscape;
             @bottom-right {
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
@@ -23,17 +22,6 @@
         <h1>{{ object.name }}</h1>
         <p>
             <b>Thema:</b> {{ object.topic|default:'-' }} <br>
-            <b>Struktur:</b> {{ object.structure|default:'-' }} <br>
-            <br>
-            <b>Warm-Up:</b> {{ object.block1|default:'-' }} <br>
-            <b>Hauptteil 1:</b> {{ object.block2|default:'-' }} <br>
-            <b>Hauptteil 2:</b> {{ object.block3|default:'-' }} <br>
-            {% if object.block5 %}
-                <b>Hauptteil 3:</b> {{ object.block4|default:'-' }} <br>
-                <b>Abschluss:</b> {{ object.block5|default:'-' }} <br>
-            {% else %}
-                <b>Abschluss:</b> {{ object.block4|default:'-' }} <br>
-            {% endif %}
             <br>
             <b>Übung 1:</b> {{ object.exercise1|default:'-' }} <br>
             <b>Übung 2:</b> {{ object.exercise2|default:'-' }} <br>

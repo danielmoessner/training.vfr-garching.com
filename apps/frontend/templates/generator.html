@@ -51,32 +51,19 @@
                            value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
                     <div class="flex items-end justify-end col-span-6">
                         <div class="mr-auto">
-                            {% if step in '2345'|make_list %}
-                                <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %}"
-                                   href="{% url 'generator' %}"
-                                >
-                                    Neustarten
-                                </a>
-                            {% endif %}
+
                         </div>
                         <div class="space-x-3 flex">
-                            {% if step == '1' %}
-                                <a class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %}"
-                                   href="{% url 'generator' %}?step=4&exercise_step=1"
-                                >
-                                    Freie Auswahl
-                                </a>
-                            {% endif %}
                             {% if step in '2345'|make_list %}
                                 {% include 'symbols/pages/generator/back_button.html' %}
                             {% endif %}
                             {% if step == '5' %}
-                                <button class="{% include 'symbols/secondary_button.txt' with size='px-5 py-3 text-base' %}"
+                                <button class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
                                         type="button">
                                     Ausdrucken
                                 </button>
                             {% endif %}
-                            <button class="{% include 'symbols/primary_button.txt' with size='px-6 py-3 text-base' %}"
+                            <button class="{% include 'symbols/button_green.txt' with size='px-6 py-3 text-base' %}"
                                     type="submit">
                                 {% if step == '1' or step == '2' or step == '3' or step == '4' %}
                                     Weiter
@@ -84,6 +71,13 @@
                                     Speichern
                                 {% endif %}
                             </button>
+                            {% if step in '2345'|make_list %}
+                                <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
+                                   href="{% url 'generator' %}"
+                                >
+                                    Neustarten
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </form>
@@ -112,7 +106,7 @@
                                     {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
                                 </div>
                                 <div class="absolute bottom-3 right-3 z-10">
-                                    <button class="{% include 'symbols/secondary_button.txt' with ring_offset='ring-offset-0' %} relative"
+                                    <button class="{% include 'symbols/button_gray.txt' with ring_offset='ring-offset-0' %} relative"
                                             :class="{ 'pl-7': exercise{{ exercise_step }} === {{ exercise.pk }} }"
                                             type="button"
                                             x-on:click="exercise{{ exercise_step }} = {{ exercise.pk }}"

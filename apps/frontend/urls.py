@@ -11,6 +11,7 @@ urlpatterns = [
     path('favoriten/', views.BookmarksView.as_view(), name='favorites'),
     path('generator/', views.GeneratorView.as_view(), name='generator'),
     path('trainings/', views.TrainingsView.as_view(), name='trainings'),
+    path('trainings/vfr/', views.TrainingsVfrView.as_view(), name='trainings_vfr'),
     path('trainings/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),
     path('trainings/<int:pk>/bearbeiten/', views.GeneratorView.as_view(), name='training_update'),
     # pdf stuff

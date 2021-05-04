@@ -43,6 +43,9 @@ class Step3Form(forms.ModelForm):
 
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
+        self.fields['block2'].label = 'Bitte wähle die Übungsart für den Hauptteil 1 aus'
+        self.fields['block3'].label = 'Bitte wähle die Übungsart für den Hauptteil 2 aus'
+        self.fields['block4'].label = 'Bitte wähle die Übungsart für den Hauptteil 3 aus'
         if initial and 'structure' in initial and initial['structure'] != '':
             structure = Structure.objects.get(pk__in=initial['structure'])
             for i in range(1, 6):

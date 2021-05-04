@@ -276,14 +276,15 @@ class Training(models.Model):
                                   blank=True, null=True)
     block5 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings5',
                                verbose_name='Block 5', blank=True, null=True)
-    user = models.ForeignKey('users.UserSettings', on_delete=models.PROTECT, related_name='trainings', verbose_name='Nutzer')
+    user = models.ForeignKey('users.UserSettings', on_delete=models.PROTECT, related_name='trainings',
+                             verbose_name='Nutzer', blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Training'
         verbose_name_plural = 'Trainings'
-        ordering = ['name']
+        ordering = ['-created']
 
     def __str__(self):
         return '{}'.format(self.name)

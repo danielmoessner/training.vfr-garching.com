@@ -53,7 +53,7 @@
              class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-4">
             {% include 'symbols/filters/index.html' %}
             <div class="pt-5 flex justify-between items-baseline">
-                <a class="{% include 'symbols/secondary_button.txt' %}"
+                <a class="{% include 'symbols/button_gray.txt' %}"
                    href="{% url 'reset_training_filters' %}?reverse={{ request.path }}">Zurücksetzen</a>
                 <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings_total }} Trainings</div>
             </div>
@@ -74,7 +74,7 @@
                             class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                         Absenden
                     </button>
-                    <a class="{% include 'symbols/secondary_button.txt' %}"
+                    <a class="{% include 'symbols/button_gray.txt' %}"
                        href="{% url 'reset_difficulty' %}?reverse={{ request.path }}">Zurücksetzen</a>
                 </div>
             </form>
@@ -95,7 +95,7 @@
                             class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                         Absenden
                     </button>
-                    <a class="{% include 'symbols/secondary_button.txt' %}"
+                    <a class="{% include 'symbols/button_gray.txt' %}"
                        href="{% url 'reset_age_group' %}?reverse={{ request.path }}">Zurücksetzen</a>
                 </div>
             </form>

@@ -137,6 +137,19 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
         return context
 
 
+class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
+    template_name = 'trainings.html'
+    model = Training
+
+    def get_queryset(self):
+        return Training.objects.filter(user=None)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['exercises'] = Exercise.objects.all()
+        return context
+
+
 class TrainingView(LoginRequiredMixin, SettingsContextMixin, generic.DetailView):
     model = Training
     template_name = 'training.html'
