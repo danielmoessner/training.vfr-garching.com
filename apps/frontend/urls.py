@@ -11,8 +11,11 @@ urlpatterns = [
     path('favoriten/', views.BookmarksView.as_view(), name='favorites'),
     path('generator/', views.GeneratorView.as_view(), name='generator'),
     path('trainings/', views.TrainingsView.as_view(), name='trainings'),
-    path('training/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),
-    path('training/<int:pk>/bearbeiten/', views.GeneratorView.as_view(), name='training_update'),
+    path('trainings/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),
+    path('trainings/<int:pk>/bearbeiten/', views.GeneratorView.as_view(), name='training_update'),
+    # pdf stuff
+    path('trainings/<int:pk>/', views.TrainingView.as_view(), name='training'),
+    path('trainings/<int:pk>.pdf', views.TrainingPdfView.as_view(), name='training_pdf'),
     # form stuff
     path('suche/', views.SearchFormView.as_view(), name='search'),
     path('altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),

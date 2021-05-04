@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
+from django.template.loader import render_to_string
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
 from apps.trainings.models import Exercise, Group, Filter, Difficulty, Training
@@ -10,8 +11,9 @@ from rest_framework.views import APIView
 from apps.users.models import UserSettings
 from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
+from weasyprint import HTML
 
 
 # mixins
@@ -133,6 +135,26 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.all()
         return context
+
+
+class TrainingView(LoginRequiredMixin, SettingsContextMixin, generic.DetailView):
+    model = Training
+    template_name = 'training.html'
+
+
+class TrainingPdfView(LoginRequiredMixin, SettingsContextMixin, generic.DetailView):
+    model = Training
+    template_name = 'training.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        rendered = render_to_string(self.template_name, context)
+        html = HTML(string=rendered, base_url=self.request.build_absolute_uri())
+        pdf = html.write_pdf()
+        # return HttpResponseRedirect('/media/pdfs/{}.pdf'.format(self.object.pk))
+        response = HttpResponse(pdf)
+        response['Content-Type'] = 'application/pdf'
+        response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(self.object.name)
+        return response
 
 
 class DeleteTrainingView(LoginRequiredMixin, SettingsContextMixin, generic.DeleteView):

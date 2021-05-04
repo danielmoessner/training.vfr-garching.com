@@ -1,0 +1,63 @@
+{% load extra_tags %}
+
+{% if exercise %}
+    <article class="prose prose-sm w-full max-w-none">
+        {# fix a weird printing issue #}
+        <style>
+            @media print {
+                ul {
+                    padding-left: 20px !important;
+                }
+
+                li {
+                    list-style-type: disc !important;
+                    padding-left: 0px !important;
+                }
+
+                li::before {
+                    display: none !important;
+                }
+            }
+        </style>
+        {# endfix #}
+        <h1 style="margin: 0;">{{ exercise.name }}</h1>
+        <p style="margin: 0;">{{ exercise.focus }}</p>
+        <div class="-ml-2">
+            <img class="inline w-1/4 float-left p-2" src="{{ exercise.image1.url }}" alt="Bild 1">
+            {% if exercise.image2 %}
+                <img class="inline w-1/4 float-left p-2" src="{{ exercise.image2.url }}"
+                     alt="Bild 2">
+            {% endif %}
+            {% if exercise.image3 %}
+                <img class="inline w-1/4 float-left p-2" src="{{ exercise.image3.url }}"
+                     alt="Bild 3">
+            {% endif %}
+            {% if exercise.image4 %}
+                <img class="inline w-1/4 float-left p-2" src="{{ exercise.image4.url }}"
+                     alt="Bild 4">
+            {% endif %}
+        </div>
+        <div class="clear-both"></div>
+        <h2>Beschreibung</h2>
+        {{ exercise.description|safe }}
+        {% with filters=exercise.get_detail_filters %}
+            {% if filters %}
+                <h2>Spielprinzipien & Methoden</h2>
+                {% for filter in filters %}
+                    <h3>{{ filter.name }}</h3>
+                    <ul>
+                        {% for item in filter.description|splitlines %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h2>Coachingpunkte</h2>
+        {{ exercise.coaching|safe }}
+        {% if exercise.variations %}
+            <h2>Variationen</h2>
+            {{ exercise.variations|safe }}
+        {% endif %}
+    </article>
+{% endif %}

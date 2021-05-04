@@ -9,10 +9,10 @@
                 {% if exercise.image2 or exercise.image3 or exercise.image4 %}
                     <div class="p-1">
                         <div class="flex flex-row h-20 space-x-1 overflow-x-scroll md:overflow-auto">
-                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image1 alt=exercise.name|add:' Bild 1' %}
-                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image2 alt=exercise.name|add:' Bild 2' %}
-                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image3 alt=exercise.name|add:' Bild 3' %}
-                            {% include 'symbols/pages/training/image_preview.html' with image=exercise.image4 alt=exercise.name|add:' Bild 4' %}
+                            {% include 'symbols/pages/exercise/image_preview.html' with image=exercise.image1 alt=exercise.name|add:' Bild 1' %}
+                            {% include 'symbols/pages/exercise/image_preview.html' with image=exercise.image2 alt=exercise.name|add:' Bild 2' %}
+                            {% include 'symbols/pages/exercise/image_preview.html' with image=exercise.image3 alt=exercise.name|add:' Bild 3' %}
+                            {% include 'symbols/pages/exercise/image_preview.html' with image=exercise.image4 alt=exercise.name|add:' Bild 4' %}
                         </div>
                     </div>
                 {% endif %}
