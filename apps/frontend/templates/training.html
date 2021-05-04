@@ -33,14 +33,16 @@
         </p>
     </article>
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=training.exercise1 %}
+    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise1 %}
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=training.exercise2 %}
+    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise2 %}
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=training.exercise3 %}
+    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise3 %}
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=training.exercise4 %}
-    <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=training.exercise5 %}
+    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise4 %}
+    {% if object.exercise5 %}
+        <div class="" style="page-break-before: always"></div>
+    {% endif %}
+    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise5 %}
     </body>
 {% endblock body %}

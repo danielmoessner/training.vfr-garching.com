@@ -10,6 +10,7 @@ urlpatterns = [
     path('uebung/<int:pk>/', views.ExerciseDetailView.as_view(), name='exercise'),
     path('favoriten/', views.BookmarksView.as_view(), name='favorites'),
     path('generator/', views.GeneratorView.as_view(), name='generator'),
+    path('generator/drucken/', views.GeneratorPrintView.as_view(), name='generator_print'),
     path('trainings/', views.TrainingsView.as_view(), name='trainings'),
     path('trainings/vfr/', views.TrainingsVfrView.as_view(), name='trainings_vfr'),
     path('trainings/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),

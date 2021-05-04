@@ -58,9 +58,9 @@
                                 {% include 'symbols/pages/generator/back_button.html' %}
                             {% endif %}
                             {% if step == '5' %}
-                                <button class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
-                                        type="button">
-                                    Ausdrucken
+                                <button formaction="{% url 'generator_print' %}" class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                        type="submit">
+                                    PDF erstellen
                                 </button>
                             {% endif %}
                             <button class="{% include 'symbols/button_green.txt' with size='px-6 py-3 text-base' %}"

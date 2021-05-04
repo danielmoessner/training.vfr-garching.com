@@ -295,6 +295,32 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         return context
 
 
+class GeneratorPrintView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
+    form_class = TrainingForm
+    template_name = 'training.html'
+
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        return form_class(self.request.user, **self.get_form_kwargs())
+
+    def form_valid(self, form):
+        training = form.save()
+        context = {
+            'object': training
+        }
+        rendered = render_to_string(self.template_name, context)
+        name = training.name
+        training.delete()
+        html = HTML(string=rendered, base_url=self.request.build_absolute_uri())
+        pdf = html.write_pdf()
+        # return HttpResponseRedirect('/media/pdfs/{}.pdf'.format(self.object.pk))
+        response = HttpResponse(pdf)
+        response['Content-Type'] = 'application/pdf'
+        response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(name)
+        return response
+
+
 # save settings views
 class AgeGroupFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
     form_class = SelectAgeGroupForm

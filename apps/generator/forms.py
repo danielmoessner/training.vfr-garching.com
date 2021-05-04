@@ -106,6 +106,13 @@ class TrainingForm(forms.ModelForm):
         settings, created = UserSettings.objects.get_or_create(user=user)
         self.settings = settings
         self.fields['user'].required = False
+        self.fields['name'].required = False
 
     def clean_user(self):
         return self.settings
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if not name:
+            return 'Mein Training'
+        return name
