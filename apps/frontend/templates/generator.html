@@ -103,7 +103,7 @@
 
                                     <div class="p-2 lg:hidden">
                                         <a class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
-                                           href="whatsapp://send?text={{ request.get_full_path }}"
+                                           :href="`whatsapp://send?text=${escape('{{ request.get_full_path }}')}`"
                                            data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
                                     </div>
 

@@ -19,6 +19,9 @@
             exercise5: {{ exercise5.pk|default:"''" }},
             user: '',
             show: 0,
+            escape(url) {
+                return encodeURIComponent(url);
+            }
         }
     }
 </script>
