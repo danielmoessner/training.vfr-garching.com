@@ -10,32 +10,43 @@
 
             {% include 'symbols/pages/generator/progress.html' with step=step %}
 
-            <section class="{% include 'symbols/pages/generator/container.txt' %} pt-10 pb-10">
-                <p class="max-w-3xl mb-6">
-                    {% if step == '1' %}
-                        Für dein Training solltest du als erstes festlegen, welches Thema du behandeln möchtest. <br>
-                        Bitte wähle ein Thema für dein Training aus:
-                    {% elif step == '2' %}
-                        Für dein ausgewähltes Thema bieten wir sinnvolle Trainingsstrukturen an. Diese sorgt dafür, dass
-                        dein Training einem logischen Aufbau folgt und die Phasen deines Trainings aufeinander aufbauen.
-                        Mit deiner Auswahl legst du die Übungsarten für den Hauptteil fest.
-                        <br>
-                        Bitte wähle eine der Trainingsstrukturen aus:
-                    {% elif step == '3' %}
-                        Du kannst für das Warm-Up und den Abschluss deines Trainings eine Übungsart auswählen. Die
-                        Übungsarten für den Hauptteil hast du durch die Trainingsstruktur bereits festgelegt.
-                    {% elif step == '4' %}
-                        Bitte wähle einer der vorgeschlagenen Übungen für die aktuelle Trainingsphase aus. Du kannst
-                        auch mit Hilfe der Suchfunktion die Übungsauswahl weiter einschränken. Klicke auf "Weiter", ohne
-                        eine Übung auszuwählen, wenn du diese Trainingsphase überspringen möchtest.
-                    {% elif step == '5' %}
-                        Gratuliere! Du hast deine Trainingseinheit fertig gestellt. <br><br>
-                        Du kannste diese nun als PDF-Datei ausdrucken oder an deine Trainerkollegen verschicken. <br>
-                        <br>
-                        Möchtest du dieses Training langfristig Speichern, dann vergib einen Namen für deine
-                        Trainingseinheit und klicke auf "Speichern".
-                    {% endif %}
-                </p>
+            <section class="{% include 'symbols/pages/generator/container.txt' %} pt-10">
+                <div class="max-w-3xl">
+                    <div class="rounded-md border border-gray-300 px-3 py-2">
+                        <h2 class="text-lg font-bold text-gray-700">Info:</h2>
+                        <p class="text-gray-800">
+                            {% if step == '1' %}
+                                Für dein Training solltest du als erstes festlegen, welches Thema du behandeln möchtest.
+                            {% elif step == '2' %}
+                                Für dein ausgewähltes Thema bieten wir sinnvolle Trainingsstrukturen an. Diese sorgt
+                                dafür, dass
+                                dein Training einem logischen Aufbau folgt und die Phasen deines Trainings aufeinander
+                                aufbauen.
+                                Mit deiner Auswahl legst du die Übungsarten für den Hauptteil fest.
+                            {% elif step == '3' %}
+                                Du kannst für das Warm-Up und den Abschluss deines Trainings eine Übungsart auswählen.
+                                Die Übungsarten für den Hauptteil hast du durch die Trainingsstruktur bereits festgelegt.
+                            {% elif step == '4' %}
+                                Bitte wähle einer der vorgeschlagenen Übungen für die aktuelle Trainingsphase aus. Du
+                                kannst
+                                auch mit Hilfe der Suchfunktion die Übungsauswahl weiter einschränken. Klicke auf
+                                "Weiter", ohne
+                                eine Übung auszuwählen, wenn du diese Trainingsphase überspringen möchtest.
+                            {% elif step == '5' %}
+                                Gratuliere! Du hast deine Trainingseinheit fertig gestellt. <br><br>
+                                Du kannste diese nun als PDF-Datei ausdrucken oder an deine Trainerkollegen verschicken.
+                                <br>
+                                <br>
+                                Möchtest du dieses Training langfristig Speichern, dann vergib einen Namen für deine
+                                Trainingseinheit und klicke auf "Speichern".
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="{% include 'symbols/pages/generator/container.txt' %} pt-10">
+
                 <form class="django-form-2" method="{% if step == '5' %}POST{% else %}GET{% endif %}"
                       action="{% url 'generator' %}{% if training %}?training={{ training.pk }}{% endif %}">
                     {{ form.as_p }}
@@ -53,31 +64,37 @@
                         <div class="md:mr-auto">
 
                         </div>
-                        <div class="flex flex-col space-y-3 items-start md:space-y-0 md:space-x-3 md:flex-row">
-                            {% if step in '2345'|make_list %}
-                                {% include 'symbols/pages/generator/back_button.html' %}
-                            {% endif %}
-                            {% if step == '5' %}
-                                <button formaction="{% url 'generator_print' %}" class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
-                                        type="submit">
-                                    PDF erstellen
-                                </button>
-                            {% endif %}
-                            <button class="{% include 'symbols/button_green.txt' with size='px-6 py-3 text-base' %}"
-                                    type="submit">
-                                {% if step == '1' or step == '2' or step == '3' or step == '4' %}
-                                    Weiter
-                                {% elif step == '5' %}
-                                    Speichern
+                        <div class="flex flex-col space-x-0 space-y-2 md:space-y-0 md:flex-row md:space-x-3">
+                            <div class="flex flex-row space-x-3">
+                                {% if step in '2345'|make_list %}
+                                    {% include 'symbols/pages/generator/back_button.html' %}
                                 {% endif %}
-                            </button>
-                            {% if step in '2345'|make_list %}
-                                <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
-                                   href="{% url 'generator' %}"
-                                >
-                                    Neustarten
-                                </a>
-                            {% endif %}
+
+                                <button class="{% include 'symbols/button_green.txt' with size='px-6 py-3 text-base' %}"
+                                        type="submit">
+                                    {% if step == '1' or step == '2' or step == '3' or step == '4' %}
+                                        Weiter
+                                    {% elif step == '5' %}
+                                        Speichern
+                                    {% endif %}
+                                </button>
+                                {% if step in '2345'|make_list %}
+                                    <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
+                                       href="{% url 'generator' %}"
+                                    >
+                                        Neustarten
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-row space-x-3">
+                                {% if step == '5' %}
+                                    <button formaction="{% url 'generator_print' %}"
+                                            class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                            type="submit">
+                                        PDF erstellen
+                                    </button>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -5,6 +5,12 @@
     window.trainings = () => {
         return {
             show: 0,
+            topic: '',
+            showTraining(topicPk) {
+                if (this.topic === '') return true;
+                if (this.topic === topicPk) return true;
+                return false;
+            }
         }
     }
 </script>

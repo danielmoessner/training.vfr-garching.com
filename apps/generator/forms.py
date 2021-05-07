@@ -12,6 +12,7 @@ class Step1Form(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['topic'].label = 'Bitte wähle ein Thema für dein Training aus'
         for field in self.fields:
             if field != 'topic':
                 self.fields[field].widget = forms.HiddenInput()
@@ -25,6 +26,7 @@ class Step2Form(forms.ModelForm):
 
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
+        self.fields['structure'].label = 'Bitte wähle eine Struktur für dein Training aus'
         if initial and 'topic' in initial and initial['topic'] != '':
             initial['topic'] = initial['topic']
             topic = Topic.objects.get(pk=initial['topic'])
@@ -116,3 +118,12 @@ class TrainingForm(forms.ModelForm):
         if not name:
             return 'Mein Training'
         return name
+
+
+class TopicForm(forms.Form):
+    topic = forms.ModelChoiceField(queryset=Topic.objects.all(), label='Nach Thema filtern')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs = {'x-model': field}

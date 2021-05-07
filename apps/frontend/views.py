@@ -5,7 +5,7 @@ from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
 from apps.trainings.models import Exercise, Group, Filter, Difficulty, Training
 from apps.generator.models import Structure, Topic, Block
-from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form
+from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
@@ -134,6 +134,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.all()
+        context['form'] = TopicForm()
         return context
 
 
@@ -268,7 +269,7 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
                     context['block{}'.format(i)] = context['form'].fields['block{}'.format(i)].queryset.first()
         elif step == '4':
             context['exercises_total'] = Exercise.objects.all().count()
-            if 'structure' in context and 'topic' in context:
+            if 'structure' in context and 'topic' in context and 'block{}'.format(exercise_step) in context:
                 structure = context['structure']
                 topic = context['topic']
                 block = context['block{}'.format(exercise_step)]

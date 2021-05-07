@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block body %}
     <body>
     <style type="text/css">
@@ -18,6 +20,11 @@
             }
         }
     </style>
+    <div class="float-right">
+        <img class="block w-auto h-12 lg:h-14"
+             src="{% static 'img/generation-vfr-logo.png' %}"
+             alt="VfR Garching">
+    </div>
     <article class="prose prose-sm w-full max-w-none">
         <h1>{{ object.name }}</h1>
         <p>

@@ -1,8 +1,8 @@
 {% load extra_tags %}
 
 <a href="{% url 'generator' %}?{% include 'symbols/pages/generator/url_params.html' %}step={{ number|add:'0' }}&exercise_step=1" class="flex items-center w-full">
-    <div class="px-6 py-4 flex items-center text-sm font-medium">
-        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border-2
+    <div class="text-xs px-3 py-2 flex items-center font-medium md:text-sm md:px-6 md:py-4">
+        <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border-2 md:w-10 md:h-10
                     {% if number|to_int > step|to_int %} border-gray-300
                     {% elif number|to_int == step|to_int %} border-red-600
                     {% elif number|to_int < step|to_int %} bg-red-600 border-red-600
@@ -18,7 +18,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="ml-4 text-sm font-medium
+        <div class="ml-2 text-sm font-medium md:ml-4
                     {% if number|to_int < step|to_int %} text-gray-500
                     {% elif number|to_int == step|to_int %} text-red-600
                     {% elif number|to_int > step|to_int %} text-gray-900

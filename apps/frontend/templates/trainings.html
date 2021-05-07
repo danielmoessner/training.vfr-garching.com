@@ -7,17 +7,26 @@
 
     <main x-data="trainings()">
 
-        <section class="max-w-screen-2xl mx-auto py-16 px-4 sm:px-6 xl:px-8">
+        <section class="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-8 pt-10 pb-20">
+            <a class="block rounded-lg overflow-hidden" href="{% url 'generator' %}">
+                <img class="w-full max-w-full h-auto" src="{% static 'img/trainingsgenerator.png' %}"
+                     alt="Zum Trainingsgenerator">
+            </a>
+        </section>
+
+        <section class="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-8 pb-20">
+            <form class="django-form-2">
+                {{ form.as_p }}
+            </form>
+        </section>
+
+        <section class="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-8 pb-64">
             <div class="space-y-20">
-                <a class="bg-white block rounded-lg overflow-hidden" href="{% url 'generator' %}">
-                    <img class="w-full max-w-full h-auto" src="{% static 'img/trainingsgenerator.png' %}"
-                         alt="Zum Trainingsgenerator">
-                </a>
                 {% for object in object_list %}
-                    {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
-                        <div>
-                            <div class="tracking-wide font-light">{{ object.name }}</div>
-                            {% include 'symbols/training/index.html' %}
+                    <div x-show="showTraining('{{ object.topic.pk }}')">
+                        {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
+                            <div class="text-3xl xl:text-4xl font-bold text-gray-900">{{ object.name }}</div>
+                            {% include 'symbols/training/index.html' with page='trainings' %}
                             <div class="mt-5 flex justify-between">
                                 <div class="flex flex-col space-y-3 lg:space-y-0 lg:flex-row lg:space-x-3">
                                     <a class="{% include 'symbols/button_gray.txt' %}" target="_blank"
@@ -42,8 +51,8 @@
                                     {% endif %}
                                 </div>
                             </div>
-                        </div>
-                    {% endwith %}
+                        {% endwith %}
+                    </div>
                 {% endfor %}
             </div>
         </section>
