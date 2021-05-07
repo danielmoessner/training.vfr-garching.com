@@ -1,13 +1,13 @@
-<input class="sr-only" type="text" value="{{ link }}" id="copy-input-{{ id|default:'0' }}">
-<button class="{% include 'symbols/button_gray.txt' %}" onclick="copyText()">{{ text }}</button>
+<input class="hidden!" style="" type="text" value="{{ link }}" id="copy-input-{{ id|default:'0' }}">
+<button type="button" class="{% include 'symbols/button_gray.txt' %}" onclick="copyText()">{{ text }}</button>
 
 <script>
-function copyText() {
-  let copyInput = document.getElementById("copy-input-{{ id|default:'0' }}");
-  copyInput.classList.remove('sr-only')
-  copyInput.select();
-  copyInput.setSelectionRange(0, 99999)
-  document.execCommand("copy");
-  copyInput.classList.add('sr-only')
-}
+    function copyText() {
+        let copyInput = document.getElementById("copy-input-{{ id|default:'0' }}");
+        copyInput.classList.remove('hidden!')
+        copyInput.select();
+        copyInput.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+        copyInput.classList.add('hidden!')
+    }
 </script>

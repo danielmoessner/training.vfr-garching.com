@@ -223,7 +223,7 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
 
     def post(self, request, *args, **kwargs):
         training_pk = self.request.GET.get('training', default=None)
-        if training_pk:
+        if training_pk and Training.objects.filter(user=self.request.user.settings, pk=training_pk).exists():
             self.object = Training.objects.get(pk=training_pk)
         return super().post(request, *args, **kwargs)
 
@@ -235,7 +235,7 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         context = super().get_context_data(**kwargs)
         # try to edit
         training_pk = self.request.GET.get('training', default=None)
-        if training_pk:
+        if training_pk and Training.objects.filter(user=self.request.user.settings, pk=training_pk).exists():
             context['training'] = Training.objects.get(pk=training_pk)
         # steps
         step = self.request.GET.get('step', default='1')

@@ -284,10 +284,13 @@ class Training(models.Model):
     class Meta:
         verbose_name = 'Training'
         verbose_name_plural = 'Trainings'
-        ordering = ['-created']
+        ordering = ['user', '-created']
 
     def __str__(self):
-        return '{}'.format(self.name)
+        name = '{}'.format(self.name)
+        if not self.user:
+            return name
+        return 'VfR Training: {}'.format(name)
 
     def get_exercise_pk(self, number):
         exercise = getattr(self, 'exercise{}'.format(number), None)

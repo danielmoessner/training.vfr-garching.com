@@ -19,19 +19,18 @@
                                 Für dein Training solltest du als erstes festlegen, welches Thema du behandeln möchtest.
                             {% elif step == '2' %}
                                 Für dein ausgewähltes Thema bieten wir sinnvolle Trainingsstrukturen an. Diese sorgt
-                                dafür, dass
-                                dein Training einem logischen Aufbau folgt und die Phasen deines Trainings aufeinander
-                                aufbauen.
-                                Mit deiner Auswahl legst du die Übungsarten für den Hauptteil fest.
+                                dafür, dass dein Training einem logischen Aufbau folgt und die Phasen deines Trainings
+                                aufeinander aufbauen. Mit deiner Auswahl legst du die Übungsarten für den Hauptteil
+                                fest.
                             {% elif step == '3' %}
                                 Du kannst für das Warm-Up und den Abschluss deines Trainings eine Übungsart auswählen.
-                                Die Übungsarten für den Hauptteil hast du durch die Trainingsstruktur bereits festgelegt.
+                                Die Übungsarten für den Hauptteil hast du durch die Trainingsstruktur bereits
+                                festgelegt.
                             {% elif step == '4' %}
-                                Bitte wähle einer der vorgeschlagenen Übungen für die aktuelle Trainingsphase aus. Du
-                                kannst
-                                auch mit Hilfe der Suchfunktion die Übungsauswahl weiter einschränken. Klicke auf
-                                "Weiter", ohne
-                                eine Übung auszuwählen, wenn du diese Trainingsphase überspringen möchtest.
+                                Bitte wähle eine der vorgeschlagenen Übungen für die aktuelle Trainingsphase aus. Du
+                                kannst auch mit Hilfe der Suchfunktion die Übungsauswahl weiter einschränken. Klicke auf
+                                "Weiter", ohne eine Übung auszuwählen, wenn du diese Trainingsphase überspringen
+                                möchtest.
                             {% elif step == '5' %}
                                 Gratuliere! Du hast deine Trainingseinheit fertig gestellt. <br><br>
                                 Du kannste diese nun als PDF-Datei ausdrucken oder an deine Trainerkollegen verschicken.
@@ -60,11 +59,8 @@
                            value="{% include 'symbols/pages/generator/url_params_step.html' %}">
                     <input type="hidden" name="exercise_step"
                            value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
-                    <div class="flex items-end md:justify-end col-span-6">
-                        <div class="md:mr-auto">
-
-                        </div>
-                        <div class="flex flex-col space-x-0 space-y-2 md:space-y-0 md:flex-row md:space-x-3">
+                    <div class="flex items-end lg:justify-end col-span-6">
+                        <div class="flex flex-col space-x-0 space-y-2 lg:space-y-0 lg:flex-row lg:space-x-3">
                             <div class="flex flex-row space-x-3">
                                 {% if step in '2345'|make_list %}
                                     {% include 'symbols/pages/generator/back_button.html' %}
@@ -80,6 +76,7 @@
                                 </button>
                                 {% if step in '2345'|make_list %}
                                     <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
+                                    <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
                                        href="{% url 'generator' %}"
                                     >
                                         Neustarten
@@ -93,6 +90,10 @@
                                             type="submit">
                                         PDF erstellen
                                     </button>
+                                    <a class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %} lg:hidden"
+                                       href="whatsapp://send?text={{ request.get_full_path }}"
+                                       data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
+                                    {% include 'symbols/button_copy.html' with text='Link kopieren' link='https://training.vfr-garching.com'|add:request.get_full_path size='px-5 py-3 text-base' %}
                                 {% endif %}
                             </div>
                         </div>
