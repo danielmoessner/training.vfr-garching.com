@@ -20,7 +20,8 @@
             user: '',
             show: 0,
             escape(url) {
-                return encodeURIComponent(url);
+                const completeUrl = `https://training.vfr-garching.com${url}`
+                return encodeURIComponent(completeUrl);
             }
         }
     }
