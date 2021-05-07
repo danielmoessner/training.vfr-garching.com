@@ -165,13 +165,15 @@
                 </section>
             {% endif %}
 
-            {% if step == '4' or step == '5' %}
-                {% include 'symbols/exercise_popups.html' %}
-            {% endif %}
-
-            <div class="h-64"></div>
+            <section>
+                {% if step == '4' or step == '5' %}
+                    {% include 'symbols/exercise_popups.html' %}
+                {% endif %}
+            </section>
 
         </main>
+
+        <div class="h-64"></div>
 
         {% include 'symbols/button_to_top.html' %}
 
