@@ -90,7 +90,8 @@ class ExerciseListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
         if context['user_settings'].search:
             trainings = Exercise.get_search_queryset(context['user_settings'].search, trainings)
         trainings_list = Exercise.get_trainings_list(context['user_settings'], trainings)
-        context['trainings'] = trainings_list
+        context['exercises'] = trainings_list
+        context['all_exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters').all()
         # count
         for training_filter in list(self.request.user.settings.training_filters.all()):
             trainings = trainings.filter(filters=training_filter.pk)
@@ -133,7 +134,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['exercises'] = Exercise.objects.all()
+        context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
         context['form'] = TopicForm()
         return context
 
@@ -147,7 +148,7 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['exercises'] = Exercise.objects.all()
+        context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
         return context
 
 
@@ -291,7 +292,8 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
             for i in range(1, 6):
                 exercise_pks.append(self.request.GET.get('exercise{}'.format(i), default='0'))
             exercise_pks = list(filter(lambda x: x != '', exercise_pks))
-            context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks)
+            context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks).select_related(
+                'difficulty').prefetch_related('filters')
         # return
         return context
 

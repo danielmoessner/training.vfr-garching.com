@@ -1,4 +1,4 @@
-<section x-cloak>
+<div x-cloak>
     {% for exercise in exercises %}
         <div x-on:keydown.window.escape="show = 0" x-show="show == {{ exercise.pk }}"
              class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" x-ref="dialog"
@@ -36,4 +36,4 @@
             </div>
         </div>
     {% endfor %}
-</section>
+</div>
