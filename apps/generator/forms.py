@@ -1,5 +1,4 @@
-from apps.generator.models import Topic, Structure
-from apps.trainings.models import Training
+from apps.generator.models import Topic, Structure, Training
 from django import forms
 
 from apps.users.models import UserSettings

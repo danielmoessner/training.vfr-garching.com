@@ -3,8 +3,8 @@ from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView a
 from django.template.loader import render_to_string
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
-from apps.trainings.models import Exercise, Group, Filter, Difficulty, Training
-from apps.generator.models import Structure, Topic, Block
+from apps.trainings.models import Exercise, Group, Filter, Difficulty
+from apps.generator.models import Structure, Topic, Block, Training
 from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import General
 from rest_framework.views import APIView

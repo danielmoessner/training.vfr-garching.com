@@ -1,2 +1,2 @@
-from .models import Training
+from .models button_red
 from django import forms

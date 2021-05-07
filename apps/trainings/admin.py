@@ -1,4 +1,4 @@
-from apps.trainings.models import Filter, Exercise, Group, Youth, Difficulty, Training
+from apps.trainings.models import Filter, Exercise, Group, Youth, Difficulty
 from django.contrib import admin
 from django import forms
 from datetime import date
@@ -123,4 +123,4 @@ admin.site.register(Filter, TrainingFilterAdmin)
 admin.site.register(Group)
 admin.site.register(Youth)
 admin.site.register(Difficulty)
-admin.site.register(Training)
+# admin.site.register(Training)
