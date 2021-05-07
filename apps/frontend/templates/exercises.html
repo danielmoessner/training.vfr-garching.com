@@ -4,11 +4,11 @@
 
 {% block main %}
     <main class="{% include 'symbols/main.txt' %}" x-data="trainingsData()" x-init="init()">
-        <div class="{% include 'symbols/container.txt' %} lg:w-80">
+        <aside class="{% include 'symbols/container.txt' %} lg:w-80">
             {% include 'symbols/sidenav/index.html' %}
-        </div>
+        </aside>
         <div class="lg:flex-1">
-            <div class="{% include 'symbols/container.txt' %}">
+            <section class="{% include 'symbols/container.txt' %}">
                 <div x-cloak class="{% include 'symbols/box/filters_top.txt' %}">
                     {% include 'symbols/filters/shop.html' %}
                 </div>
@@ -22,7 +22,7 @@
                     {% endfor %}
                     <div class="hidden" x-show="showTraining([-2])"></div>
                 </ul>
-            </div>
+            </section>
 
             <section>
                 {% include 'symbols/exercise_popups.html' with exercises=all_exercises %}

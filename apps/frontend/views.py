@@ -106,10 +106,12 @@ class BookmarksView(ExerciseListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bookmarked_trainings = self.request.user.settings.bookmarks.all()
+        print(bookmarked_trainings)
         if context['user_settings'].search:
             bookmarked_trainings = Exercise.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
-        trainings = Exercise.get_trainings_list(context['user_settings'], bookmarked_trainings)
-        context['trainings'] = trainings
+        exercises = Exercise.get_trainings_list(context['user_settings'], bookmarked_trainings)
+        context['exercises'] = exercises
+        context['all_exercises'] = bookmarked_trainings.select_related('difficulty').prefetch_related('filters')
         context['trainings_count'] = '"?"'
         return context
 
@@ -149,6 +151,7 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
+        context['form'] = TopicForm()
         return context
 
 
@@ -352,16 +355,7 @@ class BookmarkTrainingView(LoginRequiredMixin, generic.DetailView):
         else:
             self.request.user.settings.bookmarks.add(self.object.pk)
         self.request.user.settings.save()
-        return HttpResponseRedirect(reverse('exercise', args=[self.object.pk]))
-
-
-class ResetSearchView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
-    success_url = reverse_lazy('exercises')
-
-    def get(self, request, *args, **kwargs):
-        self.request.user.settings.search = ''
-        self.request.user.settings.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(reverse('favorites'))
 
 
 class ResetAgeGroupView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):

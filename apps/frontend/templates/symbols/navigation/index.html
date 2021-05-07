@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="{% include 'symbols/container.txt' %} lg:px-10 py-2 bg-white shadow-sm relative print:hidden">
+<nav class="{% include 'symbols/container.txt' %} lg:px-10 py-2 bg-white shadow-sm relative print:hidden">
     <div class="flex justify-between " x-data="{open: false}">
         <div class="flex px-2 lg:px-0">
             <div class="flex-shrink-0 flex items-center">
@@ -10,17 +10,15 @@
                          alt="VfR Garching">
                 </a>
             </div>
-            <nav aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
-                {% url 'exercises' as url %}
-                {% include 'symbols/navigation/link.html' with text='Übungsdatenbank' href=url %}
-                {% url 'favorites' as url %}
-                {% include 'symbols/navigation/link.html' with text='Favoriten' href=url %}
-                {% url 'trainings' as url %}
-                {% include 'symbols/navigation/link.html' with text='Meine Trainings' href=url %}
-                {% url 'trainings_vfr' as url %}
-                {% include 'symbols/navigation/link.html' with text='VfR Trainings' href=url %}
-                {% include 'symbols/navigation/link.html' with text='Ausbildungskonzept' target='_blank' href=settings.link %}
-            </nav>
+            <div aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
+                {% url 'exercises' as exercises_url %}
+                {% url 'favorites' as favorites_url %}
+                {% include 'symbols/navigation/dropdown.html' with name='Übungen' item1_link=exercises_url item1_name='Datenbank' item1_text='Beschreibung' item2_name='Favoriten' item2_link=favorites_url item2_text='Beschreibung' %}
+                {% url 'trainings' as trainings_url %}
+                {% url 'trainings_vfr' as trainings_vfr_url %}
+                {% include 'symbols/navigation/dropdown.html' with name='Trainings' item1_link=trainings_url item1_name='Meine Trainings' item1_text='Beschreibung' item2_name='VfR Trainings' item2_link=trainings_vfr_url item2_text='Beschreibung' %}
+                {% include 'symbols/navigation/dropdown.html' with name='Weiteres' item1_link=settings.link item1_target='_blank' item1_name='Ausbildungskonzept' item1_text='Beschreibung' %}
+            </div>
         </div>
         <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <div class="w-full">
@@ -166,4 +164,4 @@
             </div>
         </div>
     </div>
-</div>
+</nav>
