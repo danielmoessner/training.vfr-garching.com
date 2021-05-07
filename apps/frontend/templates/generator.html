@@ -61,39 +61,56 @@
                            value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
                     <div class="flex items-end lg:justify-end col-span-6">
                         <div class="flex flex-col space-x-0 space-y-2 lg:space-y-0 lg:flex-row lg:space-x-3">
-                            <div class="flex flex-row space-x-3">
+                            <div class="flex flex-row flex-wrap -m-2">
+
                                 {% if step in '2345'|make_list %}
-                                    {% include 'symbols/pages/generator/back_button.html' %}
+                                    <div class="p-2">
+                                        {% include 'symbols/pages/generator/back_button.html' %}
+                                    </div>
                                 {% endif %}
 
-                                <button class="{% include 'symbols/button_green.txt' with size='px-6 py-3 text-base' %}"
-                                        type="submit">
-                                    {% if step == '1' or step == '2' or step == '3' or step == '4' %}
-                                        Weiter
-                                    {% elif step == '5' %}
-                                        Speichern
-                                    {% endif %}
-                                </button>
-                                {% if step in '2345'|make_list %}
-                                    <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
-                                    <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
-                                       href="{% url 'generator' %}"
-                                    >
-                                        Neustarten
-                                    </a>
-                                {% endif %}
-                            </div>
-                            <div class="flex flex-row space-x-3">
-                                {% if step == '5' %}
-                                    <button formaction="{% url 'generator_print' %}"
-                                            class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                <div class="p-2">
+                                    <button class="{% include 'symbols/button_green.txt' with size='px-6 py-3 text-base' %}"
                                             type="submit">
-                                        PDF erstellen
+                                        {% if step == '1' or step == '2' or step == '3' or step == '4' %}
+                                            Weiter
+                                        {% elif step == '5' %}
+                                            Speichern
+                                        {% endif %}
                                     </button>
-                                    <a class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %} lg:hidden"
-                                       href="whatsapp://send?text={{ request.get_full_path }}"
-                                       data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
-                                    {% include 'symbols/button_copy.html' with text='Link kopieren' link='https://training.vfr-garching.com'|add:request.get_full_path size='px-5 py-3 text-base' %}
+                                </div>
+
+                                {% if step in '2345'|make_list %}
+
+                                    <div class="p-2">
+                                        <a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
+                                           href="{% url 'generator' %}"
+                                        >
+                                            Neustarten
+                                        </a>
+                                    </div>
+
+                                {% endif %}
+                                {% if step == '5' %}
+
+                                    <div class="p-2">
+                                        <button formaction="{% url 'generator_print' %}"
+                                                class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                                type="submit">
+                                            PDF erstellen
+                                        </button>
+                                    </div>
+
+                                    <div class="p-2 lg:hidden">
+                                        <a class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                           href="whatsapp://send?text={{ request.get_full_path }}"
+                                           data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
+                                    </div>
+
+                                    <div class="p-2">
+                                        {% include 'symbols/button_copy.html' with text='Link kopieren' link='https://training.vfr-garching.com'|add:request.get_full_path size='px-5 py-3 text-base' %}
+                                    </div>
+
                                 {% endif %}
                             </div>
                         </div>
