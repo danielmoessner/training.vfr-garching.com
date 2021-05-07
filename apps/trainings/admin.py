@@ -83,6 +83,7 @@ class TrainingForm(forms.ModelForm):
 
 class TrainingAdmin(admin.ModelAdmin):
     form = TrainingForm
+    list_display = ('name', 'focus')
 
 
 admin.site.register(Exercise, TrainingAdmin)

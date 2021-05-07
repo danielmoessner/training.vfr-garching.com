@@ -17,9 +17,25 @@ module.exports = {
                         'ul > li::before': {
                             backgroundColor: colors.gray['700'],
                         },
-
+                        'ul > li > ul > li::before': {
+                            backgroundColor: colors.gray['400'],
+                        },
+                        h2: {
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.025em'
+                        },
+                        '> ul > li > *:first-child': {
+                            marginTop: 0,
+                        }
                     },
                 },
+                md: {
+                    css: {
+                        '> ul > li > *:first-child': {
+                            marginTop: 0,
+                        }
+                    }
+                }
             },
             colors: {
                 gray: colors.trueGray,

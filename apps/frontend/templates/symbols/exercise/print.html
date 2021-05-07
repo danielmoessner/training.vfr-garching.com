@@ -1,0 +1,47 @@
+{% load static %}
+
+{# fix a weird printing issue #}
+<style>
+    @media print {
+        ul {
+            padding-left: 20px !important;
+        }
+
+        li {
+            list-style-type: disc !important;
+            padding-left: 0px !important;
+        }
+
+        li::before {
+            display: none !important;
+        }
+    }
+</style>
+{# endfix #}
+<div class="prose prose-sm w-full max-w-none">
+    <div class="float-right">
+        <img class="block w-auto h-12 lg:h-14"
+             style="margin: 0;"
+             src="{% static 'img/generation-vfr-logo.png' %}"
+             alt="VfR Garching">
+    </div>
+    <h1 style="margin: 0;">{{ exercise.name }}</h1>
+    <p style="margin: 0;">{{ exercise.focus }}</p>
+    <div class="-ml-2">
+        <img class="inline w-1/4 float-left p-2" src="{{ exercise.image1.url }}" alt="Bild 1">
+        {% if exercise.image2 %}
+            <img class="inline w-1/4 float-left p-2" src="{{ exercise.image2.url }}"
+                 alt="Bild 2">
+        {% endif %}
+        {% if exercise.image3 %}
+            <img class="inline w-1/4 float-left p-2" src="{{ exercise.image3.url }}"
+                 alt="Bild 3">
+        {% endif %}
+        {% if exercise.image4 %}
+            <img class="inline w-1/4 float-left p-2" src="{{ exercise.image4.url }}"
+                 alt="Bild 4">
+        {% endif %}
+    </div>
+    <div class="clear-both"></div>
+    {% include 'symbols/exercise/content.html' %}
+</div>

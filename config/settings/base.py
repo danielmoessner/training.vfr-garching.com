@@ -156,10 +156,9 @@ TINYMCE_DEFAULT_CONFIG = {
     "plugins": "advlist,autolink,lists,link,charmap,print,preview,anchor,"
                "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
                "code,help,wordcount",
-    "toolbar": "undo redo | formatselect | "
+    "toolbar": "undo redo | "
                "bold italic underline | forecolor backcolor | alignleft aligncenter "
                "alignright alignjustify | bullist numlist | outdent indent",
-    "block_formats": 'Paragraph=p; Überschrift=h3; Unterüberschrift=h4; Vorformatiert=pre',
     "advlist_bullet_styles": "default",
     "advlist_number_styles": "default"
 }

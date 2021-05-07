@@ -56,65 +56,7 @@
         </div>
     </main>
     <section class="print:block hidden">
-        {# fix a weird printing issue #}
-        <style>
-            @media print {
-                ul {
-                    padding-left: 20px !important;
-                }
-
-                li {
-                    list-style-type: disc !important;
-                    padding-left: 0px !important;
-                }
-
-                li::before {
-                    display: none !important;
-                }
-            }
-        </style>
-        {# endfix #}
-        <div class="prose max-w-none w-full">
-            <h1 style="margin: 0;">{{ object.name }}</h1>
-            <p style="margin: 0;">{{ object.focus }}</p>
-            <div class="-ml-2">
-                <img class="inline w-1/4 float-left p-2" src="{{ object.image1.url }}" alt="Bild 1">
-                {% if object.image2 %}
-                    <img class="inline w-1/4 float-left p-2" src="{{ object.image2.url }}"
-                         alt="Bild 2">
-                {% endif %}
-                {% if object.image3 %}
-                    <img class="inline w-1/4 float-left p-2" src="{{ object.image3.url }}"
-                         alt="Bild 3">
-                {% endif %}
-                {% if object.image4 %}
-                    <img class="inline w-1/4 float-left p-2" src="{{ object.image4.url }}"
-                         alt="Bild 4">
-                {% endif %}
-            </div>
-            <div class="clear-both"></div>
-            <h2 style="margin-top: 0;">Beschreibung</h2>
-            {{ object.description|safe }}
-            {% with training_filters=object.get_detail_filters %}
-                {% if training_filters %}
-                    <h2>Spielprinzipien & Methoden</h2>
-                    {% for filter in training_filters %}
-                        <h3>{{ filter.name }}</h3>
-                        <ul>
-                            {% for item in filter.description|splitlines %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <h2>Coachingpunkte</h2>
-            {{ object.coaching|safe }}
-            {% if object.variations %}
-                <h2>Variationen</h2>
-                {{ object.variations|safe }}
-            {% endif %}
-        </div>
+        {% include 'symbols/exercise/print.html' %}
     </section>
     {% include 'alpine/exercises.html' %}
 {% endblock main %}

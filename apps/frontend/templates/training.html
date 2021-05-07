@@ -40,16 +40,26 @@
         </p>
     </article>
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise1 %}
+    <article>
+        {% include 'symbols/exercise/print.html' with exercise=object.exercise1 %}
+    </article>
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise2 %}
+    <article>
+        {% include 'symbols/exercise/print.html' with exercise=object.exercise2 %}
+    </article>
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise3 %}
+    <article>
+        {% include 'symbols/exercise/print.html' with exercise=object.exercise3 %}
+    </article>
     <div class="" style="page-break-before: always"></div>
-    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise4 %}
+    <article>
+        {% include 'symbols/exercise/print.html' with exercise=object.exercise4 %}
+    </article>
     {% if object.exercise5 %}
-        <div class="" style="page-break-before: always"></div>
+        <article>
+            <div class="" style="page-break-before: always"></div>
+            {% include 'symbols/exercise/print.html' with exercise=object.exercise5 %}
+        </article>
     {% endif %}
-    {% include 'symbols/pages/training/exercise.html' with exercise=object.exercise5 %}
     </body>
 {% endblock body %}
