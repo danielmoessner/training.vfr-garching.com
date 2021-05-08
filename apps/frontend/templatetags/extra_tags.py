@@ -44,3 +44,10 @@ def get(dictionary, key):
 @register.filter
 def splitlines(value):
     return value.splitlines()
+
+
+@register.filter
+def filter_show_on_detail(filters_qs):
+    filters = list(filters_qs)
+    filters = list(filter(lambda f: f.show_on_detail, filters))
+    return filters

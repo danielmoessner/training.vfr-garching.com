@@ -8,21 +8,19 @@
     <h2>Variationen</h2>
     {{ exercise.variations|safe }}
 {% endif %}
-{#{% with training_filters=exercise.filters.all %}#}
-{#    {% if training_filters %}#}
-<h2>Spielprinzipien & Methoden</h2>
-{% for filter in exercise.filters.all %}
-    {% if filter.show_on_detail %}
-        <b>{{ filter.name }}</b>
-        <ul>
-            {% for item in filter.description|splitlines %}
-                <li>{{ item }}</li>
-            {% endfor %}
-        </ul>
+{% with filters=exercise.filters.all|filter_show_on_detail %}
+    {% if filters %}
+        <h2>Spielprinzipien & Methoden</h2>
+        {% for filter in filters %}
+            <b>{{ filter.name }}</b>
+            <ul>
+                {% for item in filter.description|splitlines %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     {% endif %}
-{% endfor %}
-{#    {% endif %}#}
-{#{% endwith %}#}
+{% endwith %}
 {% if exercise.coaching %}
     <h2>Coachingpunkte</h2>
     {{ exercise.coaching|safe }}
