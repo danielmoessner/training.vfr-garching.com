@@ -11,6 +11,7 @@ urlpatterns = [
     # view stuff
     path('uebungen/', views.ExerciseListView.as_view(), name='exercises'),
     path('uebungen/<int:pk>/', views.ExerciseDetailView.as_view(), name='exercise'),
+    path('uebungen/<int:pk>.pdf', views.ExercisePdfView.as_view(), name='exercise_pdf'),
     path('favoriten/', views.BookmarksView.as_view(), name='favorites'),
     path('generator/', views.GeneratorView.as_view(), name='generator'),
     path('generator/drucken/', views.GeneratorPrintView.as_view(), name='generator_print'),

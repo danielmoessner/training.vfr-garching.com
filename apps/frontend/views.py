@@ -106,7 +106,6 @@ class BookmarksView(ExerciseListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bookmarked_trainings = self.request.user.settings.bookmarks.all()
-        print(bookmarked_trainings)
         if context['user_settings'].search:
             bookmarked_trainings = Exercise.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
         exercises = Exercise.get_trainings_list(context['user_settings'], bookmarked_trainings)
@@ -125,6 +124,21 @@ class ExerciseDetailView(LoginRequiredMixin, SettingsContextMixin, FilterContext
         context['bookmarked'] = self.request.user.settings.bookmarks.filter(pk=self.object.pk).exists()
         context['trainings_count'] = '"1"'
         return context
+
+
+class ExercisePdfView(LoginRequiredMixin, SettingsContextMixin, generic.DetailView):
+    model = Exercise
+    template_name = 'exercise_pdf.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        rendered = render_to_string(self.template_name, context)
+        html = HTML(string=rendered, base_url=self.request.build_absolute_uri())
+        pdf = html.write_pdf()
+        # return HttpResponseRedirect('/media/pdfs/{}.pdf'.format(self.object.pk))
+        response = HttpResponse(pdf)
+        response['Content-Type'] = 'application/pdf'
+        response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(self.object.name)
+        return response
 
 
 class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):

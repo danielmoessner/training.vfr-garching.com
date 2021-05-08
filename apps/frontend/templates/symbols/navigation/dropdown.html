@@ -23,25 +23,36 @@
          x-ref="panel" @mouseover="open = true" @mouseleave="open = false" style="display: none;">
         <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div class="relative grid gap-6 bg-white px-5 py-5 sm:gap-8 sm:p-6">
-                {% if item1_link and item1_name and item1_text %}
+                {% if item1_link and item1_name %}
                     <a href="{{ item1_link }}" target="{{ item1_target|default:'_self' }}"
                        class="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                         <p class="text-sm font-medium text-gray-800">
                             {{ item1_name }}
                         </p>
-                        <p class="mt-1 text-sm text-gray-500">
+                        <p class="hidden mt-1 text-sm text-gray-500">
                             {{ item1_text }}
                         </p>
                     </a>
                 {% endif %}
-                {% if item2_link and item2_name and item2_text %}
+                {% if item2_link and item2_name %}
                     <a href="{{ item2_link }}" target="{{ item2_target|default:'_self' }}"
                        class="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                         <p class="text-sm font-medium text-gray-800">
                             {{ item2_name }}
                         </p>
-                        <p class="mt-1 text-sm text-gray-500">
+                        <p class="hidden mt-1 text-sm text-gray-500">
                             {{ item2_text }}
+                        </p>
+                    </a>
+                {% endif %}
+                {% if item3_link and item3_name %}
+                    <a href="{{ item3_link }}" target="{{ item3_target|default:'_self' }}"
+                       class="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <p class="text-sm font-medium text-gray-800">
+                            {{ item3_name }}
+                        </p>
+                        <p class="hidden mt-1 text-sm text-gray-500">
+                            {{ item3_text }}
                         </p>
                     </a>
                 {% endif %}

@@ -52,10 +52,10 @@
                     </abbr>
                     <abbr title="Übung drucken">
                         <div class="">
-                            <button class="text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200"
-                                    type="button" onclick="window.print(); return false;">
+                            <a class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200"
+                               href="{% url 'exercise_pdf' exercise.pk %}" target="_blank">
                                 {% include 'svg/outline/printer.svg' %}
-                            </button>
+                            </a>
                         </div>
                     </abbr>
                 </div>

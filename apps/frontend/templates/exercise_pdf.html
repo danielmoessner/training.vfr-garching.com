@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+    <body>
+    <style type="text/css">
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        @page {
+            @bottom-right {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                content: counter(page);
+                height: 0.3cm;
+                text-align: center;
+                width: 0.3cm;
+            }
+        }
+    </style>
+    <article>
+        {% include 'symbols/exercise/print.html' with exercise=object %}
+    </article>
+    </body>
+{% endblock body %}

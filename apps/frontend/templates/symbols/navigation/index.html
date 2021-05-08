@@ -13,11 +13,12 @@
             <div aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
                 {% url 'exercises' as exercises_url %}
                 {% url 'favorites' as favorites_url %}
-                {% include 'symbols/navigation/dropdown.html' with name='Übungen' item1_link=exercises_url item1_name='Datenbank' item1_text='Beschreibung' item2_name='Favoriten' item2_link=favorites_url item2_text='Beschreibung' %}
+                {% include 'symbols/navigation/dropdown.html' with name='Stöbern' item1_link=exercises_url item1_name='Übungsdatenbank' item2_name='Favoriten' item2_link=favorites_url %}
+                {% url 'generator' as generator_url %}
                 {% url 'trainings' as trainings_url %}
                 {% url 'trainings_vfr' as trainings_vfr_url %}
-                {% include 'symbols/navigation/dropdown.html' with name='Trainings' item1_link=trainings_url item1_name='Meine Trainings' item1_text='Beschreibung' item2_name='VfR Trainings' item2_link=trainings_vfr_url item2_text='Beschreibung' %}
-                {% include 'symbols/navigation/dropdown.html' with name='Weiteres' item1_link=settings.link item1_target='_blank' item1_name='Ausbildungskonzept' item1_text='Beschreibung' %}
+                {% include 'symbols/navigation/dropdown.html' with name='Planen' item1_name='Trainingsgenerator' item1_link=generator_url item2_link=trainings_url item2_name='Meine Trainings' item3_name='"VfR"-Trainings' item3_link=trainings_vfr_url %}
+                {% include 'symbols/navigation/dropdown.html' with name='Lernen' item1_link=settings.link item1_target='_blank' item1_name='"VfR"-Ausbildungskonzept' %}
             </div>
         </div>
         <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
