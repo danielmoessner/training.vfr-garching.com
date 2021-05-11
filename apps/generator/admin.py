@@ -60,4 +60,10 @@ admin.site.register(Topic, TopicAdmin)
 
 # normal admins
 admin.site.register(Structure)
-admin.site.register(Training)
+
+
+class TrainingAdmin(admin.ModelAdmin):
+    list_display = ('name', 'user')
+
+
+admin.site.register(Training, TrainingAdmin)

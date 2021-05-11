@@ -100,6 +100,15 @@ class TrainingFilterForm(forms.ModelForm):
 
 class TrainingFilterAdmin(admin.ModelAdmin):
     form = TrainingFilterForm
+    list_display = ('name', 'ordering', 'hide', 'show_on_detail', 'exercises_count')
+
+    def exercises_count(self, obj):
+        return obj.trainings.all().count()
+
+    exercises_count.short_description = "Übungen Anzahl"
+
+    def get_queryset(self, request):
+        return Filter.objects.all().prefetch_related('trainings')
 
     def save_model(self, request, obj, form, change):
         # save without m2m field (can't save them until obj has id)
@@ -119,8 +128,13 @@ class TrainingFilterAdmin(admin.ModelAdmin):
 
 admin.site.register(Filter, TrainingFilterAdmin)
 
+
 # default admin for filter and group
-admin.site.register(Group)
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'group')
+
+
+admin.site.register(Group, GroupAdmin)
 admin.site.register(Youth)
 admin.site.register(Difficulty)
 # admin.site.register(Training)

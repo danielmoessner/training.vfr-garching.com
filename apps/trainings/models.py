@@ -116,8 +116,6 @@ class Filter(models.Model):
         ordering = ['ordering']
 
     def __str__(self):
-        if self.hide:
-            return 'Versteckt: {}'.format(self.name)
         return '{}'.format(self.name)
 
     def get_group_path(self):
