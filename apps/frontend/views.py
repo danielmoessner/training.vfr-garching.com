@@ -216,8 +216,8 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         initial_data = {**initial_data_from_get_parameters, **kwargs['initial']}
         kwargs.pop('initial')
         if self.request.method == 'POST':
-            return form_class(user=self.request.user, initial=initial_data, **kwargs)
-        return form_class(initial=initial_data, **kwargs)
+            return form_class(settings=self.request.user.settings, initial=initial_data, **kwargs)
+        return form_class(initial=initial_data, settings=self.request.user.settings, **kwargs)
 
     def get_form_class(self):
         step = self.request.GET.get('step', '1')
@@ -352,15 +352,11 @@ class GeneratorPrintView(LoginRequiredMixin, SettingsContextMixin, generic.FormV
 # save settings views
 class SettingsView(LoginRequiredMixin, SettingsContextMixin, generic.UpdateView):
     template_name = 'settings.html'
-    form_class = UserSettingsForm
+    form_class = SelectAgeGroupForm
+    success_url = reverse_lazy('settings')
 
     def get_object(self, queryset=None):
         return self.request.user.settings
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['age_group_form'] = SelectAgeGroupForm(instance=self.object)
-        return context
 
 
 class AgeGroupFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):

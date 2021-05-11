@@ -1,9 +1,6 @@
 from django.utils.safestring import mark_safe
-
 from apps.generator.models import Topic, Structure, Training
 from django import forms
-
-from apps.users.models import UserSettings
 
 
 class Step1Form(forms.ModelForm):
@@ -11,9 +8,11 @@ class Step1Form(forms.ModelForm):
         model = Training
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
+        if settings:
+            self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
         for field in self.fields:
             if field != 'topic':
                 self.fields[field].widget = forms.HiddenInput()
@@ -25,7 +24,7 @@ class Step2Form(forms.ModelForm):
         model = Training
         fields = '__all__'
 
-    def __init__(self, initial=None, *args, **kwargs):
+    def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
         self.fields['structure'].label = mark_safe('Bitte wähle eine <u>Struktur</u> für dein Training aus')
         if initial and 'topic' in initial and initial['topic'] != '':
@@ -44,7 +43,7 @@ class Step3Form(forms.ModelForm):
         model = Training
         fields = '__all__'
 
-    def __init__(self, initial=None, *args, **kwargs):
+    def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
         self.fields['block2'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 1</u> aus')
         self.fields['block3'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 2</u> aus')
@@ -58,7 +57,7 @@ class Step3Form(forms.ModelForm):
                     self.fields['block{}'.format(i)].empty_label = None
             if not structure.phase5:
                 self.fields['block5'].widget = forms.HiddenInput()
-                self.fields['block4'].label = 'Bitte wähle die Übungsart für den Abschluss aus'
+                self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
         for field in self.fields:
             if field[:5] != 'block':
                 self.fields[field].widget = forms.HiddenInput()
@@ -77,7 +76,7 @@ class Step4Form(forms.ModelForm):
         model = Training
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].required = False
@@ -90,7 +89,7 @@ class Step5Form(forms.ModelForm):
         model = Training
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             if field not in ['name', 'description']:
@@ -105,9 +104,8 @@ class TrainingForm(forms.ModelForm):
         model = Training
         fields = '__all__'
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        settings, created = UserSettings.objects.get_or_create(user=user)
         self.settings = settings
         self.fields['user'].required = False
         self.fields['name'].required = False
