@@ -1,4 +1,4 @@
-from apps.trainings.models import Filter, Exercise
+from apps.trainings.models import Filter, Exercise, Youth
 from django.urls import reverse
 from django.db import models
 import urllib.parse
@@ -55,11 +55,14 @@ class Structure(models.Model):
 class Topic(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
-    or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
-                                        related_name='main_topics')
-    warm_up_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
-                                                related_name='warm_up_topics')
+    youths = models.ManyToManyField(Youth, related_name='topics', verbose_name='Jugenden', blank=True)
     structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')
+    start_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
+                                              related_name='start_topics')
+    main_or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
+                                             related_name='main_topics')
+    end_or_filters = models.ManyToManyField(Filter, verbose_name='ABSCHLUSS ODER Filter', blank=True,
+                                            related_name='end_topic')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -74,6 +77,7 @@ class Topic(models.Model):
 
 class Training(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+    description = models.TextField(verbose_name='Beschreibung', blank=True)
     topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='trainings',
                               blank=True, null=True, verbose_name='Thema')
     structure = models.ForeignKey(Structure, on_delete=models.PROTECT, related_name='trainings',

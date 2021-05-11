@@ -3,7 +3,7 @@
             class="group bg-white rounded-md inline-flex items-center text-gray-800 text-sm font-medium px-3 py-2 focus:outline-none"
             :class="{ 'underline': open, 'text-gray-800': !(open) }" @mouseleave="open = false"
             @mouseover="open = true">
-        <span>{{ name|default:'Name' }}</span>
+        <span class="tracking-wide">{{ name|default:'Name' }}</span>
         <svg class="ml-2 h-5 w-5 text-gray-600 hidden"
              :class="{ 'text-gray-800': open, 'text-gray-600': !(open) }"
              xmlns="http://www.w3.org/2000/svg"

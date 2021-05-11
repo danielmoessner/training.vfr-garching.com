@@ -1,3 +1,5 @@
+from django.utils.safestring import mark_safe
+
 from apps.generator.models import Topic, Structure, Training
 from django import forms
 
@@ -11,7 +13,7 @@ class Step1Form(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['topic'].label = 'Bitte wähle ein Thema für dein Training aus'
+        self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
         for field in self.fields:
             if field != 'topic':
                 self.fields[field].widget = forms.HiddenInput()
@@ -25,7 +27,7 @@ class Step2Form(forms.ModelForm):
 
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
-        self.fields['structure'].label = 'Bitte wähle eine Struktur für dein Training aus'
+        self.fields['structure'].label = mark_safe('Bitte wähle eine <u>Struktur</u> für dein Training aus')
         if initial and 'topic' in initial and initial['topic'] != '':
             initial['topic'] = initial['topic']
             topic = Topic.objects.get(pk=initial['topic'])
@@ -44,9 +46,9 @@ class Step3Form(forms.ModelForm):
 
     def __init__(self, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
-        self.fields['block2'].label = 'Bitte wähle die Übungsart für den Hauptteil 1 aus'
-        self.fields['block3'].label = 'Bitte wähle die Übungsart für den Hauptteil 2 aus'
-        self.fields['block4'].label = 'Bitte wähle die Übungsart für den Hauptteil 3 aus'
+        self.fields['block2'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 1</u> aus')
+        self.fields['block3'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 2</u> aus')
+        self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 3</u> aus')
         if initial and 'structure' in initial and initial['structure'] != '':
             structure = Structure.objects.get(pk__in=initial['structure'])
             for i in range(1, 6):
@@ -65,8 +67,8 @@ class Step3Form(forms.ModelForm):
                     self.fields[field].widget = forms.HiddenInput()
             self.fields[field].widget.attrs = {'x-model': field}
         self.fields['topic'].widget = forms.HiddenInput()
-        self.fields['block1'].label = 'Bitte wähle die Übungsart für das Warm-Up aus'
-        self.fields['block5'].label = 'Bitte wähle die Übungsart für den Abschluss aus'
+        self.fields['block1'].label = mark_safe('Bitte wähle die Übungsart für das <u>Warm-Up</u> aus')
+        self.fields['block5'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
         self.fields['structure'].widget = forms.HiddenInput()
 
 
@@ -91,10 +93,11 @@ class Step5Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            if field != 'name':
+            if field not in ['name', 'description']:
                 self.fields[field].widget = forms.HiddenInput()
             self.fields[field].widget.attrs = {'x-model': field}
         self.fields['name'].label = 'Bitte gib einen Namen für die Trainingseinheit an'
+        self.fields['description'].label = 'Bitte gib eine Beschreibung für die Trainingseinheit an'
 
 
 class TrainingForm(forms.ModelForm):

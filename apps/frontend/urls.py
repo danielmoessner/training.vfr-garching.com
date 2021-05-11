@@ -20,6 +20,7 @@ urlpatterns = [
     path('trainings/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),
     path('trainings/<int:pk>/bearbeiten/', views.GeneratorView.as_view(), name='training_update'),
     path('trainings/<int:pk>.pdf', views.TrainingPdfView.as_view(), name='training_pdf'),
+    path('einstellungen/', views.SettingsView.as_view(), name='settings'),
     # form stuff
     path('suche/', views.SearchFormView.as_view(), name='search'),
     path('einstellungen/altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),

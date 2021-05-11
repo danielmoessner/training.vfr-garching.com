@@ -3,13 +3,14 @@ from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView a
 from django.template.loader import render_to_string
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
+from apps.settings.models import Trainings
 from apps.trainings.models import Exercise, Group, Filter, Difficulty
 from apps.generator.models import Structure, Topic, Block, Training
 from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import General
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
-from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm
+from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm, UserSettingsForm
 from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
@@ -251,6 +252,8 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # general stuff
+        context['page'] = Trainings.get_solo()
         # try to edit
         training_pk = self.request.GET.get('training', default=None)
         if training_pk and Training.objects.filter(user=self.request.user.settings, pk=training_pk).exists():
@@ -274,7 +277,7 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
         for i in range(1, 6):
             exercise_pk = self.request.GET.get('exercise{}'.format(i), default=None)
             if exercise_pk and exercise_pk != '0':
-                context['exercise{}'.format(i)] = Exercise.objects.get(pk=exercise_pk)
+                context['exercise{}'.format(i)] = Exercise.objects.select_related('difficulty').get(pk=exercise_pk)
         # step specific context of what the user can select
         if step == '1':
             context['topics'] = Topic.objects.all()
@@ -287,30 +290,35 @@ class GeneratorView(LoginRequiredMixin, SettingsContextMixin, generic.FormView):
                     context['block{}'.format(i)] = context['form'].fields['block{}'.format(i)].queryset.first()
         elif step == '4':
             context['exercises_total'] = Exercise.objects.all().count()
-            if 'structure' in context and 'topic' in context and 'block{}'.format(exercise_step) in context:
-                structure = context['structure']
-                topic = context['topic']
-                block = context['block{}'.format(exercise_step)]
-                phase = getattr(structure, 'phase{}'.format(exercise_step))
-                context['possible_exercises'] = Exercise.filter_by_topic_and_block(topic, block, phase)
-            else:
-                context['possible_exercises'] = Exercise.objects.all()
+            context['possible_exercises'] = Exercise.objects.all().select_related('difficulty')
+            if 'block{}'.format(exercise_step) in context:
+                context['possible_exercises'] = Exercise.filter_by_block(context['possible_exercises'],
+                                                                         context['block{}'.format(exercise_step)])
+            if 'structure' in context and 'topic' in context:
+                phase = getattr(context['structure'], 'phase{}'.format(exercise_step))
+                context['possible_exercises'] = Exercise.filter_by_topic(
+                    context['possible_exercises'],
+                    context['topic'],
+                    phase
+                )
             if context['user_settings'].search:
-                context['possible_exercises'] = Exercise.get_search_queryset(context['user_settings'].search,
-                                                                             context['possible_exercises'])
+                context['possible_exercises'] = (
+                    Exercise
+                        .get_search_queryset(context['user_settings'].search, context['possible_exercises'])
+                        .select_related('difficulty')
+                )
+        if step in ['4', '5']:
             exercise_pks = []
             for i in range(1, 6):
                 exercise_pks.append(self.request.GET.get('exercise{}'.format(i), default='0'))
             exercise_pks = list(filter(lambda x: x != '', exercise_pks))
-            context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks).order_by().union(
-                context['possible_exercises'].order_by())
-        elif step == '5':
-            exercise_pks = []
-            for i in range(1, 6):
-                exercise_pks.append(self.request.GET.get('exercise{}'.format(i), default='0'))
-            exercise_pks = list(filter(lambda x: x != '', exercise_pks))
-            context['exercises'] = Exercise.objects.filter(pk__in=exercise_pks).select_related(
-                'difficulty').prefetch_related('filters')
+            exercises1 = Exercise.objects.filter(pk__in=exercise_pks).select_related('difficulty').prefetch_related(
+                'filters')
+            context['exercises'] = list(exercises1)
+            if step == '4':
+                exercises2 = context['possible_exercises'].exclude(pk__in=exercise_pks).select_related(
+                    'difficulty').prefetch_related('filters')
+                context['exercises'] = context['exercises'] + list(exercises2)
         # return
         return context
 
@@ -342,6 +350,19 @@ class GeneratorPrintView(LoginRequiredMixin, SettingsContextMixin, generic.FormV
 
 
 # save settings views
+class SettingsView(LoginRequiredMixin, SettingsContextMixin, generic.UpdateView):
+    template_name = 'settings.html'
+    form_class = UserSettingsForm
+
+    def get_object(self, queryset=None):
+        return self.request.user.settings
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['age_group_form'] = SelectAgeGroupForm(instance=self.object)
+        return context
+
+
 class AgeGroupFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
     form_class = SelectAgeGroupForm
 

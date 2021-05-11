@@ -1,4 +1,4 @@
-<div class="grid gap-4 {% if page == 'trainings' and not exercise5 %}grid-cols-4{% else %}grid-cols-5{% endif %}" id="blocks">
+<div class="grid gap-4 {% if page == 'trainings' and not exercise5 %}grid-cols-4{% elif structure and not structure.phase5 %}grid-cols-4{% else %}grid-cols-5{% endif %}" id="blocks">
     {% if structure %}
         {% include 'symbols/training/blocks_block.html' with number='1' block=block1 blocks=structure.blocks1 phase=structure.get_phase1_display %}
         {% include 'symbols/training/blocks_block.html' with number='2' block=block2 blocks=structure.blocks2 phase=structure.get_phase2_display %}

@@ -1,11 +1,9 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Q
-from django.urls import reverse
 from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
-import urllib.parse
 
 
 class Difficulty(models.Model):
@@ -209,6 +207,7 @@ class Exercise(models.Model):
     def get_search_queryset(search, trainings=None):
         if trainings is None:
             trainings = Exercise.objects.all()
+
         trainings = trainings.filter(
             Q(name__icontains=search) |
             Q(filters__name__icontains=search) |
@@ -224,18 +223,22 @@ class Exercise(models.Model):
             exercises = exercises.filter(filters__in=or_filters).distinct()
         for training_filter in and_filters:
             exercises = exercises.filter(filters=training_filter)
+        exercises = exercises.distinct()
         return exercises
 
     @staticmethod
     def filter_by_topic(exercises, topic, phase):
         if phase == 'MAIN':
-            filters = topic.or_filters.all()
+            filters = topic.main_or_filters.all()
         elif phase == 'START':
-            filters = topic.warm_up_or_filters.all()
+            filters = topic.start_or_filters.all()
+        elif phase == 'END':
+            filters = topic.end_or_filters.all()
         else:
             return exercises
         if filters.count() > 0:
             exercises = exercises.filter(filters__in=filters).distinct()
+        exercises = exercises.distinct()
         return exercises
 
     @staticmethod
@@ -246,7 +249,6 @@ class Exercise(models.Model):
         exercises = Exercise.filter_by_block(exercises, block)
         exercises = Exercise.filter_by_topic(exercises, topic, phase)
         return exercises
-
 
 # class Training(models.Model):
 #     name = models.CharField(verbose_name='Name', max_length=80)

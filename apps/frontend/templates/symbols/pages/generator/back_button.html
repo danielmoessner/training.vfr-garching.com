@@ -1,5 +1,6 @@
-<a class="{% include 'symbols/button_gray.txt' with size='px-5 py-3 text-base' %}"
+<a class="{% include 'symbols/button_red.txt' with size='px-5 py-3 text-base' %}"
    href="{% spaceless %}{% url 'generator' %}?{% include 'symbols/pages/generator/url_params.html' %}{% include 'symbols/pages/generator/url_params_back_exercise.html' %}&{% include 'symbols/pages/generator/url_params_back_step.html' %}{% endspaceless %}"
 >
-    Zurück
+    {% include 'svg/solid/arrow-left.svg' %}
+    <span class="ml-2">Zurück</span>
 </a>

@@ -17,3 +17,25 @@ class General(SingletonModel):
 
     def __str__(self):
         return 'Allgemein'
+
+
+class Trainings(SingletonModel):
+    step1_heading = models.CharField(verbose_name='Schritt 1 Überschrift', max_length=100)
+    step1_info = models.TextField(verbose_name='Schritt 1 Info')
+    step2_heading = models.CharField(verbose_name='Schritt 2 Überschrift', max_length=100)
+    step2_info = models.TextField(verbose_name='Schritt 2 Info')
+    step3_heading = models.CharField(verbose_name='Schritt 3 Überschrift', max_length=100)
+    step3_info = models.TextField(verbose_name='Schritt 3 Info')
+    step4_heading = models.CharField(verbose_name='Schritt 4 Überschrift', max_length=100)
+    step4_info = models.TextField(verbose_name='Schritt 4 Info')
+    step5_heading = models.CharField(verbose_name='Schritt 5 Überschrift', max_length=100)
+    step5_info = models.TextField(verbose_name='Schritt 5 Info')
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Trainings'
+        verbose_name_plural = 'Trainings'
+
+    def __str__(self):
+        return 'Trainings'

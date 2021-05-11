@@ -5,6 +5,7 @@
     window.generator = () => {
         return {
             name: "{{ training.name|default:'' }}",
+            description: "{{ training.description|default:'' }}",
             topic: {{ topic.pk|default:"''" }},
             structure: {{ structure.pk|default:"''" }},
             block1: {{ block1.pk|default:"''" }},

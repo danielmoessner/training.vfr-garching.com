@@ -34,16 +34,22 @@ admin.site.register(Block, BlockAdmin)
 
 # overwrite topic admin
 class TopicForm(forms.ModelForm):
-    or_filters = forms.ModelMultipleChoiceField(
+    start_or_filters = forms.ModelMultipleChoiceField(
+        queryset=Filter.objects.all(),
+        widget=FilterWidget(name='start_or'),
+        label="WARM-UP ODER Filter",
+        required=False
+    )
+    main_or_filters = forms.ModelMultipleChoiceField(
         queryset=Filter.objects.all(),
         widget=FilterWidget(name='main_or'),
         label="HAUPTTEIL ODER Filter",
         required=False
     )
-    warm_up_or_filters = forms.ModelMultipleChoiceField(
+    end_or_filters = forms.ModelMultipleChoiceField(
         queryset=Filter.objects.all(),
-        widget=FilterWidget(name='warm_up_or'),
-        label="WARM-UP ODER Filter",
+        widget=FilterWidget(name='end_or'),
+        label="ABSCHLUSS ODER Filter",
         required=False
     )
 
