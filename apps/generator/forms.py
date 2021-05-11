@@ -11,6 +11,7 @@ class Step1Form(forms.ModelForm):
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
+        self.fields['topic'].required = True
         if settings:
             self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
         for field in self.fields:
@@ -27,6 +28,7 @@ class Step2Form(forms.ModelForm):
     def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
         self.fields['structure'].label = mark_safe('Bitte wähle eine <u>Struktur</u> für dein Training aus')
+        self.fields['structure'].required = True
         if initial and 'topic' in initial and initial['topic'] != '':
             initial['topic'] = initial['topic']
             topic = Topic.objects.get(pk=initial['topic'])
@@ -51,6 +53,7 @@ class Step3Form(forms.ModelForm):
         if initial and 'structure' in initial and initial['structure'] != '':
             structure = Structure.objects.get(pk__in=initial['structure'])
             for i in range(1, 6):
+                self.fields['block{}'.format(i)].required = True
                 queryset = getattr(structure, 'blocks{}'.format(i)).all()
                 self.fields['block{}'.format(i)].queryset = queryset
                 if queryset.count() == 1:
