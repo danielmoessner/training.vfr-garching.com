@@ -1,0 +1,48 @@
+{% load static %}
+{% load extra_tags %}
+
+<script>
+    window.searchAlpine = () => {
+        return {
+            search: "{{ user_settings.search|default:'' }}",
+            resultFilters: [],
+            resultExercises: [],
+            query: 0,
+            changed: false,
+            fetching: false,
+            init() {
+                this.$watch('search', value => this.getResults(value))
+            },
+            getResults(searchString) {
+                this.changed = true;
+                this.fetching = true;
+                this.query += 1;
+                const query = this.query;
+                fetch(`/api/search/?search=${searchString}`, {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                })
+                    .then(response => response.json())
+                    .then((data) => {
+                        if (query === this.query) {
+                            this.resultFilters = data.filters;
+                            this.resultExercises = data.exercises;
+                            this.lastResult = new Date();
+                            this.fetching = false;
+                        }
+                    })
+            },
+            resultClicked(name) {
+                {#this.search = name;#}
+                this.$refs.searchInput.value = name;
+                this.$refs.form.submit()
+                {#this.$nextTick(() => this.$refs.form.submit());#}
+            }
+        }
+    }
+</script>

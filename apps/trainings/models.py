@@ -123,6 +123,10 @@ class Filter(models.Model):
         return '<b>{}:</b> {}'.format(self.group.name, self.name)
 
     @staticmethod
+    def search(filters, search):
+        return filters.filter(name__icontains=search)
+
+    @staticmethod
     def get_filters_dict(settings=None):
         filters = {}
         training_filters = Filter.objects.filter(hide=False)
@@ -204,15 +208,19 @@ class Exercise(models.Model):
         return self.filters.filter(show_on_detail=True)
 
     @staticmethod
-    def get_search_queryset(search, trainings=None):
-        if trainings is None:
-            trainings = Exercise.objects.all()
-
-        trainings = trainings.filter(
+    def search(exercises, search):
+        return exercises.filter(
             Q(name__icontains=search) |
             Q(filters__name__icontains=search) |
             Q(focus__icontains=search)
         ).distinct()
+
+    @staticmethod
+    def get_search_queryset(search, trainings=None):
+        if trainings is None:
+            trainings = Exercise.objects.all()
+
+        trainings = Exercise.search(trainings, search)
         return trainings
 
     @staticmethod

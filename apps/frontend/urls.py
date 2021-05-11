@@ -23,15 +23,16 @@ urlpatterns = [
     path('einstellungen/', views.SettingsView.as_view(), name='settings'),
     # form stuff
     path('suche/', views.SearchFormView.as_view(), name='search'),
-    path('einstellungen/altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),
-    path('einstellungen/schwierigkeiten-speichern/', views.DifficultiesFormView.as_view(), name='save_difficulties'),
+    # path('einstellungen/altersgruppe-speichern/', views.AgeGroupFormView.as_view(), name='save_age_group'),
+    # path('einstellungen/schwierigkeiten-speichern/', views.DifficultiesFormView.as_view(), name='save_difficulties'),
     # save stuff on get
     path('uebungen/<int:pk>/lesezeichen/', views.BookmarkTrainingView.as_view(), name='training_bookmark'),
-    path('einstellungen/altersgruppe-zuruecksetzen/', views.ResetAgeGroupView.as_view(), name='reset_age_group'),
+    # path('einstellungen/altersgruppe-zuruecksetzen/', views.ResetAgeGroupView.as_view(), name='reset_age_group'),
     path('einstellungen/filter-zuruecksetzen/', views.ResetTrainingFiltersView.as_view(), name='reset_training_filters'),
-    path('einstellungen/schwierigkeit-zuruecksetzen/', views.ResetDifficultyView.as_view(), name='reset_difficulty'),
+    # path('einstellungen/schwierigkeit-zuruecksetzen/', views.ResetDifficultyView.as_view(), name='reset_difficulty'),
     # api stuff
     path('api/filter_groups/<int:pk>/', views.ToggleFilterGroupApiView.as_view(), name='api_toggle_filter_group'),
     path('api/training_filters/<int:pk>/', views.ToggleTrainingFilterApiView.as_view(),
          name='api_toggle_training_filter'),
+    path('api/search/', views.SearchApiView.as_view(), name='api_search')
 ]

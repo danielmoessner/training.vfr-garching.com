@@ -454,3 +454,18 @@ class ToggleTrainingFilterApiView(APIView):
             'videos': trainings.count()
         }
         return Response(data)
+
+
+class SearchApiView(APIView):
+    def get(self, request):
+        search = request.GET.get('search', default='')
+        if search:
+            exercises = Exercise.search(Exercise.objects.all(), search)
+            exercises = [{'name': result.name, 'type': 'EXERCISE', 'focus': result.focus} for result in exercises]
+            filters = Filter.search(Filter.objects.all(), search)
+            filters = [{'name': result.name, 'type': 'FILTER'} for result in filters]
+            results = {'exercises': exercises, 'filters': filters}
+            data = results
+        else:
+            data = {'exercises': [], 'filters': []}
+        return Response(data)
