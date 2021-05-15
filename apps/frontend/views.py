@@ -152,7 +152,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
-        context['form'] = TopicForm()
+        context['form'] = TopicForm(settings=self.request.user.settings)
         return context
 
 
@@ -166,7 +166,7 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
-        context['form'] = TopicForm()
+        context['form'] = TopicForm(settings=self.request.user.settings)
         return context
 
 

@@ -126,7 +126,9 @@ class TrainingForm(forms.ModelForm):
 class TopicForm(forms.Form):
     topic = forms.ModelChoiceField(queryset=Topic.objects.all(), label='Nach Thema filtern')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if settings:
+            self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
         for field in self.fields:
             self.fields[field].widget.attrs = {'x-model': field}
