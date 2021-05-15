@@ -67,9 +67,23 @@
                             </a>
                         </div>
                     </abbr>
-                    <abbr title="Link kopieren">
-                        <div class="">
-                            <button onclick="copyText{{ exercise.pk }}()" type="button"
+                    <abbr x-data="{ showTooltip: false }" title="Link kopieren">
+                        <div class="relative">
+                            <div style="left: 50%;"
+                                 class="w-32 text-center flex justify-center absolute -translate-x-1/2 transform top-0 -translate-y-full"
+                                 x-show="showTooltip"
+                                 x-transition:enter="transition duration-100"
+                                 x-transition:enter-start="opacity-0 transform scale-90"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition duration-100"
+                                 x-transition:leave-end="opacity-0 transform scale-90"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                            >
+                                <div class="bg-white shadow rounded-sm text-sm px-1.5 py-0.5">
+                                    Link kopiert
+                                </div>
+                            </div>
+                            <button @click="showTooltip = true; setTimeout(() => showTooltip = false, 2000)" onclick="copyText{{ exercise.pk }}()" type="button"
                                     class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200">
                                 {% include 'svg/outline/clipboard-copy.svg' %}
                             </button>
@@ -78,6 +92,8 @@
                                id="copy-exercise-input-{{ exercise.pk }}">
                         <script>
                             function copyText{{ exercise.pk }}() {
+                                clicked = true;
+                                console.log('hello')
                                 let copyInput = document.getElementById("copy-exercise-input-{{ exercise.pk }}");
                                 copyInput.classList.remove('hidden!')
                                 copyInput.select();
