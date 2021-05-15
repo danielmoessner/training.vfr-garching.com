@@ -58,24 +58,36 @@
                             </a>
                         </div>
                     </abbr>
+                    <abbr title="Auf WhatsApp teilen">
+                        <div>
+                            <a class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200"
+                               href="whatsapp://send?text={{ exercise.get_whatsapp_url }}"
+                               data-action="share/whatsapp/share">
+                                {% include 'svg/outline/share.svg' %}
+                            </a>
+                        </div>
+                    </abbr>
                     <abbr title="Link kopieren">
                         <div class="">
-                            <button onclick="copyText()" type="button" class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200">
+                            <button onclick="copyText{{ exercise.pk }}()" type="button"
+                                    class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200">
                                 {% include 'svg/outline/clipboard-copy.svg' %}
                             </button>
                         </div>
+                        <input class="hidden!" style="" type="text" value="{{ exercise.get_share_url }}"
+                               id="copy-exercise-input-{{ exercise.pk }}">
+                        <script>
+                            function copyText{{ exercise.pk }}() {
+                                let copyInput = document.getElementById("copy-exercise-input-{{ exercise.pk }}");
+                                copyInput.classList.remove('hidden!')
+                                copyInput.select();
+                                copyInput.setSelectionRange(0, 99999)
+                                document.execCommand("copy");
+                                copyInput.classList.add('hidden!')
+                            }
+                        </script>
                     </abbr>
-                    <input class="hidden!" style="" type="text" value="https://training.vfr-garching.com{{ exercise.get_absolute_url }}" id="copy-exercise-input-{{ exercise.pk }}">
-                    <script>
-                        function copyText() {
-                            let copyInput = document.getElementById("copy-exercise-input-{{ exercise.pk }}");
-                            copyInput.classList.remove('hidden!')
-                            copyInput.select();
-                            copyInput.setSelectionRange(0, 99999)
-                            document.execCommand("copy");
-                            copyInput.classList.add('hidden!')
-                        }
-                    </script>
+
                 </div>
             </div>
 

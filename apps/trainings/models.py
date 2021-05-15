@@ -5,6 +5,7 @@ from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
+import urllib.parse
 
 
 class Difficulty(models.Model):
@@ -196,6 +197,14 @@ class Exercise(models.Model):
 
     def get_absolute_url(self):
         return reverse('exercise', args=[self.pk])
+
+    def get_share_url(self):
+        part1 = 'https://training.vfr-garching.com'
+        part2 = self.get_absolute_url()
+        return '{}{}'.format(part1, part2)
+
+    def get_whatsapp_url(self):
+        return urllib.parse.quote(self.get_share_url())
 
     def get_video_code(self):
         if self.video:
