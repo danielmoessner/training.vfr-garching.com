@@ -4,7 +4,7 @@
 <script>
     window.searchAlpine = () => {
         return {
-            search: "{{ user_settings.search|default:'' }}",
+            search: "{{ user_settings.search|safe|default:'' }}",
             resultFilters: [],
             resultExercises: [],
             query: 0,

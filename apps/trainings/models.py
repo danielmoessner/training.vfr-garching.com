@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Q
+from django.urls import reverse
 from tinymce.models import HTMLField
 from django.utils import timezone
 from django.db import models
@@ -193,6 +194,9 @@ class Exercise(models.Model):
             trainings_list.append(data)
         return trainings_list
 
+    def get_absolute_url(self):
+        return reverse('exercise', args=[self.pk])
+
     def get_video_code(self):
         if self.video:
             return self.video.split('/')[-1]
@@ -236,6 +240,9 @@ class Exercise(models.Model):
 
     @staticmethod
     def filter_by_topic(exercises, topic, phase):
+        filters = topic.general_or_filters.all()
+        if filters.count() > 0:
+            exercises = exercises.filter(filters__in=filters).distinct()
         if phase == 'MAIN':
             filters = topic.main_or_filters.all()
         elif phase == 'START':
@@ -257,103 +264,3 @@ class Exercise(models.Model):
         exercises = Exercise.filter_by_block(exercises, block)
         exercises = Exercise.filter_by_topic(exercises, topic, phase)
         return exercises
-
-# class Training(models.Model):
-#     name = models.CharField(verbose_name='Name', max_length=80)
-#     topic = models.ForeignKey('generator.Topic', on_delete=models.PROTECT, related_name='trainings',
-#                               blank=True, null=True, verbose_name='Thema')
-#     structure = models.ForeignKey('generator.Structure', on_delete=models.PROTECT, related_name='trainings',
-#                                   blank=True, null=True, verbose_name='Trainingsstruktur')
-#     exercise1 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings1', verbose_name='Übung 1',
-#                                   blank=True, null=True)
-#     block1 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings1',
-#                                verbose_name='Block 1', blank=True, null=True)
-#     exercise2 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings2', verbose_name='Übung 2',
-#                                   blank=True, null=True)
-#     block2 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings2',
-#                                verbose_name='Block 2', blank=True, null=True)
-#     exercise3 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings3', verbose_name='Übung 3',
-#                                   blank=True, null=True)
-#     block3 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings3',
-#                                verbose_name='Block 3', blank=True, null=True)
-#     exercise4 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings4', verbose_name='Übung 4',
-#                                   blank=True, null=True)
-#     block4 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings4',
-#                                verbose_name='Block 4', blank=True, null=True)
-#     exercise5 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings5', verbose_name='Übung 5',
-#                                   blank=True, null=True)
-#     block5 = models.ForeignKey('generator.Block', on_delete=models.SET_NULL, related_name='trainings5',
-#                                verbose_name='Block 5', blank=True, null=True)
-#     user = models.ForeignKey('users.UserSettings', on_delete=models.PROTECT, related_name='trainings',
-#                              verbose_name='Nutzer', blank=True, null=True)
-#     updated = models.DateTimeField(auto_now=True)
-#     created = models.DateTimeField(auto_now_add=True)
-#
-#     class Meta:
-#         verbose_name = 'Training'
-#         verbose_name_plural = 'Trainings'
-#         ordering = ['user', '-created']
-#
-#     def __str__(self):
-#         name = '{}'.format(self.name)
-#         if not self.user:
-#             return name
-#         return 'VfR Training: {}'.format(name)
-#
-#     def get_exercise_pk(self, number):
-#         exercise = getattr(self, 'exercise{}'.format(number), None)
-#         if exercise:
-#             return exercise.pk
-#         return ''
-#
-#     def get_block_pk(self, number):
-#         block = getattr(self, 'block{}'.format(number), None)
-#         if block:
-#             return block.pk
-#         return ''
-#
-#     def get_structure_pk(self):
-#         if self.structure:
-#             return self.structure.pk
-#         return ''
-#
-#     def get_topic_pk(self):
-#         if self.topic:
-#             return self.topic.pk
-#         return ''
-#
-#     def get_base_url(self):
-#         part1 = '{}'.format(reverse('generator'))
-#         part2 = '?topic={}&structure={}'.format(self.get_topic_pk(),
-#                                                 self.get_structure_pk())
-#         part3 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
-#                                                                             self.get_block_pk(2),
-#                                                                             self.get_block_pk(3),
-#                                                                             self.get_block_pk(4),
-#                                                                             self.get_block_pk(5))
-#         part4 = '&exercise1={}&exercise2={}&exercise3={}&exercise4={}&exercise5={}'.format(self.get_exercise_pk(1),
-#                                                                                            self.get_exercise_pk(2),
-#                                                                                            self.get_exercise_pk(3),
-#                                                                                            self.get_exercise_pk(4),
-#                                                                                            self.get_exercise_pk(5))
-#         return '{}{}{}{}'.format(part1, part2, part3, part4)
-#
-#     def get_whatsapp_url(self):
-#         part1 = 'https://training.vfr-garching.com'
-#         part2 = self.get_base_url()
-#         part3 = '&step=5&exercise_step=6'
-#         url = '{}{}{}'.format(part1, part2, part3)
-#         return urllib.parse.quote(url)
-#
-#     def get_share_url(self):
-#         part1 = 'https://training.vfr-garching.com'
-#         part2 = self.get_base_url()
-#         part3 = '&step=5&exercise_step=6'
-#         url = '{}{}{}'.format(part1, part2, part3)
-#         return url
-#
-#     def get_edit_url(self):
-#         part1 = self.get_base_url()
-#         part2 = '&training={}'.format(self.pk)
-#         part3 = '&step=4&exercise_step=1'
-#         return '{}{}{}'.format(part1, part2, part3)

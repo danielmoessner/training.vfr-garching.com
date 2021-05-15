@@ -58,6 +58,24 @@
                             </a>
                         </div>
                     </abbr>
+                    <abbr title="Link kopieren">
+                        <div class="">
+                            <button onclick="copyText()" type="button" class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200">
+                                {% include 'svg/outline/clipboard-copy.svg' %}
+                            </button>
+                        </div>
+                    </abbr>
+                    <input class="hidden!" style="" type="text" value="https://training.vfr-garching.com{{ exercise.get_absolute_url }}" id="copy-exercise-input-{{ exercise.pk }}">
+                    <script>
+                        function copyText() {
+                            let copyInput = document.getElementById("copy-exercise-input-{{ exercise.pk }}");
+                            copyInput.classList.remove('hidden!')
+                            copyInput.select();
+                            copyInput.setSelectionRange(0, 99999)
+                            document.execCommand("copy");
+                            copyInput.classList.add('hidden!')
+                        }
+                    </script>
                 </div>
             </div>
 

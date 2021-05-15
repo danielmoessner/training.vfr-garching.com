@@ -460,9 +460,9 @@ class SearchApiView(APIView):
     def get(self, request):
         search = request.GET.get('search', default='')
         if search:
-            exercises = Exercise.search(Exercise.objects.all(), search)
+            exercises = Exercise.search(Exercise.objects.all(), search)[:5]
             exercises = [{'name': result.name, 'type': 'EXERCISE', 'focus': result.focus} for result in exercises]
-            filters = Filter.search(Filter.objects.all(), search)
+            filters = Filter.search(Filter.objects.all(), search)[:5]
             filters = [{'name': result.name, 'type': 'FILTER'} for result in filters]
             results = {'exercises': exercises, 'filters': filters}
             data = results
