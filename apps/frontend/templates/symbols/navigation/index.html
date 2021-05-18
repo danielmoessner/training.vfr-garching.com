@@ -3,7 +3,7 @@
 {% load imagefit %}
 
 <nav class="{% include 'symbols/container.txt' %} lg:px-10 py-2 bg-white shadow-sm relative print:hidden">
-    <div class="flex justify-between " x-data="{open: false}">
+    <div class="flex justify-between flex-wrap sm:flex-wrap-none" x-data="{open: false}">
         <div class="flex px-2 lg:px-0">
             <div class="flex-shrink-0 flex items-center">
                 <a href="{% url 'exercises' %}">
@@ -27,10 +27,10 @@
                 {% include 'symbols/navigation/dropdown.html' with name='LERNEN' item1_link=settings.link item1_target='_blank' item1_name='"VfR"-Ausbildungskonzept' %}
             </div>
         </div>
-        <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
+        <div class="order-3 mt-2 w-full flex items-center px-2 sm:mt-0 sm:order-none sm:w-auto sm:flex-1 lg:ml-6 lg:justify-end">
             {% include 'symbols/navigation/search.html' %}
         </div>
-        <div class="flex items-center lg:hidden">
+        <div class="flex items-center ml-auto sm:ml-0 lg:hidden">
             <button type="button"
                     x-on:click="open = !open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
@@ -43,7 +43,7 @@
                 </svg>
             </button>
         </div>
-        <div class="lg:hidden">
+        <div class="lg:hidden" x-cloak>
             <div x-show="open"
                  x-transition:enter="duration-150 ease-out"
                  x-transition:enter-start="opacity-0"
@@ -81,19 +81,19 @@
                             </div>
                         </div>
                         <div class="mt-3 px-2 space-y-1">
-                            <div class="pl-3 pt-4 text-gray-700 text-xs uppercase tracking-wide font-medium">Stöbern</div>
+                            <div class="pl-3 pt-4 text-red-600 text-xs uppercase tracking-wide font-medium">Stöbern</div>
                             {% url 'exercises' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Übungsdatenbank' href=url %}
                             {% url 'favorites' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Favoriten' href=url %}
-                            <div class="pl-3 pt-4 text-gray-700 text-xs uppercase tracking-wide font-medium">Planen</div>
+                            <div class="pl-3 pt-4 text-red-600 text-xs uppercase tracking-wide font-medium">Planen</div>
                             {% url 'generator' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Trainingsgenerator' href=url %}
                             {% url 'trainings' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='Meine Trainings' href=url %}
                             {% url 'trainings_vfr' as url %}
                             {% include 'symbols/navigation/mobile_link.html' with text='VfR Trainings' href=url %}
-                            <div class="pl-3 pt-4 text-gray-700 text-xs uppercase tracking-wide font-medium">Lernen</div>
+                            <div class="pl-3 pt-4 text-red-600 text-xs uppercase tracking-wide font-medium">Lernen</div>
                             {% include 'symbols/navigation/mobile_link.html' with text='Ausbildungskonzept' target='_blank' href=settings.link %}
                         </div>
                     </div>

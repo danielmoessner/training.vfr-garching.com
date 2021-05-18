@@ -47,11 +47,13 @@ class Step3Form(forms.ModelForm):
 
     def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
+        self.fields['block1'].label = mark_safe('Bitte wähle die Übungsart für das <u>Warm-Up</u> aus')
         self.fields['block2'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 1</u> aus')
         self.fields['block3'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 2</u> aus')
         self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 3</u> aus')
+        self.fields['block5'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
         if initial and 'structure' in initial and initial['structure'] != '':
-            structure = Structure.objects.get(pk__in=initial['structure'])
+            structure = Structure.objects.get(pk=initial['structure'])
             for i in range(1, 6):
                 self.fields['block{}'.format(i)].required = True
                 queryset = getattr(structure, 'blocks{}'.format(i)).all()
@@ -68,10 +70,6 @@ class Step3Form(forms.ModelForm):
                 if self.fields[field].queryset.count() == 1:
                     self.fields[field].widget = forms.HiddenInput()
             self.fields[field].widget.attrs = {'x-model': field}
-        self.fields['topic'].widget = forms.HiddenInput()
-        self.fields['block1'].label = mark_safe('Bitte wähle die Übungsart für das <u>Warm-Up</u> aus')
-        self.fields['block5'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
-        self.fields['structure'].widget = forms.HiddenInput()
 
 
 class Step4Form(forms.ModelForm):
@@ -126,7 +124,9 @@ class TrainingForm(forms.ModelForm):
 class TopicForm(forms.Form):
     topic = forms.ModelChoiceField(queryset=Topic.objects.all(), label='Nach Thema filtern')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if settings:
+            self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
         for field in self.fields:
             self.fields[field].widget.attrs = {'x-model': field}

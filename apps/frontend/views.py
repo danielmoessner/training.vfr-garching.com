@@ -152,7 +152,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
-        context['form'] = TopicForm()
+        context['form'] = TopicForm(settings=self.request.user.settings)
         return context
 
 
@@ -166,7 +166,7 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
-        context['form'] = TopicForm()
+        context['form'] = TopicForm(settings=self.request.user.settings)
         return context
 
 
@@ -460,9 +460,9 @@ class SearchApiView(APIView):
     def get(self, request):
         search = request.GET.get('search', default='')
         if search:
-            exercises = Exercise.search(Exercise.objects.all(), search)
+            exercises = Exercise.search(Exercise.objects.all(), search)[:5]
             exercises = [{'name': result.name, 'type': 'EXERCISE', 'focus': result.focus} for result in exercises]
-            filters = Filter.search(Filter.objects.all(), search)
+            filters = Filter.search(Filter.objects.all(), search)[:5]
             filters = [{'name': result.name, 'type': 'FILTER'} for result in filters]
             results = {'exercises': exercises, 'filters': filters}
             data = results

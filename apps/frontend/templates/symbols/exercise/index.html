@@ -26,9 +26,11 @@
                 {% endif %}
             </div>
             <div class="absolute top-2 right-3">
-                <div class="text-yellow-200 flex">
-                    {% include 'symbols/exercise/stars.html' with exercise=exercise %}
-                </div>
+                <abbr title="Komplexität der Übung">
+                    <div class="text-yellow-200 flex">
+                        {% include 'symbols/exercise/stars.html' with exercise=exercise %}
+                    </div>
+                </abbr>
             </div>
         </div>
     </div>

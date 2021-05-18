@@ -57,6 +57,8 @@ class Topic(models.Model):
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     youths = models.ManyToManyField(Youth, related_name='topics', verbose_name='Jugenden', blank=True)
     structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')
+    general_or_filters = models.ManyToManyField(Filter, verbose_name='ALLGEMEINE ODER Filter', blank=True,
+                                                related_name='general_topics')
     start_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
                                               related_name='start_topics')
     main_or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,

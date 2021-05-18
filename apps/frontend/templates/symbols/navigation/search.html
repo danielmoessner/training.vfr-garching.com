@@ -1,4 +1,4 @@
-<div x-data="searchAlpine()" x-init="init()" @click.away="changed = false">
+<div x-data="searchAlpine()" class="w-full sm:w-auto" x-init="init()" @click.away="changed = false">
     <div class="w-full relative lg:w-96">
         <label for="search" class="sr-only">Suche</label>
         <form x-ref="form" method="POST" action="{% url 'search' %}" class="relative">
@@ -12,7 +12,7 @@
                           clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <input id="search" name="search" x-ref="searchInput"
+            <input id="search" name="search" x-ref="searchInput" autocomplete="off"
                    class="block w-full pl-10 pr-3 py-2 border-gray-300 border rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-gray-600 sm:text-sm"
                    :class="{ 'border-2 border-gray-600 rounded-b-none border-b-0': changed, 'border focus:ring-1 focus:ring-gray-600': !changed }"
                    placeholder="Suchfilter (Übungsnamen & Filter) eingeben" type="search"
@@ -24,15 +24,15 @@
             <div class="bg-white rounded-b-lg w-full shadow border-gray-600 border-t-0 border-2">
                 <div class="border-t border-gray-300 px-5 py-4 space-y-4">
                     <div class="">
-                        <div class="font-bold text-gray-800">Übungen</div>
+                        <div class="font-bold text-red-600">Übungen</div>
                         <ul class="space-y-2">
                             <template x-for="(result, index) in resultExercises" :key="index">
                                 <li>
                                     <button type="button"
                                             class="rounded bg-gray-100 px-3 py-2 block w-full text-left hover:bg-gray-200"
                                             @click="resultClicked(result.name)">
-                                        <span class="text-sm block" x-text="result.focus"></span>
                                         <span class="text-lg block font-medium" x-text="result.name"></span>
+                                        <span class="text-sm block" x-text="result.focus"></span>
                                     </button>
                                 </li>
                             </template>
@@ -45,7 +45,7 @@
                         </ul>
                     </div>
                     <div class="">
-                        <div class="font-bold text-gray-800">Filter</div>
+                        <div class="font-bold text-red-600">Filter</div>
                         <ul class="space-y-2">
                             <template x-for="(result, index) in resultFilters" :key="index">
                                 <li>

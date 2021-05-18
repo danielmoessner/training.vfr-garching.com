@@ -4,7 +4,7 @@
             <p class="{% include 'symbols/sidenav/heading.txt' %} lg:hidden">Filterauswahl</p>
             {% include 'symbols/sidenav/button.html' with property='filterMenuOpen' text='Filtermenü öffnen' %}
         </div>
-        <div :class="{ block: filterMenuOpen, hidden: !filterMenuOpen }"
+        <div x-cloak :class="{ block: filterMenuOpen, hidden: !filterMenuOpen }"
              class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-4">
             {% include 'symbols/filters/index.html' %}
             <div class="pt-5 flex justify-between items-baseline">

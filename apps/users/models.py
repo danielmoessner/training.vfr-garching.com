@@ -12,7 +12,7 @@ class UserSettings(models.Model):
                                 verbose_name='Benutzer')
     age_group = models.ForeignKey(Youth, related_name='users', on_delete=models.SET_NULL, null=True, blank=True,
                                   verbose_name='Altersgruppe',
-                                  help_text='Diese Einstellung schränkt die angezeigten Trainings ein.')
+                                  help_text='Diese Einstellung schränkt die angezeigten Themen ein.')
     filter_groups = models.ManyToManyField(Group, related_name='users', blank=True, verbose_name='Geöffnete Gruppen')
     training_filters = models.ManyToManyField(Filter, related_name='users', blank=True, verbose_name='Gesetzte Filter')
     difficulties = models.ManyToManyField(Difficulty, related_name='users', blank=True,

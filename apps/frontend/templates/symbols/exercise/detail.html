@@ -1,9 +1,9 @@
-<div class="bg-white border border-gray-300 shadow sm:rounded-lg">
+<div class="bg-white border border-gray-300 shadow rounded-lg">
     <div class="flex flex-col xl:flex-row">
         <div class="xl:w-1/3 space-y-5" x-data="{ image: '', alt: 'Bild 1' }">
             <div>
                 <img @click="$dispatch('img-modal', {  imgModalSrc: image, imgModalDesc: '' })"
-                     class="mw-full cursor-pointer h-auto sm:rounded-t-lg lg:rounded-tr-none"
+                     class="mw-full cursor-pointer h-auto rounded-t-lg lg:rounded-tr-none"
                      :src="image"
                      data-src="{{ exercise.image1.url }}"
                      :alt="`{{ exercise.name }} ${alt}`">
@@ -58,6 +58,52 @@
                             </a>
                         </div>
                     </abbr>
+                    <abbr class="lg:hidden" title="Auf WhatsApp teilen">
+                        <div>
+                            <a class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200"
+                               href="whatsapp://send?text={{ exercise.get_whatsapp_url }}"
+                               data-action="share/whatsapp/share">
+                                {% include 'svg/outline/share.svg' %}
+                            </a>
+                        </div>
+                    </abbr>
+                    <abbr x-data="{ showTooltip: false }" title="Link kopieren">
+                        <div class="relative">
+                            <div style="left: 50%;"
+                                 class="w-32 text-center flex justify-center absolute -translate-x-1/2 transform top-0 -translate-y-full"
+                                 x-show="showTooltip"
+                                 x-transition:enter="transition duration-100"
+                                 x-transition:enter-start="opacity-0 transform scale-90"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition duration-100"
+                                 x-transition:leave-end="opacity-0 transform scale-90"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                            >
+                                <div class="bg-white shadow rounded-sm text-sm px-1.5 py-0.5">
+                                    Link kopiert
+                                </div>
+                            </div>
+                            <button @click="showTooltip = true; setTimeout(() => showTooltip = false, 2000)" onclick="copyText{{ exercise.pk }}()" type="button"
+                                    class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200">
+                                {% include 'svg/outline/clipboard-copy.svg' %}
+                            </button>
+                        </div>
+                        <input class="hidden!" style="" type="text" value="{{ exercise.get_share_url }}"
+                               id="copy-exercise-input-{{ exercise.pk }}">
+                        <script>
+                            function copyText{{ exercise.pk }}() {
+                                clicked = true;
+                                console.log('hello')
+                                let copyInput = document.getElementById("copy-exercise-input-{{ exercise.pk }}");
+                                copyInput.classList.remove('hidden!')
+                                copyInput.select();
+                                copyInput.setSelectionRange(0, 99999)
+                                document.execCommand("copy");
+                                copyInput.classList.add('hidden!')
+                            }
+                        </script>
+                    </abbr>
+
                 </div>
             </div>
 
