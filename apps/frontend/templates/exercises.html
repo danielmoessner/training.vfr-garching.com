@@ -15,7 +15,7 @@
                 <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
                     <div class="hidden" x-show="showTraining([-1])"></div>
                     {% for exercise in exercises %}
-                        <li id="{{ exercise.pk }}" x-show="showTraining({{ exercise.filters }})"
+                        <li id="{{ exercise.pk }}" x-show="showTraining([{% for filter in exercise.filters.all %}{{ filter.pk }},{% endfor %}])"
                             class="video">
                             {% include 'symbols/exercise/index.html' with state='select' %}
                         </li>
@@ -25,7 +25,7 @@
             </section>
 
             <section>
-                {% include 'symbols/exercise_popups.html' with exercises=all_exercises %}
+                {% include 'symbols/exercise_popups.html' with exercises=exercises %}
             </section>
 
         </div>

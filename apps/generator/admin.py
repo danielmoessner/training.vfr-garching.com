@@ -1,4 +1,4 @@
-from apps.generator.models import Block, Topic, Structure, Training
+from apps.generator.models import Block, Topic, Structure, Training, Group
 from apps.trainings.models import Filter
 from apps.trainings.admin import FilterWidget
 from django.contrib import admin
@@ -72,6 +72,7 @@ admin.site.register(Topic, TopicAdmin)
 
 # normal admins
 admin.site.register(Structure)
+admin.site.register(Group)
 
 
 class TrainingAdmin(admin.ModelAdmin):

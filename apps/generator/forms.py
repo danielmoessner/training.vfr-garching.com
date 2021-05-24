@@ -12,7 +12,7 @@ class Step1Form(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
         self.fields['topic'].required = True
-        if settings:
+        if settings and settings.age_group:
             self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
         for field in self.fields:
             if field != 'topic':
@@ -98,6 +98,7 @@ class Step5Form(forms.ModelForm):
             self.fields[field].widget.attrs = {'x-model': field}
         self.fields['name'].label = 'Bitte gib einen Namen für die Trainingseinheit an'
         self.fields['description'].label = 'Bitte gib eine Beschreibung für die Trainingseinheit an'
+        self.fields['description'].widget = forms.Textarea({'rows': 10})
 
 
 class TrainingForm(forms.ModelForm):

@@ -52,8 +52,19 @@ class Structure(models.Model):
         return '{}'.format(self.name)
 
 
-class Topic(models.Model):
+class Group(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Gruppe'
+        verbose_name_plural = 'Gruppen'
+
+
+class Topic(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.PROTECT, null=True)
+    name = models.CharField(verbose_name='Name', max_length=80)
+    description = models.TextField(verbose_name='Beschreibung')
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     youths = models.ManyToManyField(Youth, related_name='topics', verbose_name='Jugenden', blank=True)
     structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')

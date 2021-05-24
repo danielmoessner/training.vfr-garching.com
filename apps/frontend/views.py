@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
 from django.template.loader import render_to_string
@@ -87,16 +88,14 @@ class ExerciseListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # trainings
-        trainings = Exercise.objects.all()
+        exercises = Exercise.objects.order_by('-created')
         if context['user_settings'].search:
-            trainings = Exercise.get_search_queryset(context['user_settings'].search, trainings)
-        trainings_list = Exercise.get_trainings_list(context['user_settings'], trainings)
-        context['exercises'] = trainings_list
-        context['all_exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters').all()
+            exercises = Exercise.get_search_queryset(context['user_settings'].search, exercises)
+        context['exercises'] = exercises.select_related('difficulty').prefetch_related('filters')
         # count
         for training_filter in list(self.request.user.settings.training_filters.all()):
-            trainings = trainings.filter(filters=training_filter.pk)
-        context['trainings_count'] = trainings.count()
+            exercises = exercises.filter(filters=training_filter.pk)
+        context['trainings_count'] = exercises.count()
         # return
         return context
 
@@ -357,6 +356,10 @@ class SettingsView(LoginRequiredMixin, SettingsContextMixin, generic.UpdateView)
 
     def get_object(self, queryset=None):
         return self.request.user.settings
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Einstellungen gespeichert.')
+        return super().form_valid(form=form)
 
 
 class AgeGroupFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):

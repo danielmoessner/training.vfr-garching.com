@@ -161,7 +161,7 @@ class Exercise(models.Model):
     class Meta:
         verbose_name = 'Übung'
         verbose_name_plural = 'Übungen'
-        ordering = ['-created']
+        ordering = ['name']
 
     def __str__(self):
         return '{}'.format(self.name)
