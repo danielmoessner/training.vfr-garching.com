@@ -60,6 +60,9 @@ class Group(models.Model):
         verbose_name = 'Gruppe'
         verbose_name_plural = 'Gruppen'
 
+    def __str__(self):
+        return self.name
+
 
 class Topic(models.Model):
     group = models.ForeignKey(Group, on_delete=models.PROTECT, null=True)
