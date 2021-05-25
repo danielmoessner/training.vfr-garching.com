@@ -1,3 +1,6 @@
+import urllib.parse
+
+from django.http import HttpRequest
 from django.template.defaulttags import register
 
 
@@ -32,7 +35,6 @@ def to_int(value):
 
 @register.filter
 def default2(value, arg):
-    a = 2
     return value or arg or None
 
 
@@ -51,3 +53,13 @@ def filter_show_on_detail(filters_qs):
     filters = list(filters_qs)
     filters = list(filter(lambda f: f.show_on_detail, filters))
     return filters
+
+
+@register.inclusion_tag('symbols/request/params.html', takes_context=True)
+def url_params(context):
+    request = context['request']
+    get_params = []
+    for key, value in request.GET.items():
+        get_params.append('{}={}'.format(key, urllib.parse.quote(value)))
+    get_params = '&'.join(get_params)
+    return {"get_params": get_params}

@@ -162,3 +162,6 @@ TINYMCE_DEFAULT_CONFIG = {
     "advlist_bullet_styles": "default",
     "advlist_number_styles": "default"
 }
+
+# used in url copy stuff
+URL = get_secret('URL')

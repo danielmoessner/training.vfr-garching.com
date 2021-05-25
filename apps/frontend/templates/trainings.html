@@ -33,7 +33,7 @@
                             <div class="mt-5 flex justify-between">
                                 <div class="flex flex-col space-y-3 lg:space-y-0 lg:flex-row lg:space-x-3">
                                     <a class="{% include 'symbols/button_gray.txt' %}" target="_blank"
-                                       href="{% url 'training_pdf' object.pk %}">PDF erstellen</a>
+                                       href="{{ object.get_print_url }}">PDF erstellen</a>
                                     <a class="{% include 'symbols/button_gray.txt' %} lg:hidden"
                                        href="whatsapp://send?text={{ object.get_whatsapp_url }}"
                                        data-action="share/whatsapp/share">Auf WhatsApp teilen</a>

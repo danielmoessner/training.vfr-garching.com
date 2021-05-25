@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from apps.trainings.models import Filter, Exercise, Youth
 from django.urls import reverse
 from django.db import models
@@ -156,38 +158,45 @@ class Training(models.Model):
             return self.topic.pk
         return ''
 
-    def get_base_url(self):
-        part1 = '{}'.format(reverse('generator'))
-        part2 = '?topic={}&structure={}'.format(self.get_topic_pk(),
+    def get_base_url_infos(self):
+        part1 = '?topic={}&structure={}'.format(self.get_topic_pk(),
                                                 self.get_structure_pk())
-        part3 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
+        part2 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
                                                                             self.get_block_pk(2),
                                                                             self.get_block_pk(3),
                                                                             self.get_block_pk(4),
                                                                             self.get_block_pk(5))
-        part4 = '&exercise1={}&exercise2={}&exercise3={}&exercise4={}&exercise5={}'.format(self.get_exercise_pk(1),
+        part3 = '&exercise1={}&exercise2={}&exercise3={}&exercise4={}&exercise5={}'.format(self.get_exercise_pk(1),
                                                                                            self.get_exercise_pk(2),
                                                                                            self.get_exercise_pk(3),
                                                                                            self.get_exercise_pk(4),
                                                                                            self.get_exercise_pk(5))
-        return '{}{}{}{}'.format(part1, part2, part3, part4)
+        return '{}{}{}'.format(part1, part2, part3)
 
     def get_whatsapp_url(self):
-        part1 = 'https://training.vfr-garching.com'
-        part2 = self.get_base_url()
-        part3 = '&step=5&exercise_step=6'
+        part1 = settings.URL
+        part2 = '{}'.format(reverse('training'))
+        part3 = self.get_base_url_infos()
         url = '{}{}{}'.format(part1, part2, part3)
         return urllib.parse.quote(url)
 
     def get_share_url(self):
-        part1 = 'https://training.vfr-garching.com'
-        part2 = self.get_base_url()
-        part3 = '&step=5&exercise_step=6'
-        url = '{}{}{}'.format(part1, part2, part3)
+        part1 = settings.URL
+        part2 = '{}'.format(reverse('training'))
+        part3 = self.get_base_url_infos()
+        part4 = '&name={}'.format(urllib.parse.quote(self.name))
+        url = '{}{}{}{}'.format(part1, part2, part3, part4)
         return url
 
     def get_edit_url(self):
-        part1 = self.get_base_url()
-        part2 = '&training={}'.format(self.pk)
-        part3 = '&step=4&exercise_step=1'
+        part1 = '{}'.format(reverse('generator'))
+        part2 = self.get_base_url_infos()
+        part3 = '&training={}'.format(self.pk)
+        part4 = '&step=4&exercise_step=1'
+        return '{}{}{}{}'.format(part1, part2, part3, part4)
+
+    def get_print_url(self):
+        part1 = reverse('training_print')
+        part2 = self.get_base_url_infos()
+        part3 = '&name={}'.format(urllib.parse.quote(self.name))
         return '{}{}{}'.format(part1, part2, part3)
