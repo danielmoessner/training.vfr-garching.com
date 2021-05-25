@@ -1,11 +1,9 @@
 from django import forms
-from apps.trainings.models import Youth, Difficulty
+from apps.trainings.models import Difficulty
 from apps.users.models import UserSettings
 
 
 class SelectAgeGroupForm(forms.ModelForm):
-    # age_group = forms.ModelChoiceField(queryset=Youth.objects.all(), widget=forms.RadioSelect, required=False)
-
     class Meta:
         model = UserSettings
         fields = ('age_group',)
@@ -24,9 +22,3 @@ class SearchForm(forms.ModelForm):
     class Meta:
         model = UserSettings
         fields = ('search', )
-
-
-class UserSettingsForm(forms.ModelForm):
-    class Meta:
-        model = UserSettings
-        fields = '__all__'

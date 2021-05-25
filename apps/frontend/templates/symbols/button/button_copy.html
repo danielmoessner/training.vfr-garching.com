@@ -15,17 +15,17 @@
             </div>
         </div>
         <button @click="showTooltip = true; setTimeout(() => showTooltip = false, 2000)"
-                onclick="copyText{{ unique }}()" type="button"
+                onclick="copyText{{ unique1|default:'' }}{{ unique2|default:'' }}()" type="button"
                 class="block text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200">
             {% include 'svg/outline/clipboard-copy.svg' %}
         </button>
     </div>
     <input class="hidden!" style="" type="text" value="{{ text }}"
-           id="copy-exercise-input-{{ unique }}">
+           id="copy-exercise-input-{{ unique1|default:'' }}{{ unique2|default:'' }}">
     <script>
-        function copyText{{ unique }}() {
+        function copyText{{ unique1|default:'' }}{{ unique2|default:'' }}() {
             clicked = true;
-            let copyInput = document.getElementById("copy-exercise-input-{{ unique }}");
+            let copyInput = document.getElementById("copy-exercise-input-{{ unique1|default:'' }}{{ unique2|default:'' }}");
             copyInput.classList.remove('hidden!')
             copyInput.select();
             copyInput.setSelectionRange(0, 99999)

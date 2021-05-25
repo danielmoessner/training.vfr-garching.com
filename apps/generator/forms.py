@@ -3,10 +3,23 @@ from apps.generator.models import Topic, Structure, Training
 from django import forms
 
 
-class Step1Form(forms.ModelForm):
+class ShowHideFieldsMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.Meta.shown_fields:
+            self.fields[field].widget.attrs = {'x-model': field}
+        for field in self.Meta.hidden_fields:
+            self.fields[field].label = ''
+            self.fields[field].required = False
+            self.fields[field].widget.attrs = {'class': 'hidden!', 'x-model': field}
+
+
+class Step1Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        fields = '__all__'
+        shown_fields = ['topic']
+        hidden_fields = Training.get_remaining_fields(shown_fields)
+        fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -14,16 +27,14 @@ class Step1Form(forms.ModelForm):
         self.fields['topic'].required = True
         if settings and settings.age_group:
             self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
-        for field in self.fields:
-            if field != 'topic':
-                self.fields[field].widget = forms.HiddenInput()
-            self.fields[field].widget.attrs = {'x-model': field}
 
 
-class Step2Form(forms.ModelForm):
+class Step2Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        fields = '__all__'
+        shown_fields = ['structure']
+        hidden_fields = Training.get_remaining_fields(shown_fields)
+        fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
@@ -33,17 +44,14 @@ class Step2Form(forms.ModelForm):
             initial['topic'] = initial['topic']
             topic = Topic.objects.get(pk=initial['topic'])
             self.fields['structure'].queryset = topic.structures.all()
-        for field in self.fields:
-            if field != 'structure':
-                self.fields[field].widget = forms.HiddenInput()
-            self.fields[field].widget.attrs = {'x-model': field}
-        self.fields['topic'].widget = forms.HiddenInput()
 
 
-class Step3Form(forms.ModelForm):
+class Step3Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        fields = '__all__'
+        shown_fields = ['block1', 'block2', 'block3', 'block4', 'block5']
+        hidden_fields = Training.get_remaining_fields(shown_fields)
+        fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
@@ -64,38 +72,31 @@ class Step3Form(forms.ModelForm):
                 self.fields['block5'].widget = forms.HiddenInput()
                 self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
         for field in self.fields:
-            if field[:5] != 'block':
+            if field[:5] == 'block' and self.fields[field].queryset.count() == 1:
                 self.fields[field].widget = forms.HiddenInput()
-            else:
-                if self.fields[field].queryset.count() == 1:
-                    self.fields[field].widget = forms.HiddenInput()
-            self.fields[field].widget.attrs = {'x-model': field}
+                self.fields[field].widget.attrs = {'x-model': field}
 
 
-class Step4Form(forms.ModelForm):
+class Step4Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        fields = '__all__'
+        shown_fields = []
+        hidden_fields = Training.get_remaining_fields(shown_fields)
+        fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].required = False
-            self.fields[field].widget = forms.HiddenInput()
-            self.fields[field].widget.attrs = {'x-model': field}
 
 
-class Step5Form(forms.ModelForm):
+class Step5Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        fields = '__all__'
+        shown_fields = ['name', 'description']
+        hidden_fields = Training.get_remaining_fields(shown_fields)
+        fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields:
-            if field not in ['name', 'description']:
-                self.fields[field].widget = forms.HiddenInput()
-            self.fields[field].widget.attrs = {'x-model': field}
         self.fields['name'].label = 'Bitte gib einen Namen für die Trainingseinheit an'
         self.fields['description'].label = 'Bitte gib eine Beschreibung für die Trainingseinheit an'
         self.fields['description'].widget = forms.Textarea({'rows': 10})

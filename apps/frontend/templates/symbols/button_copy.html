@@ -1,8 +1,8 @@
 <input class="hidden!" style="" type="text" value="{{ link }}" id="copy-input-{{ id|default:'0' }}">
-<button type="button" class="{% include 'symbols/button_gray.txt' %}" onclick="copyText()">{{ text }}</button>
+<button type="button" class="{% include 'symbols/button_gray.txt' %}" onclick="copyText{{ id|default:'' }}()">{{ text }}</button>
 
 <script>
-    function copyText() {
+    function copyText{{ id|default:'' }}() {
         let copyInput = document.getElementById("copy-input-{{ id|default:'0' }}");
         copyInput.classList.remove('hidden!')
         copyInput.select();

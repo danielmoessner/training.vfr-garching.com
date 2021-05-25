@@ -21,6 +21,9 @@
                         {% include 'symbols/button/button_copy.html' with unique='U1' text=request.build_absolute_uri title='Link kopieren' %}
                     </div>
                 </div>
+                <div class="mt-4">
+                    <p class="max-w-prose text-lg text-gray-800">{{ description|linebreaksbr }}</p>
+                </div>
                 <div class="mt-10">
                     {% include 'symbols/training/index.html' with show=True %}
                 </div>

@@ -1,3 +1,3 @@
 {% spaceless %}
-    {% for key, values in request.GET.items %}{% if key != 'step' and key != 'exercise_step' %}{{ key }}={{ values }}&{% endif %}{% endfor %}
+    {% for key, values in request.GET.items %}{% if key != 'step' and key != 'exercise_step' %}{{ key }}={{ values|safe }}&{% endif %}{% endfor %}
 {% endspaceless %}

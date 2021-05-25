@@ -136,6 +136,14 @@ class Training(models.Model):
             return name
         return 'VfR Training: {}'.format(name)
 
+    @staticmethod
+    def get_remaining_fields(all_except):
+        fields = ['name', 'description', 'topic', 'structure',
+                  'block1', 'block2', 'block3', 'block4', 'block5',
+                  'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5']
+        fields = list(filter(lambda field: field not in all_except, fields))
+        return fields
+
     def get_exercise_pk(self, number):
         exercise = getattr(self, 'exercise{}'.format(number), None)
         if exercise:
@@ -171,7 +179,8 @@ class Training(models.Model):
                                                                                            self.get_exercise_pk(3),
                                                                                            self.get_exercise_pk(4),
                                                                                            self.get_exercise_pk(5))
-        return '{}{}{}'.format(part1, part2, part3)
+        part4 = '&name={}&description={}'.format(urllib.parse.quote(self.name), urllib.parse.quote(self.description))
+        return '{}{}{}{}'.format(part1, part2, part3, part4)
 
     def get_whatsapp_url(self):
         part1 = settings.URL
@@ -184,8 +193,7 @@ class Training(models.Model):
         part1 = settings.URL
         part2 = '{}'.format(reverse('training'))
         part3 = self.get_base_url_infos()
-        part4 = '&name={}'.format(urllib.parse.quote(self.name))
-        url = '{}{}{}{}'.format(part1, part2, part3, part4)
+        url = '{}{}{}'.format(part1, part2, part3)
         return url
 
     def get_edit_url(self):
@@ -198,5 +206,4 @@ class Training(models.Model):
     def get_print_url(self):
         part1 = reverse('training_print')
         part2 = self.get_base_url_infos()
-        part3 = '&name={}'.format(urllib.parse.quote(self.name))
-        return '{}{}{}'.format(part1, part2, part3)
+        return '{}{}'.format(part1, part2)

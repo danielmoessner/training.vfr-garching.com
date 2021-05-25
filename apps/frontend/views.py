@@ -1,24 +1,23 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
-from django.template.loader import render_to_string
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
-
-from apps.frontend.utils import get_params_from_request
-from apps.settings.models import Trainings
+from django.template.loader import render_to_string
 from apps.trainings.models import Exercise, Group, Filter, Difficulty
 from apps.generator.models import Structure, Topic, Block, Training
 from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import General
 from rest_framework.views import APIView
+from apps.settings.models import Trainings
+from apps.frontend.utils import get_params_from_request
 from apps.users.models import UserSettings
-from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm, UserSettingsForm
+from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm
+from django.contrib import messages
 from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
+from django.conf import settings
 from django.urls import reverse, reverse_lazy
 from weasyprint import HTML
-import urllib.parse
 
 
 # mixins
@@ -96,6 +95,10 @@ class TrainingContextMixin(ContextMixin):
         name = self.request.GET.get('name', default=None)
         if name:
             context['name'] = name
+        description = self.request.GET.get('description', default=None)
+        print(description)
+        if description:
+            context['description'] = description # .replace('\n', '')
         # return
         return context
 
@@ -314,7 +317,8 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
         # general stuff
         context['page'] = Trainings.get_solo()
         # print url
-        context['print_url'] = '{}?{}'.format(reverse('training_print'), get_params_from_request(self.request))
+        context['link_url'] = '{}{}?{}&name=Training'.format(settings.URL, reverse('training'),
+                                                             get_params_from_request(self.request))
         # try to edit
         training_pk = self.request.GET.get('training', default=None)
         if training_pk and Training.objects.filter(user=self.request.user.settings, pk=training_pk).exists():

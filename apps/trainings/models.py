@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Q
 from django.urls import reverse
@@ -199,7 +200,7 @@ class Exercise(models.Model):
         return reverse('exercise', args=[self.pk])
 
     def get_share_url(self):
-        part1 = 'https://training.vfr-garching.com'
+        part1 = settings.URL
         part2 = self.get_absolute_url()
         return '{}{}'.format(part1, part2)
 

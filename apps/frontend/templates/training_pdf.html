@@ -27,7 +27,7 @@
     </div>
     <article class="prose prose-sm w-full max-w-none">
         <h1>{{ object.name }}</h1>
-        <p>
+        <p class="">
             <b>Thema:</b> {{ object.topic|default:'-' }} <br>
             <br>
             <b>Übung 1:</b> {{ object.exercise1|default:'-' }} <br>
@@ -37,6 +37,9 @@
             {% if object.exercise5 %}
                 <b>Übung 5:</b> {{ object.exercise5|default:'-' }} <br>
             {% endif %}
+            <br>
+            <b>Beschreibung:</b><br>
+            {{ object.description|default:'-/-'|linebreaksbr }}
         </p>
     </article>
     <div class="" style="page-break-before: always"></div>
