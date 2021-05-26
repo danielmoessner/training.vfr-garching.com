@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
 from apps.users.models import UserSettings
-from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm, SearchForm
+from apps.users.forms import SelectAgeGroupForm, SearchForm
 from django.contrib import messages
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from .utils import SettingsContextMixin, SuccessUrlReverseMixin
+from .utils import SettingsContextMixin
 
 
 # mixins
@@ -45,14 +45,6 @@ class SettingsView(LoginRequiredMixin, SettingsContextMixin, generic.UpdateView)
     def form_valid(self, form):
         messages.success(self.request, 'Einstellungen gespeichert.')
         return super().form_valid(form=form)
-
-
-class AgeGroupFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
-    form_class = SelectAgeGroupForm
-
-
-class DifficultiesFormView(LoginRequiredMixin, SuccessUrlReverseMixin, UpdateUserSettingsMixin, generic.UpdateView):
-    form_class = SelectDifficultiesForm
 
 
 class SearchFormView(LoginRequiredMixin, UpdateUserSettingsMixin, generic.UpdateView):

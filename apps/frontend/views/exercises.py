@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
 from django.template.loader import render_to_string
-from apps.trainings.models import Exercise, Group, Filter, Difficulty
+from apps.trainings.models import Exercise, Group, Filter
 from rest_framework.views import APIView
 from apps.users.models import UserSettings
 from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm
@@ -110,30 +110,12 @@ class BookmarkTrainingView(LoginRequiredMixin, generic.DetailView):
         return HttpResponseRedirect(reverse('favorites'))
 
 
-class ResetAgeGroupView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
-    success_url = reverse_lazy('exercises')
-
-    def get(self, request, *args, **kwargs):
-        self.request.user.settings.age_group = None
-        self.request.user.settings.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-
 class ResetTrainingFiltersView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
     success_url = reverse_lazy('exercises')
 
     def get(self, request, *args, **kwargs):
         self.request.user.settings.training_filters.set([])
         self.request.user.settings.filter_groups.set(Group.objects.filter(group=None))
-        self.request.user.settings.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-
-class ResetDifficultyView(LoginRequiredMixin, SuccessUrlReverseMixin, generic.View):
-    success_url = reverse_lazy('exercises')
-
-    def get(self, request, *args, **kwargs):
-        self.request.user.settings.difficulties.set(Difficulty.objects.all())
         self.request.user.settings.save()
         return HttpResponseRedirect(self.get_success_url())
 
