@@ -1,45 +1,49 @@
 <div class="-mx-2 -my-3">
     <div class="flex flex-wrap">
         {% for group in groups %}
-            <fieldset class="block px-2 py-3 w-full lg:w-1/3">
-                <legend class="font-medium text-xl contents">
-                    {{ group.name }}
-                </legend>
-                <div class="bg-white rounded-md -space-y-px mt-2">
-                    {% for topic in group.topics.all %}
-                        <!-- Checked: "bg-red-50 border-red-200 z-10", Not Checked: "border-gray-200" -->
-                        <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer"
-                               :class="{ 'bg-red-50 border-red-200 z-10': String(topic) === '{{ topic.pk }}' }"
-                        >
-                            <input type="radio" name="privacy_setting" value="{{ topic.pk }}" x-model="topic"
-                                   class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-0 focus:outline-none"
-                                   style="box-shadow: none;"
-                                   aria-labelledby="privacy-setting-0-label"
-                                   aria-describedby="privacy-setting-0-description"
-                                   @click="if (topic === '{{ topic.pk }}') topic = '';"
-                            >
-                            <div class="ml-3 flex flex-col">
-                                <!-- Checked: "text-red-900", Not Checked: "text-gray-900" -->
-                                <div id="privacy-setting-0-label"
-                                     class="text-gray-900 block text-sm font-medium"
-                                     :class="{ 'text-red-700': String(topic) === '{{ topic.pk }}' }"
+            {% with topics=group.topics.all %}
+                {% if topics %}
+                    <fieldset class="block px-2 py-3 w-full lg:w-1/3">
+                        <legend class="font-medium text-xl contents">
+                            {{ group.name }}
+                        </legend>
+                        <div class="bg-white rounded-md -space-y-px mt-2">
+                            {% for topic in topics %}
+                                <!-- Checked: "bg-red-50 border-red-200 z-10", Not Checked: "border-gray-200" -->
+                                <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer"
+                                       :class="{ 'bg-red-50 border-red-200 z-10': String(topic) === '{{ topic.pk }}' }"
                                 >
-                                    {{ topic.name }}
-                                </div>
-                                <!-- Checked: "text-red-700", Not Checked: "text-gray-500" -->
-                                <div id="privacy-setting-0-description"
-                                     class="text-gray-500 block text-sm"
-                                     :class="{ 'text-red-700': String(topic) === '{{ topic.pk }}' }"
-                                >
-                                    <div :class="{ 'line-clamp-1 overflow-hidden': String(topic) !== '{{ topic.pk }}' }">
-                                        {{ topic.description|linebreaksbr }}
+                                    <input type="radio" name="privacy_setting" value="{{ topic.pk }}" x-model="topic"
+                                           class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-0 focus:outline-none"
+                                           style="box-shadow: none;"
+                                           aria-labelledby="privacy-setting-0-label"
+                                           aria-describedby="privacy-setting-0-description"
+                                           @click="if (String(topic) === '{{ topic.pk }}') topic = '';"
+                                    >
+                                    <div class="ml-3 flex flex-col">
+                                        <!-- Checked: "text-red-900", Not Checked: "text-gray-900" -->
+                                        <div id="privacy-setting-0-label"
+                                             class="text-gray-900 block text-sm font-medium"
+                                             :class="{ 'text-red-700': String(topic) === '{{ topic.pk }}' }"
+                                        >
+                                            {{ topic.name }}
+                                        </div>
+                                        <!-- Checked: "text-red-700", Not Checked: "text-gray-500" -->
+                                        <div id="privacy-setting-0-description"
+                                             class="text-gray-500 block text-sm"
+                                             :class="{ 'text-red-700': String(topic) === '{{ topic.pk }}' }"
+                                        >
+                                            <div :class="{ 'line-clamp-1 overflow-hidden': String(topic) !== '{{ topic.pk }}' }">
+                                                {{ topic.description|linebreaksbr }}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </label>
-                    {% endfor %}
-                </div>
-            </fieldset>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                {% endif %}
+            {% endwith %}
         {% endfor %}
     </div>
 </div>

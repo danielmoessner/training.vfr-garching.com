@@ -7,7 +7,7 @@ class ShowHideFieldsMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.Meta.shown_fields:
-            self.fields[field].widget.attrs = {'x-model': field}
+            self.fields[field].widget.attrs = {'class': 'px-3 py-2', 'x-model': field}
         for field in self.Meta.hidden_fields:
             self.fields[field].label = ''
             self.fields[field].required = False
@@ -17,12 +17,14 @@ class ShowHideFieldsMixin:
 class Step1Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        shown_fields = []
+        shown_fields = ['topic']
         hidden_fields = Training.get_remaining_fields(shown_fields)
         fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
+        self.fields['topic'].widget.attrs = {'class': 'hidden!', 'x-model': 'topic'}
         # self.fields['topic'].required = True
         # if settings and settings.age_group:
         #     self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
