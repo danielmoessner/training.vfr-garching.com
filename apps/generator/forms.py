@@ -17,16 +17,15 @@ class ShowHideFieldsMixin:
 class Step1Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        shown_fields = ['topic']
+        shown_fields = []
         hidden_fields = Training.get_remaining_fields(shown_fields)
         fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
-        self.fields['topic'].required = True
-        if settings and settings.age_group:
-            self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
+        # self.fields['topic'].required = True
+        # if settings and settings.age_group:
+        #     self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
 
 
 class Step2Form(ShowHideFieldsMixin, forms.ModelForm):

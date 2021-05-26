@@ -20,7 +20,6 @@ urlpatterns = [
     path('trainings/drucken/', views.TrainingPrintView.as_view(), name='training_print'),
     path('trainings/<int:pk>/loeschen/', views.DeleteTrainingView.as_view(), name='training_delete'),
     path('trainings/<int:pk>/bearbeiten/', views.GeneratorView.as_view(), name='training_update'),
-    path('trainings/<int:pk>.pdf', views.TrainingPdfView.as_view(), name='training_pdf'),
     path('einstellungen/', views.SettingsView.as_view(), name='settings'),
     # form stuff
     path('suche/', views.SearchFormView.as_view(), name='search'),

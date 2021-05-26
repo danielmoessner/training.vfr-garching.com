@@ -113,21 +113,6 @@ class TrainingPrintView(LoginRequiredMixin, TrainingContextMixin, SettingsContex
         return response
 
 
-class TrainingPdfView(LoginRequiredMixin, SettingsContextMixin, generic.DetailView):
-    model = Training
-    template_name = 'training_pdf.html'
-
-    def render_to_response(self, context, **response_kwargs):
-        rendered = render_to_string(self.template_name, context)
-        html = HTML(string=rendered, base_url=self.request.build_absolute_uri())
-        pdf = html.write_pdf()
-        # return HttpResponseRedirect('/media/pdfs/{}.pdf'.format(self.object.pk))
-        response = HttpResponse(pdf)
-        response['Content-Type'] = 'application/pdf'
-        response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(self.object.name)
-        return response
-
-
 class DeleteTrainingView(LoginRequiredMixin, SettingsContextMixin, generic.DeleteView):
     model = Training
     success_url = reverse_lazy('trainings')
@@ -201,6 +186,7 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
         context['exercise_step'] = exercise_step
         # step specific context of what the user can select
         if step == '1':
+            context['groups'] = Group.optimize_queryset(user_settings=context['user_settings'])
             context['topics'] = Topic.objects.all()
         elif step == '2':
             context['structures'] = Structure.objects.all()

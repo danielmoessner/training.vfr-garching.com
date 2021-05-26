@@ -1,3 +1,5 @@
+from django.db.models import Prefetch
+
 from apps.trainings.models import Filter, Exercise, Youth
 from django.conf import settings
 from django.urls import reverse
@@ -63,6 +65,15 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def optimize_queryset(groups=None, user_settings=None):
+        if groups is None:
+            groups = Group.objects.all()
+        topics = Topic.objects.all()
+        if user_settings and user_settings.age_group:
+            topics = topics.filter(youths=user_settings.age_group)
+        return groups.prefetch_related(Prefetch('topics', queryset=topics)).all()
 
 
 class Topic(models.Model):
