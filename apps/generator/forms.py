@@ -7,27 +7,28 @@ class ShowHideFieldsMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.Meta.shown_fields:
-            self.fields[field].widget.attrs = {'class': 'px-3 py-2', 'x-model': field}
+            self.show_field(field)
         for field in self.Meta.hidden_fields:
-            self.fields[field].label = ''
-            self.fields[field].required = False
-            self.fields[field].widget.attrs = {'class': 'hidden!', 'x-model': field}
+            self.hide_field(field)
+
+    def show_field(self, field):
+        self.fields[field].widget.attrs = {'class': 'px-3 py-2', 'x-model': field}
+
+    def hide_field(self, field):
+        self.fields[field].label = ''
+        self.fields[field].required = False
+        self.fields[field].widget.attrs = {'class': 'hidden!', 'x-model': field}
 
 
 class Step1Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        shown_fields = ['topic']
+        shown_fields = []
         hidden_fields = Training.get_remaining_fields(shown_fields)
         fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['topic'].label = mark_safe('Bitte wähle ein <u>Thema</u> für dein Training aus')
-        self.fields['topic'].widget.attrs = {'class': 'hidden!', 'x-model': 'topic'}
-        # self.fields['topic'].required = True
-        # if settings and settings.age_group:
-        #     self.fields['topic'].queryset = Topic.objects.filter(youths=settings.age_group)
 
 
 class Step2Form(ShowHideFieldsMixin, forms.ModelForm):
