@@ -1,8 +1,8 @@
-<button class="group overflow-hidden focus:outline-none block"
+<button class="group overflow-hidden focus:outline-none block w-full h-full"
         type="button"
         x-on:click="show = {{ exercise.pk }}"
 >
-    <div class="transform group-hover:scale-105 transition bg-green-800 bg-opacity-30">
+    <div class="transform group-hover:scale-105 transition w-full h-full text-left" style="background: #8abe6a;">
         <img class="mw-full w-full h-auto rounded-b-lg" data-src="{{ exercise.image1.url }}"
              alt="{{ exercise.name }}">
     </div>

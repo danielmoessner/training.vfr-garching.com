@@ -10,6 +10,17 @@
                 if (this.topic === '') return true;
                 if (this.topic === topicPk) return true;
                 return false;
+            },
+            init() {
+                {% comment %}
+                this.$watch('show', () => {
+                    if (this.show !== 0) {
+                        document.body.classList.add('overflow-hidden')
+                    } else {
+                        document.body.classList.remove('overflow-hidden')
+                    }
+                })
+                {% endcomment %}
             }
         }
     }

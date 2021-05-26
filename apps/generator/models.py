@@ -1,6 +1,5 @@
-from django.conf import settings
-
 from apps.trainings.models import Filter, Exercise, Youth
+from django.conf import settings
 from django.urls import reverse
 from django.db import models
 import urllib.parse
@@ -67,7 +66,7 @@ class Group(models.Model):
 
 
 class Topic(models.Model):
-    group = models.ForeignKey(Group, on_delete=models.PROTECT, null=True)
+    group = models.ForeignKey(Group, on_delete=models.PROTECT, null=True, related_name='topics')
     name = models.CharField(verbose_name='Name', max_length=80)
     description = models.TextField(verbose_name='Beschreibung')
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
@@ -135,6 +134,17 @@ class Training(models.Model):
         if not self.user:
             return name
         return 'VfR Training: {}'.format(name)
+
+    @staticmethod
+    def optimize_queryset(trainings=None):
+        if trainings is None:
+            trainings = Training.objects.all()
+        return trainings.select_related('topic', 'structure',
+                                        'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5',
+                                        'block1', 'block2', 'block3', 'block4', 'block5',
+                                        'exercise1__difficulty', 'exercise2__difficulty', 'exercise3__difficulty',
+                                        'exercise4__difficulty', 'exercise5__difficulty',
+                                        )
 
     @staticmethod
     def get_remaining_fields(all_except):

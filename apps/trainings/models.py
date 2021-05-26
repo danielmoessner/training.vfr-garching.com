@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.urls import reverse
 from tinymce.models import HTMLField
 from django.utils import timezone
@@ -172,6 +172,15 @@ class Exercise(models.Model):
         if self.created + timedelta(days=30) > timezone.now():
             return True
         return False
+
+    @staticmethod
+    def optimize_queryset(exercises=None):
+        if exercises is None:
+            exercises = Exercise.objects.all()
+        return (exercises
+                .select_related('difficulty')
+                .prefetch_related(Prefetch('filters', queryset=Filter.objects.filter(show_on_detail=True)))
+                )
 
     @staticmethod
     def get_trainings_list(settings, trainings=None):

@@ -45,7 +45,7 @@ class ExerciseListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
         exercises = Exercise.objects.order_by('-created')
         if context['user_settings'].search:
             exercises = Exercise.get_search_queryset(context['user_settings'].search, exercises)
-        context['exercises'] = exercises.select_related('difficulty').prefetch_related('filters')
+        context['exercises'] = Exercise.optimize_queryset(exercises)
         # count
         for training_filter in list(self.request.user.settings.training_filters.all()):
             exercises = exercises.filter(filters=training_filter.pk)
@@ -64,7 +64,7 @@ class BookmarksView(ExerciseListView):
             bookmarked_trainings = Exercise.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
         exercises = Exercise.get_trainings_list(context['user_settings'], bookmarked_trainings)
         context['exercises'] = exercises
-        context['all_exercises'] = bookmarked_trainings.select_related('difficulty').prefetch_related('filters')
+        context['all_exercises'] = Exercise.optimize_queryset(bookmarked_trainings)
         context['trainings_count'] = '"?"'
         return context
 

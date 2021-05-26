@@ -18,10 +18,12 @@
 
 .django-form {
     input[type='radio'] {
-        @apply mr-2 mb-1 focus:ring-red-500 h-4 w-4 cursor-pointer text-red-600 border-gray-300;
+        @apply mr-2 mb-1 focus:ring-red-500 h-4 w-4 cursor-pointer text-red-600 border-gray-300 focus:ring-0;
+        box-shadow: none;
     }
     input[type='checkbox']{
-        @apply mr-2 mb-1 focus:ring-red-500 h-4 w-4 cursor-pointer text-red-600 border-gray-300 rounded;
+        @apply mr-2 mb-1 focus:ring-red-500 h-4 w-4 cursor-pointer text-red-600 border-gray-300 rounded focus:ring-0;
+        box-shadow: none;
     }
     label {
         @apply block text-sm font-medium text-gray-700 cursor-pointer;

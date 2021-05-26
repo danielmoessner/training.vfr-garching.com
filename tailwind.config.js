@@ -61,7 +61,9 @@ module.exports = {
             translate: ['group-hover'],
             padding: ['last', 'first'],
             margin: ['last', 'first'],
-            scale: ['group-hover']
+            scale: ['group-hover'],
+            borderRadius: ['first', 'last'],
+            boxShadow: ['focus']
         }
     },
     plugins: [

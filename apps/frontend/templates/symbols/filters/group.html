@@ -43,7 +43,8 @@
         {% for training_filter in group.training_filters %}
 {#            <li class="flex flex-row py-2 first:pt-3 last:pb-5">#}
             <li class="flex flex-row py-0.5 first:pt-3 last:pb-5">
-                <input class="mt-px focus:ring-red-500 h-5 w-5 text-red-600 cursor-pointer border-gray-300 rounded"
+                <input class="mt-px h-5 w-5 text-red-600 cursor-pointer border-gray-300 rounded focus:ring-0"
+                       style="box-shadow: none;"
                        x-model="filterSelected[{{ training_filter.pk }}]"
                        x-on:click="filterClicked({{ training_filter.pk }})"
                        id="filter_{{ training_filter.pk }}"

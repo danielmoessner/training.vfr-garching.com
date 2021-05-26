@@ -1,29 +1,27 @@
-<div class="bg-white border border-gray-300 shadow overflow-hidden rounded-lg">
-    <div class="flex flex-col">
-        <div class="px-3 py-2 md:pl-5 md:pr-4 md:py-3">
-            {% include 'symbols/exercise/top_select.html' %}
+<div class="bg-white border border-gray-300 shadow overflow-hidden rounded-lg flex flex-col h-full">
+    <div class="px-3 py-2 md:pl-5 md:pr-4 md:py-3">
+        {% include 'symbols/exercise/top_select.html' %}
+    </div>
+    <div class="relative overflow-hidden flex-1">
+        {% include 'symbols/exercise/image_select.html' %}
+        <div class="absolute top-2 left-3 flex space-x-2">
+            {% if exercise.new %}
+                <div class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                    NEU
+                </div>
+            {% endif %}
+            {% if exercise.video %}
+                <div class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                    VIDEO
+                </div>
+            {% endif %}
         </div>
-        <div class="relative overflow-hidden">
-            {% include 'symbols/exercise/image_select.html' %}
-            <div class="absolute top-2 left-3 flex space-x-2">
-                {% if exercise.new %}
-                    <div class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                        NEU
-                    </div>
-                {% endif %}
-                {% if exercise.video %}
-                    <div class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                        VIDEO
-                    </div>
-                {% endif %}
-            </div>
-            <div class="absolute top-2 right-3">
-                <abbr title="Komplexität der Übung">
-                    <div class="text-yellow-200 flex">
-                        {% include 'symbols/exercise/stars.html' with exercise=exercise %}
-                    </div>
-                </abbr>
-            </div>
+        <div class="absolute top-2 right-3">
+            <abbr title="Komplexität der Übung">
+                <div class="text-yellow-200 flex">
+                    {% include 'symbols/exercise/stars.html' with exercise=exercise %}
+                </div>
+            </abbr>
         </div>
     </div>
 </div>

@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Prefetch
 from django.views.generic.base import ContextMixin
 from django.template.loader import render_to_string
-from apps.trainings.models import Exercise
-from apps.generator.models import Structure, Topic, Block, Training
+from apps.trainings.models import Exercise, Filter
+from apps.generator.models import Structure, Topic, Block, Training, Group
 from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import Trainings
 from apps.frontend.utils import get_params_from_request
@@ -38,9 +39,8 @@ class TrainingContextMixin(ContextMixin):
         if name:
             context['name'] = name
         description = self.request.GET.get('description', default=None)
-        print(description)
         if description:
-            context['description'] = description # .replace('\n', '')
+            context['description'] = description  # .replace('\n', '')
         # return
         return context
 
@@ -55,8 +55,10 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
+        context['exercises'] = Exercise.optimize_queryset()
         context['form'] = TopicForm(settings=self.request.user.settings)
+        context['groups'] = Group.objects.prefetch_related(Prefetch('topics', queryset=Topic.objects.filter(
+            youths=context['user_settings'].age_group))).all()
         return context
 
 
@@ -65,13 +67,13 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
     model = Training
 
     def get_queryset(self):
-        return Training.objects.filter(user=None)
+        return Training.optimize_queryset(Training.objects.filter(user=None))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['exercises'] = Exercise.objects.select_related('difficulty').prefetch_related('filters')
-        context['form'] = TopicForm(settings=self.request.user.settings)
-        context['groups'] = Topic
+        context['exercises'] = Exercise.optimize_queryset()
+        context['groups'] = Group.objects.prefetch_related(Prefetch('topics', queryset=Topic.objects.filter(
+            youths=context['user_settings'].age_group))).all()
         return context
 
 
