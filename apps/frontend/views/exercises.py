@@ -62,9 +62,7 @@ class BookmarksView(ExerciseListView):
         bookmarked_trainings = self.request.user.settings.bookmarks.all()
         if context['user_settings'].search:
             bookmarked_trainings = Exercise.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
-        exercises = Exercise.get_trainings_list(context['user_settings'], bookmarked_trainings)
-        context['exercises'] = exercises
-        context['all_exercises'] = Exercise.optimize_queryset(bookmarked_trainings)
+        context['exercises'] = Exercise.optimize_queryset(bookmarked_trainings)
         context['trainings_count'] = '"?"'
         return context
 

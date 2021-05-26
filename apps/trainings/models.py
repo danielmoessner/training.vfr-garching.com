@@ -179,7 +179,7 @@ class Exercise(models.Model):
             exercises = Exercise.objects.all()
         return (exercises
                 .select_related('difficulty')
-                .prefetch_related(Prefetch('filters', queryset=Filter.objects.filter(show_on_detail=True)))
+                .prefetch_related('filters')
                 )
 
     @staticmethod
