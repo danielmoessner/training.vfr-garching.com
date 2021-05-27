@@ -9,7 +9,6 @@
                         </legend>
                         <div class="bg-white rounded-md -space-y-px mt-2 shadow">
                             {% for topic in topics %}
-                                <!-- Checked: "bg-red-50 border-red-200 z-10", Not Checked: "border-gray-200" -->
                                 <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer"
                                        :class="{ 'bg-red-50 border-red-200 z-10 shadow-inner': String(topic) === '{{ topic.pk }}' }"
                                 >
@@ -21,21 +20,20 @@
                                            @click="if (String(topic) === '{{ topic.pk }}') topic = '';"
                                     >
                                     <div class="ml-3 flex flex-col">
-                                        <!-- Checked: "text-red-900", Not Checked: "text-gray-900" -->
-                                        <div id="privacy-setting-0-label"
-                                             class="text-gray-900 block text-sm font-medium"
-                                             :class="{ 'text-red-700': String(topic) === '{{ topic.pk }}' }"
+                                        <div class="text-gray-900 block text-sm uppercase"
+                                             :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
+                                        >
+                                            {{ topic.pre }}
+                                        </div>
+                                        <div class="text-gray-900 block text-base font-medium mb-2"
+                                             :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
                                         >
                                             {{ topic.name }}
                                         </div>
-                                        <!-- Checked: "text-red-700", Not Checked: "text-gray-500" -->
-                                        <div id="privacy-setting-0-description"
-                                             class="text-gray-500 block text-sm"
-                                             :class="{ 'text-red-700': String(topic) === '{{ topic.pk }}' }"
+                                        <div class="space-y-2 text-gray-500 text-sm block"
+                                             :class="{ 'line-clamp-1 overflow-hidden': String(topic) !== '{{ topic.pk }}', 'text-red-900': String(topic) === '{{ topic.pk }}' }"
                                         >
-                                            <div :class="{ 'line-clamp-1 overflow-hidden': String(topic) !== '{{ topic.pk }}' }">
-                                                {{ topic.description|linebreaksbr }}
-                                            </div>
+                                            {{ topic.description|linebreaks }}
                                         </div>
                                     </div>
                                 </label>

@@ -2,13 +2,13 @@
 
 {% if step == '1' %}
     {% for topic in topics %}
-        <div x-cloak x-show="String(topic) === '{{ topic.pk }}'">{{ topic.name }}</div>
+        <div x-cloak x-show="String(topic) === '{{ topic.pk }}'">{{ topic.full_name }}</div>
     {% endfor %}
     <template x-if="String(topic) === '0' || String(topic) === ''">
         <div class="rounded bg-gray-300 w-40">&nbsp;</div>
     </template>
 {% elif topic %}
-    <div>{{ topic.name }}</div>
+    <div>{{ topic.full_name }}</div>
 {% else %}
     <div class="rounded bg-gray-200 w-40">&nbsp;</div>
 {% endif %}

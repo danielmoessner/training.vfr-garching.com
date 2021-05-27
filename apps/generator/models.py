@@ -57,9 +57,10 @@ class Structure(models.Model):
 
 class Group(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+    ordering = models.IntegerField(verbose_name='Sortierung')
 
     class Meta:
-        ordering = ['name']
+        ordering = ['ordering']
         verbose_name = 'Gruppe'
         verbose_name_plural = 'Gruppen'
 
@@ -78,6 +79,7 @@ class Group(models.Model):
 
 class Topic(models.Model):
     group = models.ForeignKey(Group, on_delete=models.PROTECT, null=True, related_name='topics')
+    pre = models.CharField(verbose_name='Pre', max_length=80)
     name = models.CharField(verbose_name='Name', max_length=80)
     description = models.TextField(verbose_name='Beschreibung')
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
@@ -101,6 +103,10 @@ class Topic(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+    @property
+    def full_name(self):
+        return '{}: {}'.format(self.pre, self.name)
 
 
 class Training(models.Model):
