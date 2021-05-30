@@ -33,11 +33,11 @@
         </template>
     </div>
     <main class="{% include 'symbols/main.txt' %} print:hidden" x-data="trainingsData()" x-init="init()">
-        <div class="{% include 'symbols/container.txt' %} lg:w-80">
+        <div class="{% include 'symbols/padding.txt' %} lg:w-80">
             {% include 'symbols/sidenav/index.html' %}
         </div>
         <div class="lg:flex-1">
-            <div class="{% include 'symbols/container.txt' %}">
+            <div class="{% include 'symbols/padding.txt' %}">
                 <div x-cloak class="{% include 'symbols/box/filters_top.txt' %}">
                     <a class="group flex items-center justify-center px-2 py-1 space-x-2 my-3 mx-2 bg-white rounded h-8"
                        href="{% url 'exercises' %}"

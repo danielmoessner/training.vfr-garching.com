@@ -4,11 +4,11 @@
 
 {% block main %}
     <main class="{% include 'symbols/main.txt' %}" x-data="trainingsData()" x-init="init()">
-        <aside class="{% include 'symbols/container.txt' %} lg:w-80">
+        <aside class="{% include 'symbols/padding.txt' %} lg:w-80">
             {% include 'symbols/sidenav/index.html' %}
         </aside>
         <div class="lg:flex-1">
-            <section class="{% include 'symbols/container.txt' %}">
+            <section class="{% include 'symbols/padding.txt' %}">
                 <div x-cloak class="{% include 'symbols/box/filters_top.txt' %}">
                     {% include 'symbols/filters/shop.html' %}
                 </div>
