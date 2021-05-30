@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from apps.settings.models import General, Trainings
+from apps.settings.models import General, Trainings, Fundamentals
 from solo.admin import SingletonModelAdmin
 
 
@@ -19,3 +19,4 @@ class GeneralAdmin(SingletonModelAdmin):
 
 admin.site.register(General, GeneralAdmin)
 admin.site.register(Trainings, SingletonModelAdmin)
+admin.site.register(Fundamentals, SingletonModelAdmin)

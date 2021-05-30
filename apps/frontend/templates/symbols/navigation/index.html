@@ -24,7 +24,8 @@
                 {% url 'trainings' as trainings_url %}
                 {% url 'trainings_vfr' as trainings_vfr_url %}
                 {% include 'symbols/navigation/dropdown.html' with name='PLANEN' item1_name='Trainingsgenerator' item1_link=generator_url item2_link=trainings_url item2_name='Meine Trainings' item3_name='"VfR"-Trainings' item3_link=trainings_vfr_url %}
-                {% include 'symbols/navigation/dropdown.html' with name='LERNEN' item1_link=settings.link item1_target='_blank' item1_name='"VfR"-Ausbildungskonzept' %}
+                {% url 'fundamentals' as fundamentals_url %}
+                {% include 'symbols/navigation/dropdown.html' with name='LERNEN' item1_link=settings.link item1_target='_blank' item1_name='"VfR"-Ausbildungskonzept' item2_link=fundamentals_url item2_name="Technik-Grundlagen" %}
             </div>
         </div>
         <div class="order-3 mt-2 w-full flex items-center px-2 sm:mt-0 sm:order-none sm:w-auto sm:flex-1 lg:ml-6 lg:justify-end">
@@ -95,6 +96,8 @@
                             {% include 'symbols/navigation/mobile_link.html' with text='VfR Trainings' href=url %}
                             <div class="pl-3 pt-4 text-red-600 text-xs uppercase tracking-wide font-medium">Lernen</div>
                             {% include 'symbols/navigation/mobile_link.html' with text='Ausbildungskonzept' target='_blank' href=settings.link %}
+                            {% url 'fundamentals' as fundamentals_url %}
+                            {% include 'symbols/navigation/mobile_link.html' with text='Technik-Grundlagen' href=fundamentals_url %}
                         </div>
                     </div>
                     <div class="pt-4 pb-2">

@@ -31,7 +31,7 @@
                                             {{ topic.name }}
                                         </div>
                                         <div class="space-y-2 text-gray-500 text-sm block"
-                                             :class="{ 'line-clamp-1 overflow-hidden': String(topic) !== '{{ topic.pk }}', 'text-red-900': String(topic) === '{{ topic.pk }}' }"
+                                             :class="{ 'line-clamp-1 overflow-hidden h-5': String(topic) !== '{{ topic.pk }}', 'text-red-900': String(topic) === '{{ topic.pk }}' }"
                                         >
                                             {{ topic.description|linebreaks }}
                                         </div>
