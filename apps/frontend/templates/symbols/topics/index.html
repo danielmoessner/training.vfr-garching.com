@@ -19,11 +19,13 @@
                                            aria-describedby="privacy-setting-0-description"
                                     >
                                     <div class="ml-3 flex flex-col">
-                                        <div class="text-gray-900 block text-sm uppercase"
-                                             :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
-                                        >
-                                            {{ topic.pre }}
-                                        </div>
+                                        {% if show_description %}
+                                            <div class="text-gray-900 block text-sm uppercase"
+                                                 :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
+                                            >
+                                                {{ topic.pre }}
+                                            </div>
+                                        {% endif %}
                                         <div class="text-gray-900 block text-base font-medium"
                                              :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
                                         >

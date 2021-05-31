@@ -1,5 +1,6 @@
 from solo.models import SingletonModel
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class General(SingletonModel):
@@ -42,9 +43,7 @@ class Trainings(SingletonModel):
 
 
 class Fundamentals(SingletonModel):
-    heading = models.CharField(verbose_name='Überschrift', max_length=100)
-    video1 = models.CharField(verbose_name='Video 1', blank=True, null=True, max_length=600)
-    video2 = models.CharField(verbose_name='Video 2', blank=True, null=True, max_length=600)
+    content = HTMLField(verbose_name='Inhalt')
 
     class Meta:
         verbose_name = 'Technik-Grundlagen'
@@ -52,13 +51,3 @@ class Fundamentals(SingletonModel):
 
     def __str__(self):
         return 'Technik-Grundlagen'
-
-    def get_video1_code(self):
-        if self.video1:
-            return self.video1.split('/')[-1]
-        return ''
-
-    def get_video2_code(self):
-        if self.video2:
-            return self.video2.split('/')[-1]
-        return ''
