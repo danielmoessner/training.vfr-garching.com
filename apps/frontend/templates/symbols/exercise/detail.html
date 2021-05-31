@@ -3,7 +3,7 @@
         <div class="xl:w-1/3 space-y-5" x-data="{ image: '', alt: 'Bild 1' }">
             <div>
                 <img @click="$dispatch('img-modal', {  imgModalSrc: image, imgModalDesc: '' })"
-                     class="mw-full cursor-pointer h-auto rounded-t-lg lg:rounded-tr-none"
+                     class="mw-full cursor-pointer h-auto rounded-t-lg xl:rounded-tr-none"
                      :src="image"
                      data-src="{{ exercise.image1.url }}"
                      :alt="`{{ exercise.name }} ${alt}`">

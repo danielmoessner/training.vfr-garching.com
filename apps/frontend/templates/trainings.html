@@ -8,7 +8,7 @@
     <main class="{% include 'symbols/main.txt' %}" x-data="trainings()" x-init="init()">
 
         <aside class="{% include 'symbols/padding.txt' %} lg:w-80">
-            {% include 'symbols/topics/index.html' with width='' %}
+            {% include 'symbols/pages/trainings/sidenav.html' %}
         </aside>
 
         <div class="lg:flex-1">
@@ -20,87 +20,39 @@
                 </a>
             </section>
 
-            {#            <section class="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-8 pb-20">#}
-            {#                <h1 class="text-3xl font-medium mb-10">Thema Filter</h1>#}
-            {##}
-            {#            </section>#}
-
             <section class="{% include 'symbols/padding.txt' %} py-20">
-                <ul class="grid grid-cols-2 gap-4">
+                <ul class="grid 2xl:grid-cols-2 gap-4">
                     {% for object in object_list %}
                         <li x-show="showTraining('{{ object.topic.pk }}')">
-                            <a href="#" class="block bg-white rounded shadow">
-                                <div class="flex items-center justify-between pl-4">
-                                    <div class="flex justify-between w-full">
-                                        <div class="flex-1 py-3 pr-10 truncate flex items-center">
+                            <a class="block bg-white rounded shadow"
+                               href="{{ object.get_share_url }}&training={{ object.pk }}">
+                                <div class="flex items-center justify-between md:pl-4">
+                                    <div class="flex flex-col md:flex-row md:justify-between w-full">
+                                        <div class="flex-1 px-4 py-3 pr-10 truncate flex items-center md:px-0">
                                             <div class="truncate">
-                                                <p class="truncate text-base font-medium text-red-600">{{ object.name }}</p>
+                                                <p class="truncate text-base font-medium text-red-600">
+                                                    {{ object.name }}
+                                                </p>
                                                 <div class="mt-1 text-sm text-gray-500 truncate">
                                                     {{ object.topic }}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="flex space-x-2 rounded-r overflow-hidden">
-                                            <img class="h-20 w-auto" src="{{ object.exercise1.image1.url }}" alt="">
-                                            <img class="h-20 w-auto" src="{{ object.exercise2.image1.url }}" alt="">
-                                            <img class="h-20 w-auto" src="{{ object.exercise3.image1.url }}" alt="">
-                                            <img class="h-20 w-auto" src="{{ object.exercise4.image1.url }}" alt="">
-                                            {% if object.exercise5 %}
-                                                <img class="h-20 w-auto" src="{{ object.exercise5.image1.url }}" alt="">
-                                            {% endif %}
+                                        <div class="rounded-b overflow-hidden md:rounded-r">
+                                            <div class="flex -m-1 md:m-0 md:space-x-2">
+                                                {% include 'symbols/pages/trainings/image.html' with exercise=object.exercise1 %}
+                                                {% include 'symbols/pages/trainings/image.html' with exercise=object.exercise2 %}
+                                                {% include 'symbols/pages/trainings/image.html' with exercise=object.exercise3 %}
+                                                {% include 'symbols/pages/trainings/image.html' with exercise=object.exercise4 %}
+                                                {% include 'symbols/pages/trainings/image.html' with exercise=object.exercise5 %}
+                                            </div>
                                         </div>
                                     </div>
-                                    {#                                    <div class="text-gray-400 w-5 ml-4">#}
-                                    {#                                        {% include 'svg/solid/chevron-right.svg' %}#}
-                                    {#                                    </div>#}
                                 </div>
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
-            </section>
-
-            <section class="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-8 pb-64">
-                <div class="space-y-20">
-                    {% for object in object_list %}
-                        <div x-show="showTraining('{{ object.topic.pk }}')">
-                            {% with show=True structure=object.structure topic=object.topic block1=object.block1 block2=object.block2 block3=object.block3 block4=object.block4 block5=object.block5 exercise1=object.exercise1 exercise2=object.exercise2 exercise3=object.exercise3 exercise4=object.exercise4 exercise5=object.exercise5 %}
-                                <div class="text-3xl xl:text-4xl font-bold text-gray-900 mb-2">{{ object.name }}</div>
-                                {% include 'symbols/training/index.html' with page='trainings' %}
-                                <p class="mt-5">
-                                    {{ object.description|linebreaksbr }}
-                                </p>
-                                <div class="mt-5 flex justify-between">
-                                    <div class="flex flex-col space-y-3 lg:space-y-0 lg:flex-row lg:space-x-3">
-                                        <a class="{% include 'symbols/button/button_gray.txt' %}" target="_blank"
-                                           href="{{ object.get_print_url }}">PDF erstellen</a>
-                                        <a class="{% include 'symbols/button/button_gray.txt' %} lg:hidden"
-                                           href="whatsapp://send?text={{ object.get_whatsapp_url }}"
-                                           data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
-                                        {% include 'symbols/button/button_copy_2.html' with text='Link kopieren' link=object.get_share_url id=object.pk %}
-                                        {% if object.user %}
-                                            <a class="{% include 'symbols/button/button_gray.txt' %}"
-                                               href="{{ object.get_edit_url }}">Bearbeiten</a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex space-x-3">
-                                        {% if object.user %}
-                                            <form method="POST" action="{% url 'training_delete' object.pk %}">
-                                                {% csrf_token %}
-                                                <button class="{% include 'symbols/button/button_red.txt' %}"
-                                                        type="submit">
-                                                    Löschen
-                                                </button>
-                                            </form>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endwith %}
-                        </div>
-                    {% empty %}
-                        <p>Mit dem Trainingsgenerator erstellte Trainings erscheinen hier.</p>
-                    {% endfor %}
-                </div>
             </section>
 
             <section>

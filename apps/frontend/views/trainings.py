@@ -21,6 +21,9 @@ class TrainingContextMixin(ContextMixin):
         # super
         context = super().get_context_data(**kwargs)
         # add all selected values to the context
+        training_pk = self.request.GET.get('training', default=None)
+        if training_pk and training_pk != '0':
+            context['training'] = Training.objects.get(pk=training_pk)
         topic_pk = self.request.GET.get('topic', default=None)
         if topic_pk and topic_pk != '0':
             context['topic'] = Topic.objects.get(pk=topic_pk)

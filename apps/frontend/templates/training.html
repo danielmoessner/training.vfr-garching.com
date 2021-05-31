@@ -5,27 +5,34 @@
 
 {% block main %}
 
-    <main x-data="trainings()">
+    <main class="lg:px-10" x-data="trainings()">
 
         <section class="{% include 'symbols/pages/generator/container.txt' %} my-10">
-            <div class="border border-gray-300 md:rounded-md p-5 bg-gray-50">
-                <div class="flex items-center">
-                    <div class="md:text-lg flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border-2 md:w-10 md:h-10 border-red-600">
-                        <div class="text-red-600">
-                            {% include 'svg/outline/template.svg' with class='w-4 h-4 md:w-6 md:h-6' %}
+            <div class="{% include 'symbols/padding.txt' %}">
+                <div class="border border-gray-300 rounded-md p-5 bg-gray-50">
+                    <div class="flex items-center">
+                        <div class="md:text-lg flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border-2 md:w-10 md:h-10 border-red-600">
+                            <div class="text-red-600">
+                                {% include 'svg/outline/template.svg' with class='w-4 h-4 md:w-6 md:h-6' %}
+                            </div>
+                        </div>
+                        <h1 class="text-xl ml-3 font-medium md:text-3xl text-red-600 mr-4">{{ name|default:'Übersicht' }}</h1>
+                        <div class="flex space-x-2">
+                            {% include 'symbols/button/button_print.html' with href=print_url title='Training drucken' %}
+                            {% include 'symbols/button/button_copy.html' with unique='U1' text=request.build_absolute_uri title='Link kopieren' %}
+                            {% if training and training.user %}
+                                {% include 'symbols/button/edit.html' with href=training.get_edit_url title='Training bearbeiten' %}
+                                {% url 'training_delete' training.pk as url %}
+                                {% include 'symbols/button/delete.html' with url=url title='Training löschen' %}
+                            {% endif %}
                         </div>
                     </div>
-                    <h1 class="text-xl ml-3 font-medium md:text-3xl text-red-600 mr-4">{{ name|default:'Übersicht' }}</h1>
-                    <div class="flex space-x-2">
-                        {% include 'symbols/button/button_print.html' with href=print_url title='Training drucken' %}
-                        {% include 'symbols/button/button_copy.html' with unique='U1' text=request.build_absolute_uri title='Link kopieren' %}
+                    <div class="mt-4">
+                        <p class="text-lg text-gray-800">{{ description|linebreaksbr }}</p>
                     </div>
-                </div>
-                <div class="mt-4">
-                    <p class="text-lg text-gray-800">{{ description|linebreaksbr }}</p>
-                </div>
-                <div class="mt-10">
-                    {% include 'symbols/training/index.html' with show=True %}
+                    <div class="mt-10">
+                        {% include 'symbols/training/index.html' with show=True %}
+                    </div>
                 </div>
             </div>
         </section>

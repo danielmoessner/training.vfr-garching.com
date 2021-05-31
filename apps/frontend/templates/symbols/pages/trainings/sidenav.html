@@ -1,0 +1,16 @@
+<nav class="lg:divide-y lg:divide-gray-300">
+    <div class="{% include 'symbols/sidenav/section.txt' %}">
+        <div class="{% include 'symbols/sidenav/top.txt' %}">
+            <p class="{% include 'symbols/sidenav/heading.txt' %} lg:hidden">Themenauswahl</p>
+            {% include 'symbols/sidenav/button.html' with property='topicMenuOpen' text='Themenmenü öffnen' %}
+        </div>
+        <div x-cloak :class="{ block: topicMenuOpen, hidden: !topicMenuOpen }"
+             class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-4">
+            {% include 'symbols/topics/index.html' with width='none' %}
+            <div class="pt-5 flex justify-between items-baseline">
+                <button class="{% include 'symbols/button/button_gray.txt' %}"
+                   type="button" @click="topic = ''">Zurücksetzen</button>
+            </div>
+        </div>
+    </div>
+</nav>

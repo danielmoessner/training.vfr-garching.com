@@ -1,6 +1,5 @@
-from django.db.models import Prefetch
-
 from apps.trainings.models import Filter, Exercise, Youth
+from django.db.models import Prefetch
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
