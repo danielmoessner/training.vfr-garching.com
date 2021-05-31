@@ -24,16 +24,18 @@
                                         >
                                             {{ topic.pre }}
                                         </div>
-                                        <div class="text-gray-900 block text-base font-medium mb-2"
+                                        <div class="text-gray-900 block text-base font-medium"
                                              :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
                                         >
                                             {{ topic.name }}
                                         </div>
-                                        <div class="space-y-2 text-gray-500 text-sm block"
-                                             :class="{ 'line-clamp-1 overflow-hidden h-5': String(topic) !== '{{ topic.pk }}', 'text-red-900': String(topic) === '{{ topic.pk }}' }"
-                                        >
-                                            {{ topic.description|linebreaks }}
-                                        </div>
+                                        {% if show_description %}
+                                            <div class="mt-2 space-y-2 text-gray-500 text-sm block break-all"
+                                                 :class="{ 'line-clamp-1 overflow-hidden h-5': String(topic) !== '{{ topic.pk }}', 'text-red-900': String(topic) === '{{ topic.pk }}' }"
+                                            >
+                                                {{ topic.description|linebreaks }}
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </label>
                             {% endfor %}

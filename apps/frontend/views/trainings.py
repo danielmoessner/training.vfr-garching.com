@@ -54,7 +54,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
     model = Training
 
     def get_queryset(self):
-        return self.request.user.settings.trainings.all()
+        return Training.optimize_queryset(self.request.user.settings.trainings.all())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

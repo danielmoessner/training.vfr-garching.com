@@ -60,7 +60,7 @@
                             </div>
                             {% if step == '1' %}
                                 <div class="px-5 pt-10">
-                                    {% include 'symbols/topics/index.html' %}
+                                    {% include 'symbols/topics/index.html' with show_description=True %}
                                 </div>
                             {% endif %}
                             {% if step == '5' %}
@@ -115,7 +115,7 @@
                                             </div>
 
                                             <div class="p-2">
-                                                {% include 'symbols/button/button_copy_2.html' with text='Link kopieren' link=link_url size='px-5 py-3 text-base' %}
+                                                {% include 'symbols/button/button_copy.html' with unique1='generator' text=link_url %}
                                             </div>
 
                                         {% endif %}
