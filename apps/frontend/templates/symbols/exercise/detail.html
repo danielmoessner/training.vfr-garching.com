@@ -42,7 +42,7 @@
                            href="{% url 'training_bookmark' exercise.pk %}"
                         >
                             <div class="">
-                                {% if bookmarked %}
+                                {% if exercise in user_settings.bookmarks.all %}
                                     {% include 'svg/solid-heart.svg' with size='h-6 w-6' %}
                                 {% else %}
                                     {% include 'svg/outline-heart.svg' %}

@@ -17,6 +17,7 @@ class SettingsContextMixin(ContextMixin):
         context['settings'] = General.get_solo()
         # get or create the settings
         if self.request.user.is_authenticated:
-            settings, created = UserSettings.objects.select_related('age_group').get_or_create(user=self.request.user)
+            settings, created = UserSettings.objects.select_related('age_group').prefetch_related(
+                'bookmarks').get_or_create(user=self.request.user)
             context['user_settings'] = settings
         return context
