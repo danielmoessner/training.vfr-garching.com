@@ -4,6 +4,7 @@
 <script>
     window.generator = () => {
         return {
+            step: "{{ step|default:'1' }}",
             name: "{{ name|default:'' }}",
             description: `{{ description|default:'' }}`,
             topic: {{ topic.pk|default:"''" }},
@@ -18,11 +19,18 @@
             exercise3: {{ exercise3.pk|default:"''" }},
             exercise4: {{ exercise4.pk|default:"''" }},
             exercise5: {{ exercise5.pk|default:"''" }},
+            phases: {% if structure.phase5 %}5{% else %}4{% endif %},
             user: '',
             show: 0,
             escape(url) {
                 const completeUrl = `https://training.vfr-garching.com${url}`
                 return encodeURIComponent(completeUrl);
+            },
+            disabled() {
+                if (this.step === '1' && this.topic === '') return true;
+                if (this.step === '2' && this.structure === '') return true;
+                if (this.step === '3' && (this.block1 === '' || this.block2 === '' || this.block3 === '' || this.block4 === '' || (this.phases === 5 && this.block5 === ''))) return true;
+                return false;
             }
         }
     }

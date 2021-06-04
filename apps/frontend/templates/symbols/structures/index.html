@@ -1,0 +1,35 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    {% for structure in structures %}
+        <div class="bg-white rounded-md shadow">
+            <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer"
+                   :class="{ 'bg-red-50 border-red-200 z-10 shadow-inner': String(structure) === '{{ structure.pk }}' }"
+            >
+                <input type="radio" name="structures" value="{{ structure.pk }}"
+                       x-model="structure"
+                       class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-0 focus:outline-none"
+                       style="box-shadow: none;"
+                       @click="if (structure === '{{ structure.pk }}') structure = '';"
+                >
+                <div class="ml-3 flex flex-col">
+                    {% for phase, block in structure.get_blocks %}
+                        <div class="text-gray-900 block text-sm uppercase"
+                             :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
+                        >
+                            {{ phase }}
+                        </div>
+                        <div class="text-gray-900 block text-base font-medium"
+                             :class="{ 'text-red-900': String(structure) === '{{ structure.pk }}' }"
+                        >
+                            {{ block.name }}
+                        </div>
+                        <div class="mt-2 space-y-2 text-gray-500 text-sm block break-all"
+                             :class="{ 'line-clamp-1 overflow-hidden h-5': String(structure) !== '{{ structure.pk }}', 'text-red-900': String(structure) === '{{ structure.pk }}' }"
+                        >
+                            {{ block.description }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </label>
+        </div>
+    {% endfor %}
+</div>

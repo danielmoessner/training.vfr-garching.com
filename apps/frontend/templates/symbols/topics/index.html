@@ -12,11 +12,10 @@
                                 <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer"
                                        :class="{ 'bg-red-50 border-red-200 z-10 shadow-inner': String(topic) === '{{ topic.pk }}' }"
                                 >
-                                    <input type="radio" name="privacy_setting" value="{{ topic.pk }}" x-model="topic"
+                                    <input type="radio" name="topic" value="{{ topic.pk }}" x-model="topic"
                                            class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-0 focus:outline-none"
                                            style="box-shadow: none;"
-                                           aria-labelledby="privacy-setting-0-label"
-                                           aria-describedby="privacy-setting-0-description"
+                                           @click="if (topic === '{{ topic.pk }}') topic = '';"
                                     >
                                     <div class="ml-3 flex flex-col">
                                         {% if show_description %}

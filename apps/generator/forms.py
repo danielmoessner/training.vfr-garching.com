@@ -11,6 +11,15 @@ class ShowHideFieldsMixin:
         for field in self.Meta.hidden_fields:
             self.hide_field(field)
 
+    def hide_fields(self, fields):
+        fields = list(set(fields))
+        remaining_fields = [field for field in self.Meta.fields if field not in fields]
+        first_fields = {field: self.fields[field] for field in remaining_fields}
+        last_fields = {field: self.fields[field] for field in fields}
+        self.fields = {**first_fields, **last_fields}
+        for field in fields:
+            self.hide_field(field)
+
     def show_field(self, field):
         self.fields[field].widget.attrs = {'class': 'px-3 py-2', 'x-model': field}
 
@@ -51,32 +60,32 @@ class Step2Form(ShowHideFieldsMixin, forms.ModelForm):
 class Step3Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        shown_fields = ['block1', 'block2', 'block3', 'block4', 'block5']
+        shown_fields = []
         hidden_fields = Training.get_remaining_fields(shown_fields)
         fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
-        self.fields['block1'].label = mark_safe('Bitte wähle die Übungsart für das <u>Warm-Up</u> aus')
-        self.fields['block2'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 1</u> aus')
-        self.fields['block3'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 2</u> aus')
-        self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 3</u> aus')
-        self.fields['block5'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
-        if initial and 'structure' in initial and initial['structure'] != '':
-            structure = Structure.objects.get(pk=initial['structure'])
-            for i in range(1, 6):
-                self.fields['block{}'.format(i)].required = True
-                queryset = getattr(structure, 'blocks{}'.format(i)).all()
-                self.fields['block{}'.format(i)].queryset = queryset
-                if queryset.count() == 1:
-                    self.fields['block{}'.format(i)].empty_label = None
-            if not structure.phase5:
-                self.fields['block5'].widget = forms.HiddenInput()
-                self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
-        for field in self.fields:
-            if field[:5] == 'block' and self.fields[field].queryset.count() == 1:
-                self.fields[field].widget = forms.HiddenInput()
-                self.fields[field].widget.attrs = {'x-model': field}
+        # self.fields['block1'].label = mark_safe('Bitte wähle die Übungsart für das <u>Warm-Up</u> aus')
+        # self.fields['block2'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 1</u> aus')
+        # self.fields['block3'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 2</u> aus')
+        # self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Hauptteil 3</u> aus')
+        # self.fields['block5'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
+        # fields_to_hide = []
+        # if initial and 'structure' in initial and initial['structure'] != '':
+        #     structure = Structure.objects.get(pk=initial['structure'])
+        #     for i in range(1, 6):
+        #         queryset = getattr(structure, 'blocks{}'.format(i)).all()
+        #         self.fields['block{}'.format(i)].queryset = queryset
+                # if queryset.count() == 1:
+                    # fields_to_hide.append('block{}'.format(i))
+            # if not structure.phase5:
+                # fields_to_hide.append('block5')
+                # self.fields['block4'].label = mark_safe('Bitte wähle die Übungsart für den <u>Abschluss</u> aus')
+        # for field in self.fields:
+        #     if field[:5] == 'block' and self.fields[field].queryset.count() == 1:
+        #         fields_to_hide.append(field)
+        # self.hide_fields(fields_to_hide)
 
 
 class Step4Form(ShowHideFieldsMixin, forms.ModelForm):

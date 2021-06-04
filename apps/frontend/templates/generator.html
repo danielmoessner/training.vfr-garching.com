@@ -16,63 +16,47 @@
 
             <section class="{% include 'symbols/pages/generator/container.txt' %} my-10">
                 <div class="{% include 'symbols/padding.txt' %}">
-                    <div class="border border-gray-300 rounded-md bg-white shadow-sm">
-                        <div class="px-5 pt-5 {% if step != '4' %}mb-10{% endif %}">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border-2 md:text-lg md:w-10 md:h-10 border-red-600">
-                                    <div class="text-red-600 font-medium">{{ step }}</div>
-                                </div>
-                                <h1 class="text-xl ml-3 font-medium md:text-3xl text-red-600">
-                                    {% if step == '1' %}
-                                        {{ page.step1_heading }}
-                                    {% elif step == '2' %}
-                                        {{ page.step2_heading }}
-                                    {% elif step == '3' %}
-                                        {{ page.step3_heading }}
-                                    {% elif step == '4' %}
-                                        {{ page.step4_heading }}
-                                    {% elif step == '5' %}
-                                        {{ page.step5_heading }}
-                                    {% endif %}
-                                </h1>
-                            </div>
-                            <div class="max-w-3xl mt-10">
-                                <p class="text-gray-800">
-                                    {% if step == '1' %}
-                                        {{ page.step1_info|linebreaksbr }}
-                                    {% elif step == '2' %}
-                                        {{ page.step2_info|linebreaksbr }}
-                                    {% elif step == '3' %}
-                                        {{ page.step3_info|linebreaksbr }}
-                                    {% elif step == '4' %}
-                                        {{ page.step4_info|linebreaksbr }}
-                                    {% elif step == '5' %}
-                                        {{ page.step5_info|linebreaksbr }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
+                    <div class="border border-gray-300 rounded-md bg-gray-50 shadow-sm">
+
+                        {% include 'symbols/pages/generator/top_text.html' %}
 
                         <form class="" method="{% if step == '5' %}POST{% else %}GET{% endif %}"
                               action="{% url 'generator' %}{% if training %}?training={{ training.pk }}{% endif %}">
                             <div class="django-form django-form--3-columns px-5 w-full">
                                 {{ form.as_p }}
                             </div>
+
                             {% if step == '1' %}
                                 <div class="px-5 pt-10">
                                     {% include 'symbols/topics/index.html' with show_description=True %}
                                 </div>
                             {% endif %}
+
+                            {% if step == '3' %}
+                                <div class="px-5 pt-10">
+                                    {% include 'symbols/blocks/index.html' %}
+                                </div>
+                            {% endif %}
+
+{#                            {% if step == '2' %}#}
+{#                                <div class="px-5 pt-10">#}
+{#                                    {% include 'symbols/structures/index.html' %}#}
+{#                                </div>#}
+{#                            {% endif %}#}
+
                             {% if step == '5' %}
                                 {% csrf_token %}
                             {% endif %}
+
                             {% if training %}
                                 <input type="hidden" name="training" value="{{ training.pk }}">
                             {% endif %}
+
                             <input type="hidden" name="step"
                                    value="{% include 'symbols/pages/generator/url_params_step.html' %}">
                             <input type="hidden" name="exercise_step"
                                    value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
+
                             <div class="col-span-6 px-5 pb-5 mt-16">
                                 <div class="-m-2">
                                     <div class="w-full flex flex-row flex-wrap">
@@ -85,7 +69,7 @@
 
                                         <div class="p-2 ml-auto">
                                             <button class="{% include 'symbols/button/button_green.txt' with size='px-5 py-3 text-base' %}"
-                                                    :class="{ 'disabled': topic === '' }"
+                                                    :class="{ 'disabled': disabled() }"
                                                     type="submit">
                                                 {% if step == '1' or step == '2' or step == '3' or step == '4' %}
                                                     <span class="mr-2">Weiter</span>
@@ -126,21 +110,6 @@
                     </div>
                 </div>
             </section>
-
-            {% if False %}
-                <section class="{% include 'symbols/pages/generator/container.txt' %} my-10">
-                    <div class="{% include 'symbols/padding.txt' %}">
-                        <div class="border border-gray-300 rounded-md p-5 bg-gray-50 shadow-sm">
-                            <h2 class="flex-1 font-medium text-lg">
-                                Bitte wähle ein Thema für dein Training aus:
-                            </h2>
-                            <div class="mt-6">
-                                {% include 'symbols/topics/index.html' %}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            {% endif %}
 
             <section class="{% include 'symbols/pages/generator/container.txt' %} my-10">
                 <div class="{% include 'symbols/padding.txt' %}">

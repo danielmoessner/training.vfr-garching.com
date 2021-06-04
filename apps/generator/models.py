@@ -8,6 +8,7 @@ import urllib.parse
 
 class Block(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
+    description = models.TextField(verbose_name='Beschreibung')
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     and_filters = models.ManyToManyField(Filter, verbose_name='UND Filter', blank=True, related_name='or_blocks')
     or_filters = models.ManyToManyField(Filter, verbose_name='ODER Filter', blank=True, related_name='and_blocks')
@@ -52,6 +53,16 @@ class Structure(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+    @property
+    def blocks(self):
+        data = {}
+        for i in range(1, 6):
+            phase = getattr(self, 'get_phase{}_display'.format(i))
+            blocks = getattr(self, 'blocks{}'.format(i))
+            if blocks and phase:
+                data[i] = (phase(), blocks.all())
+        return data
 
 
 class Group(models.Model):

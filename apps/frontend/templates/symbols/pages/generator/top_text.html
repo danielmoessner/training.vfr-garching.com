@@ -1,0 +1,35 @@
+<div class="px-5 pt-5 {% if step != '4' %}mb-10{% endif %}">
+    <div class="flex items-center">
+        <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border-2 md:text-lg md:w-10 md:h-10 border-red-600">
+            <div class="text-red-600 font-medium">{{ step }}</div>
+        </div>
+        <h1 class="text-xl ml-3 font-medium md:text-3xl text-red-600">
+            {% if step == '1' %}
+                {{ page.step1_heading }}
+            {% elif step == '2' %}
+                {{ page.step2_heading }}
+            {% elif step == '3' %}
+                {{ page.step3_heading }}
+            {% elif step == '4' %}
+                {{ page.step4_heading }}
+            {% elif step == '5' %}
+                {{ page.step5_heading }}
+            {% endif %}
+        </h1>
+    </div>
+    <div class="max-w-3xl mt-10">
+        <p class="text-gray-800">
+            {% if step == '1' %}
+                {{ page.step1_info|linebreaksbr }}
+            {% elif step == '2' %}
+                {{ page.step2_info|linebreaksbr }}
+            {% elif step == '3' %}
+                {{ page.step3_info|linebreaksbr }}
+            {% elif step == '4' %}
+                {{ page.step4_info|linebreaksbr }}
+            {% elif step == '5' %}
+                {{ page.step5_info|linebreaksbr }}
+            {% endif %}
+        </p>
+    </div>
+</div>

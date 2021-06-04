@@ -13,14 +13,7 @@
 
         <div class="lg:flex-1">
 
-            <section class="{% include 'symbols/padding.txt' %}">
-                <a class="block rounded-lg overflow-hidden max-w-screen-lg mx-auto" href="{% url 'generator' %}">
-                    <img class="w-full max-w-full h-auto" src="{% static 'img/trainingsgenerator.png' %}"
-                         alt="Zum Trainingsgenerator">
-                </a>
-            </section>
-
-            <section class="{% include 'symbols/padding.txt' %} py-20">
+            <section class="{% include 'symbols/padding.txt' %} pb-20">
                 <ul class="grid 2xl:grid-cols-2 gap-4">
                     {% for object in object_list %}
                         <li x-show="showTraining('{{ object.topic.pk }}')">

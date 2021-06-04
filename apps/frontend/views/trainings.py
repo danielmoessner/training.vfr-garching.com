@@ -192,10 +192,13 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
         elif step == '2':
             context['structures'] = Structure.objects.all()
         elif step == '3':
-            context['blocks'] = Block.objects.all()
-            for i in range(1, 6):
-                if context['form'].fields['block{}'.format(i)].queryset.count() == 1:
-                    context['block{}'.format(i)] = context['form'].fields['block{}'.format(i)].queryset.first()
+            if 'structure' in context:
+                for i in range(1, 6):
+                    blocks = getattr(context['structure'], 'blocks{}'.format(i))
+                    if blocks.count() == 1:
+                        context['block{}'.format(i)] = blocks.first()
+            else:
+                context['blocks'] = Block.objects.all()
         elif step == '4':
             context['exercises_total'] = Exercise.objects.all().count()
             context['possible_exercises'] = Exercise.objects.all().select_related('difficulty')
