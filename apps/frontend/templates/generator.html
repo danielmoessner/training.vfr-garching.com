@@ -32,17 +32,17 @@
                                 </div>
                             {% endif %}
 
+                            {% if step == '2' %}
+                                <div class="px-5 pt-10">
+                                    {% include 'symbols/structures/index.html' %}
+                                </div>
+                            {% endif %}
+
                             {% if step == '3' %}
                                 <div class="px-5 pt-10">
                                     {% include 'symbols/blocks/index.html' %}
                                 </div>
                             {% endif %}
-
-{#                            {% if step == '2' %}#}
-{#                                <div class="px-5 pt-10">#}
-{#                                    {% include 'symbols/structures/index.html' %}#}
-{#                                </div>#}
-{#                            {% endif %}#}
 
                             {% if step == '5' %}
                                 {% csrf_token %}

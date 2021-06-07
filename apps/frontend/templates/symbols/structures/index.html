@@ -1,7 +1,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     {% for structure in structures %}
         <div class="bg-white rounded-md shadow">
-            <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer"
+            <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer h-full"
                    :class="{ 'bg-red-50 border-red-200 z-10 shadow-inner': String(structure) === '{{ structure.pk }}' }"
             >
                 <input type="radio" name="structures" value="{{ structure.pk }}"
@@ -11,23 +11,39 @@
                        @click="if (structure === '{{ structure.pk }}') structure = '';"
                 >
                 <div class="ml-3 flex flex-col">
-                    {% for phase, block in structure.get_blocks %}
-                        <div class="text-gray-900 block text-sm uppercase"
-                             :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
-                        >
-                            {{ phase }}
-                        </div>
-                        <div class="text-gray-900 block text-base font-medium"
-                             :class="{ 'text-red-900': String(structure) === '{{ structure.pk }}' }"
-                        >
-                            {{ block.name }}
-                        </div>
-                        <div class="mt-2 space-y-2 text-gray-500 text-sm block break-all"
-                             :class="{ 'line-clamp-1 overflow-hidden h-5': String(structure) !== '{{ structure.pk }}', 'text-red-900': String(structure) === '{{ structure.pk }}' }"
-                        >
-                            {{ block.description }}
-                        </div>
-                    {% endfor %}
+                    <div class="divide-y-2 divide-gray-200">
+                        {% for phase, blocks in structure.get_blocks %}
+                            {% if phase and blocks %}
+                                <div class="{% if not forloop.first %}mt-5 pt-5{% endif %}">
+                                    <div class="text-gray-900 block text-sm uppercase"
+                                         :class="{ 'text-red-900': String(structure) === '{{ structure.pk }}' }"
+                                    >
+                                        {{ phase }}
+                                    </div>
+                                    {% if blocks.count == 1 %}
+                                        <div class="text-gray-900 block text-base font-medium"
+                                             :class="{ 'text-red-900': String(structure) === '{{ structure.pk }}' }"
+                                        >
+                                            {{ blocks.0.name }}
+                                        </div>
+                                        <div class="mt-2 space-y-2 text-gray-500 text-sm block break-all"
+                                             :class="{ 'line-clamp-1 overflow-hidden h-5': String(structure) !== '{{ structure.pk }}', 'text-red-900': String(structure) === '{{ structure.pk }}' }"
+                                        >
+                                            {{ blocks.0.description }}
+                                        </div>
+                                    {% else %}
+                                        <div class="text-gray-900 block text-base font-medium"
+                                             :class="{ 'text-red-900': String(structure) === '{{ structure.pk }}' }"
+                                        >
+                                            {% for block in blocks.all %}
+                                                {{ block.name }} {% if not forloop.last %}/{% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </label>
         </div>

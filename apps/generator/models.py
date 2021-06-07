@@ -64,6 +64,15 @@ class Structure(models.Model):
                 data[i] = (phase(), blocks.all())
         return data
 
+    def get_blocks(self):
+        data = []
+        for i in range(1, 6):
+            phase = getattr(self, 'get_phase{}_display'.format(i))
+            blocks = getattr(self, 'blocks{}'.format(i))
+            if blocks and phase:
+                data.append((phase(), blocks.all()))
+        return data
+
 
 class Group(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
