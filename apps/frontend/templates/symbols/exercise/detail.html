@@ -24,17 +24,17 @@
                     </div>
                 {% endif %}
             </div>
-            {% if exercise.video %}
-                <div x-show="showVideo" class="absolute inset-10 z-10" x-on:keydown.window.escape="showVideo = false;">
-                    <div class="aspect-w-16 aspect-h-9" @click.away="showVideo = false;" >
-                        <iframe class=""
-                                data-src="https://www.youtube.com/embed/{{ exercise.get_video_code }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                    </div>
-                </div>
-            {% endif %}
+{#            {% if exercise.video %}#}
+{#                <div x-show="showVideo" class="absolute inset-10 z-10" x-on:keydown.window.escape="showVideo = false;">#}
+{#                    <div class="aspect-w-16 aspect-h-9" @click.away="showVideo = false;" >#}
+{#                        <iframe class=""#}
+{#                                data-src="https://www.youtube.com/embed/{{ exercise.get_video_code }}"#}
+{#                                title="YouTube video player" frameborder="0"#}
+{#                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"#}
+{#                                allowfullscreen></iframe>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
         </div>
         <div class="xl:w-2/3 p-4 sm:px-6 sm:py-6">
 

@@ -1,8 +1,9 @@
 <abbr title="{{ title }}">
     <div class="">
-        <button class="block bg-white text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200"
-                @click="showVideo = true;">
+        <a class="block bg-white text-gray-500 hover:text-gray-900 focus:outline-none hover:bg-gray-100 rounded p-1 focus:bg-gray-200"
+           href="https://www.youtube.com/embed/{{ exercise.get_video_code }}/"
+           target="_blank">
             {% include 'svg/outline/play.svg' %}
-        </button>
+        </a>
     </div>
 </abbr>

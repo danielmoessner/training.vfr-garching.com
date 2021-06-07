@@ -61,6 +61,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
         context['exercises'] = Exercise.optimize_queryset()
         context['form'] = TopicForm(settings=self.request.user.settings)
         context['groups'] = Group.optimize_queryset(user_settings=context['user_settings'])
+        context['title'] = 'Meine Trainings'
         return context
 
 
@@ -75,6 +76,7 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
         context = super().get_context_data(**kwargs)
         context['exercises'] = Exercise.optimize_queryset()
         context['groups'] = Group.optimize_queryset(user_settings=context['user_settings'])
+        context['title'] = 'VfR Trainings'
         return context
 
 
