@@ -1,0 +1,26 @@
+{% load static %}
+{% load extra_tags %}
+
+<script>
+    window.exercise{{ exercise.id }} = () => {
+        return {
+            id: "{{ exercise.id }}",
+            bookmarked: {% if exercise in user_settings.bookmarks.all %}true{% else %}false{% endif %},
+            showVideo: false,
+            test: false,
+            image: '{{ exercise.image1.url }}',
+            alt: 'Vorschaubild',
+            bookmark() {
+                fetch(`/api/bookmark/${this.id}/`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                }).then(() => this.bookmarked = !this.bookmarked)
+            }
+        }
+    }
+</script>

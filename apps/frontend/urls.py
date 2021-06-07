@@ -32,5 +32,6 @@ urlpatterns = [
     path('api/filter_groups/<int:pk>/', views.ToggleFilterGroupApiView.as_view(), name='api_toggle_filter_group'),
     path('api/training_filters/<int:pk>/', views.ToggleTrainingFilterApiView.as_view(),
          name='api_toggle_training_filter'),
-    path('api/search/', views.SearchApiView.as_view(), name='api_search')
+    path('api/search/', views.SearchApiView.as_view(), name='api_search'),
+    path('api/bookmark/<int:pk>/', views.BookmarkApiView.as_view(), name='api_bookmark')
 ]

@@ -107,6 +107,7 @@ class Filter(models.Model):
     age_groups = models.ManyToManyField(Youth, verbose_name='Altersgruppen', blank=True)
     hide = models.BooleanField(default=False, verbose_name='Versteckt')
     show_on_detail = models.BooleanField(verbose_name='Auf der Detailseite anzeigen', default=False)
+    show_on_detail_bottom = models.BooleanField(verbose_name='Auf der Detailseite unten anzeigen', default=False)
     description = models.TextField(verbose_name='Beschreibung', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

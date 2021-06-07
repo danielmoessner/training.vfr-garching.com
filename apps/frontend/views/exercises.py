@@ -120,6 +120,8 @@ class ResetTrainingFiltersView(LoginRequiredMixin, SuccessUrlReverseMixin, gener
 
 # api views
 class ToggleFilterGroupApiView(APIView):
+    http_method_names = ['head', 'post']
+
     def post(self, request, pk=None):
         if self.request.user.settings.filter_groups.filter(pk=pk).exists():
             self.request.user.settings.filter_groups.remove(pk)
@@ -135,6 +137,8 @@ class ToggleFilterGroupApiView(APIView):
 
 
 class ToggleTrainingFilterApiView(APIView):
+    http_method_names = ['head', 'post']
+
     def post(self, request, pk=None):
         user_settings = request.user.settings
         user_training_filters = user_settings.training_filters
@@ -158,6 +162,8 @@ class ToggleTrainingFilterApiView(APIView):
 
 
 class SearchApiView(APIView):
+    http_method_names = ['head', 'get']
+
     def get(self, request):
         search = request.GET.get('search', default='')
         if search:
@@ -169,4 +175,21 @@ class SearchApiView(APIView):
             data = results
         else:
             data = {'exercises': [], 'filters': []}
+        return Response(data)
+
+
+class BookmarkApiView(APIView):
+    http_method_names = ['head', 'post']
+
+    def post(self, request, pk=None):
+        if self.request.user.settings.bookmarks.filter(pk=pk).exists():
+            self.request.user.settings.bookmarks.remove(pk)
+            action = 'removed'
+        else:
+            self.request.user.settings.bookmarks.add(pk)
+            action = 'added'
+        data = {
+            'status': 'ok',
+            'action': action
+        }
         return Response(data)

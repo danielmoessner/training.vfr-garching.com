@@ -55,6 +55,13 @@ def filter_show_on_detail(filters_qs):
     return filters
 
 
+@register.filter
+def filter_show_on_detail_bottom(filters_qs):
+    filters = list(filters_qs)
+    filters = list(filter(lambda f: f.show_on_detail_bottom, filters))
+    return filters
+
+
 @register.inclusion_tag('symbols/request/params.html', takes_context=True)
 def url_params(context):
     request = context['request']
