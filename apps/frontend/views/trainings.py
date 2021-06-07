@@ -190,7 +190,10 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
             context['groups'] = Group.optimize_queryset(user_settings=context['user_settings'])
             context['topics'] = Topic.objects.all()
         elif step == '2':
-            context['structures'] = Structure.objects.all()
+            if 'topic' in context:
+                context['structures'] = context['topic'].structures.all()
+            else:
+                context['structures'] = Structure.objects.all()
         elif step == '3':
             if 'structure' in context:
                 for i in range(1, 6):

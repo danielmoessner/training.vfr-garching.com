@@ -43,18 +43,18 @@ class Step1Form(ShowHideFieldsMixin, forms.ModelForm):
 class Step2Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        shown_fields = ['structure']
+        shown_fields = []
         hidden_fields = Training.get_remaining_fields(shown_fields)
         fields = shown_fields + hidden_fields
 
     def __init__(self, settings=None, initial=None, *args, **kwargs):
         super().__init__(initial=initial, *args, **kwargs)
-        self.fields['structure'].label = mark_safe('Bitte wähle eine <u>Struktur</u> für dein Training aus')
-        self.fields['structure'].required = True
-        if initial and 'topic' in initial and initial['topic'] != '':
-            initial['topic'] = initial['topic']
-            topic = Topic.objects.get(pk=initial['topic'])
-            self.fields['structure'].queryset = topic.structures.all()
+        # self.fields['structure'].label = mark_safe('Bitte wähle eine <u>Struktur</u> für dein Training aus')
+        # self.fields['structure'].required = True
+        # if initial and 'topic' in initial and initial['topic'] != '':
+        #     initial['topic'] = initial['topic']
+        #     topic = Topic.objects.get(pk=initial['topic'])
+        #     self.fields['structure'].queryset = topic.structures.all()
 
 
 class Step3Form(ShowHideFieldsMixin, forms.ModelForm):
