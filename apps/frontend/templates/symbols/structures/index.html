@@ -1,7 +1,10 @@
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 gap-y-8">
     {% for structure in structures %}
         <div class="">
-            <label class="border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer bg-white rounded-md shadow"
+            <div class="font-medium text-xl">
+                {{ structure.name }}
+            </div>
+            <label class="mt-2 border-gray-200 first:rounded-t-md last:rounded-b-md relative border p-4 flex cursor-pointer bg-white rounded-md shadow"
                    :class="{ 'bg-red-50 border-red-200 z-10 shadow-inner': String(structure) === '{{ structure.pk }}' }"
             >
                 <input type="radio" name="structures" value="{{ structure.pk }}"
