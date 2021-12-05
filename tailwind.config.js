@@ -24,6 +24,9 @@ module.exports = {
                             textTransform: 'uppercase',
                             letterSpacing: '0.025em'
                         },
+                        'strong': {
+                            color: 'inherit',
+                        },
                         '> ul > li > *:first-child': {
                             marginTop: 0,
                         }

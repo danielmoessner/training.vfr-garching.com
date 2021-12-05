@@ -15,11 +15,11 @@
     "build:js": "browserify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] --minified ] | uglifyjs > static/dist/js/main.js",
     "watch:js": "watchify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] --minified ] -o static/dist/js/main.js"
   },
-  "author": "Daniel Mössner from Tortuga Webdesign",
+  "author": "Daniel Mössner",
   "license": "UNLICENSED",
   "dependencies": {
-    "@tailwindcss/aspect-ratio": "^0.2.0",
-    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/line-clamp": "^0.2.0",
     "@tailwindcss/typography": "^0.4.0",
     "alpinejs": "^2.8.1",
@@ -31,15 +31,15 @@
     "@babel/preset-env": "^7.13.9",
     "autoprefixer": "^10.1.0",
     "babelify": "^10.0.0",
-    "browserify": "^16.5.2",
+    "browserify": "^17.0.0",
     "cross-env": "^7.0.3",
-    "cssnano": "^4.1.10",
+    "cssnano": "^5.0.12",
     "postcss": "^8.2.7",
-    "postcss-cli": "^8.3.0",
+    "postcss-cli": "^9.0.2",
     "postcss-import": "^14.0.0",
-    "postcss-load-config": "^2.1.2",
-    "postcss-nested": "^4.2.3",
+    "postcss-load-config": "^3.1.0",
+    "postcss-nested": "^5.0.6",
     "uglify-es": "^3.3.9",
-    "watchify": "^3.11.1"
+    "watchify": "^4.0.0"
   }
 }
