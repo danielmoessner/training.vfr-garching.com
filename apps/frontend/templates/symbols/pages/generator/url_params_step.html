@@ -1,6 +1,8 @@
 {% spaceless %}
     {% load extra_tags %}
-    {% if step == '1' or step == '2' or step == '3'%}
+    {% if step == '1' %}
+        4
+    {% elif step == '2' or step == '3'%}
         {{ step|add:1 }}
     {% elif step == '4' %}
         {% if exercise_step == '5' %}

@@ -6,7 +6,7 @@
 
     {% if step in '12345'|make_list %}
 
-        <main x-data="generator()" class="lg:px-10">
+        <main x-data="generator" class="lg:px-10">
 
             <section class="{% include 'symbols/pages/generator/container.txt' %} pt-10">
                 <div class="{% include 'symbols/padding.txt' %}">
@@ -22,8 +22,10 @@
 
                         <form class="" method="{% if step == '5' %}POST{% else %}GET{% endif %}"
                               action="{% url 'generator' %}{% if training %}?training={{ training.pk }}{% endif %}">
-                            <div class="django-form django-form--3-columns px-5 w-full">
-                                {{ form.as_p }}
+                            <div class="px-5 w-full">
+                                <div class="django-form django-form--3-columns">
+                                    {{ form.as_p }}
+                                </div>
                             </div>
 
                             {% if step == '1' %}
@@ -143,7 +145,7 @@
                                 <h2 class="flex-1 font-medium text-lg ml-2">
                                     Bitte wähle die Übung für die aktuelle Trainingsphase aus:
                                 </h2>
-                                <div class="text-gray-800 text-sm font-medium">{{ possible_exercises.count }}
+                                <div class="text-gray-800 text-sm font-medium"><span x-text="count"></span>
                                     von {{ exercises_total }}</div>
                             </div>
                             <div class="mt-4">
@@ -151,10 +153,17 @@
                                     {% include 'symbols/filters/search.html' %}
                                 </div>
                             </div>
-                            <ul class="mt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
+                            <div class="mt-4">
+                                <div x-cloak class="flex flex-wrap mb-3 print:hidden">
+                                    {% include 'symbols/filters/filters_horizontal.html' %}
+                                </div>
+                            </div>
+                            <ul class="mt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5"
+                                id="exercise-list">
                                 {% for exercise in possible_exercises %}
-                                    <li class="relative">
-                                        <div class="relative border-2 overflow-hidden block border-transparent focus:outline-none sm:rounded-lg">
+                                    <li class="relative" x-show="showTraining([
+                                            {% for filter in exercise.filters.all %}{{ filter.pk }},{% endfor %}])">
+                                        <div class="relative border-0 overflow-hidden block border-transparent focus:outline-none sm:rounded-lg">
                                             {% include 'symbols/exercise/index.html' with exercise=exercise state='select' %}
                                         </div>
                                         <div class="absolute bottom-3 right-3 z-10">

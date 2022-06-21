@@ -1,10 +1,12 @@
 {% if show or training or step in '45'|make_list %}
-    <div class="grid gap-4 {% if page == 'trainings' and not exercise5 %}grid-cols-4{% elif structure and not structure.phase5 %}grid-cols-4{% else %}grid-cols-5{% endif %}">
+    <div class="grid gap-4 {% if exercise_amount == '3' %}grid-cols-3{% elif exercise_amount == '4' %}grid-cols-4{% else %}grid-cols-5{% endif %}">
         {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise1 exercise_step=exercise_step number='1' %}
         {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise2 exercise_step=exercise_step number='2' %}
         {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise3 exercise_step=exercise_step number='3' %}
-        {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise4 exercise_step=exercise_step number='4' %}
-        {% if not structure or structure.phase5 or exercise5 %}
+        {% if not exercise_amount or exercise_amount == '4' or exercise_amount == '5' %}
+            {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise4 exercise_step=exercise_step number='4' %}
+        {% endif %}
+        {% if not exercise_amount or exercise_amount == '5' %}
             {% include 'symbols/training/exercises_exercise.html' with exercises=exercises exercise=exercise5 exercise_step=exercise_step number='5' %}
         {% endif %}
     </div>

@@ -1,7 +1,43 @@
 <div>
     <ol class="border border-gray-300 rounded-md divide-y divide-gray-300 lg:flex lg:divide-y-0">
         <li class="relative lg:flex-1 lg:flex">
-            {% include 'symbols/pages/generator/step.html' with step=step number='1' text='Thema' %}
+            {% include 'symbols/pages/generator/step.html' with display_number='1' step=step number='1' text='Thema' %}
+            <!-- Arrow separator for lg screens and up -->
+            <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
+                <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
+                     preserveAspectRatio="none">
+                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
+                          stroke-linejoin="round"></path>
+                </svg>
+            </div>
+        </li>
+
+{#        <li class="relative lg:flex-1 lg:flex">#}
+{#            {% include 'symbols/pages/generator/step.html' with step=step number='2' text='Struktur' %}#}
+{#            <!-- Arrow separator for lg screens and up -->#}
+{#            <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">#}
+{#                <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"#}
+{#                     preserveAspectRatio="none">#}
+{#                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"#}
+{#                          stroke-linejoin="round"></path>#}
+{#                </svg>#}
+{#            </div>#}
+{#        </li>#}
+
+{#        <li class="relative lg:flex-1 lg:flex">#}
+{#            {% include 'symbols/pages/generator/step.html' with step=step number='3' text='Übungsart' %}#}
+{#            <!-- Arrow separator for lg screens and up -->#}
+{#            <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">#}
+{#                <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"#}
+{#                     preserveAspectRatio="none">#}
+{#                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"#}
+{#                          stroke-linejoin="round"></path>#}
+{#                </svg>#}
+{#            </div>#}
+{#        </li>#}
+
+        <li class="relative lg:flex-1 lg:flex">
+            {% include 'symbols/pages/generator/step.html' with display_number='2' step=step number='4' text='Übungen' %}
             <!-- Arrow separator for lg screens and up -->
             <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
                 <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
@@ -13,43 +49,7 @@
         </li>
 
         <li class="relative lg:flex-1 lg:flex">
-            {% include 'symbols/pages/generator/step.html' with step=step number='2' text='Struktur' %}
-            <!-- Arrow separator for lg screens and up -->
-            <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
-                <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
-                     preserveAspectRatio="none">
-                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
-                          stroke-linejoin="round"></path>
-                </svg>
-            </div>
-        </li>
-
-        <li class="relative lg:flex-1 lg:flex">
-            {% include 'symbols/pages/generator/step.html' with step=step number='3' text='Übungsart' %}
-            <!-- Arrow separator for lg screens and up -->
-            <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
-                <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
-                     preserveAspectRatio="none">
-                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
-                          stroke-linejoin="round"></path>
-                </svg>
-            </div>
-        </li>
-
-        <li class="relative lg:flex-1 lg:flex">
-            {% include 'symbols/pages/generator/step.html' with step=step number='4' text='Übungen' %}
-            <!-- Arrow separator for lg screens and up -->
-            <div class="hidden lg:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
-                <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
-                     preserveAspectRatio="none">
-                    <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
-                          stroke-linejoin="round"></path>
-                </svg>
-            </div>
-        </li>
-
-        <li class="relative lg:flex-1 lg:flex">
-            {% include 'symbols/pages/generator/step.html' with step=step number='5' text='Übersicht' %}
+            {% include 'symbols/pages/generator/step.html' with display_number='3' step=step number='5' text='Übersicht' %}
         </li>
     </ol>
 </div>

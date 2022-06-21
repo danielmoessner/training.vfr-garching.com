@@ -4,7 +4,7 @@ const autoprefixer = require('autoprefixer');
 module.exports = ({env}) => ({
     plugins: [
         require("postcss-import"),
-        require("postcss-nested"),
+        require("tailwindcss/nesting"),
         require("tailwindcss"),
         env === 'production' ? autoprefixer() : null,
         env === 'production' ? cssnano({

@@ -1,13 +1,12 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-    purge: [
+    content: [
         'apps/*/templates/**/*.html',
         'apps/*/templates/**/*.txt',
         'templates/**/*.html',
         'templates/**/*.txt',
     ],
-    darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
             typography: {
@@ -41,7 +40,7 @@ module.exports = {
                 }
             },
             colors: {
-                gray: colors.trueGray,
+                gray: colors.neutral,
             },
             boxShadow: {
                 center: 'rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px, rgb(0 0 0 / 10%) 0px -1px 3px 0px, rgb(0 0 0 / 6%) 0px -1px 2px 0px',

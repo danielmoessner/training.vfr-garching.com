@@ -1,9 +1,9 @@
-<div class="-mx-2 -my-3">
-    <div class="flex flex-wrap">
+<div class="-mx-3 -my-3">
+    <div class="grid grid-cols-3 ">
         {% for group in groups %}
             {% with topics=group.topics.all %}
                 {% if topics %}
-                    <fieldset class="block px-2 py-3 w-full {{ width|default:'lg:w-1/3' }}">
+                    <fieldset class="block px-3 py-3 w-full">
                         <legend class="font-medium text-xl contents">
                             {{ group.name }}
                         </legend>
@@ -18,7 +18,7 @@
                                            @click="if (topic === '{{ topic.pk }}') topic = '';"
                                     >
                                     <div class="ml-3 flex flex-col">
-                                        {% if show_description %}
+                                        {% if show_description and False %}
                                             <div class="text-gray-900 block text-sm uppercase"
                                                  :class="{ 'text-red-900': String(topic) === '{{ topic.pk }}' }"
                                             >

@@ -2,36 +2,59 @@
 {% load extra_tags %}
 
 <script>
-    window.generator = () => {
-        return {
-            step: "{{ step|default:'1' }}",
-            name: "{{ name|default:'' }}",
-            description: `{{ description|default:'' }}`,
-            topic: {{ topic.pk|default:"''" }},
-            structure: {{ structure.pk|default:"''" }},
-            block1: {{ block1.pk|default:"''" }},
-            block2: {{ block2.pk|default:"''" }},
-            block3: {{ block3.pk|default:"''" }},
-            block4: {{ block4.pk|default:"''" }},
-            block5: {{ block5.pk|default:"''" }},
-            exercise1: {{ exercise1.pk|default:"''" }},
-            exercise2: {{ exercise2.pk|default:"''" }},
-            exercise3: {{ exercise3.pk|default:"''" }},
-            exercise4: {{ exercise4.pk|default:"''" }},
-            exercise5: {{ exercise5.pk|default:"''" }},
-            phases: {% if structure.phase5 %}5{% else %}4{% endif %},
-            user: '',
-            show: 0,
-            escape(url) {
-                const completeUrl = `https://training.vfr-garching.com${url}`
-                return encodeURIComponent(completeUrl);
-            },
-            disabled() {
-                if (this.step === '1' && this.topic === '') return true;
-                if (this.step === '2' && this.structure === '') return true;
-                if (this.step === '3' && (this.block1 === '' || this.block2 === '' || this.block3 === '' || this.block4 === '' || (this.phases === 5 && this.block5 === ''))) return true;
-                return false;
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('generator', () => {
+            return {
+                step: "{{ step|default:'1' }}",
+                name: "{{ name|default:'' }}",
+                description: `{{ description|default:'' }}`,
+                topic: {{ topic.pk|default:"''" }},
+                exercise1: {{ exercise1.pk|default:"''" }},
+                exercise2: {{ exercise2.pk|default:"''" }},
+                exercise3: {{ exercise3.pk|default:"''" }},
+                exercise4: {{ exercise4.pk|default:"''" }},
+                exercise5: {{ exercise5.pk|default:"''" }},
+                filterSelected: {},
+                player_amount: {{ player_amount|default:"''" }},
+                exercise_amount: "{{ exercise_amount|default:'' }}",
+                user: '',
+                show: 0,
+                count: 0,
+                init() {
+                    this.$nextTick(() => this.setCount())
+                    this.$watch('filterSelected', () => this.$nextTick(() => this.setCount()));
+                },
+                escape(url) {
+                    const completeUrl = `https://training.vfr-garching.com${url}`
+                    return encodeURIComponent(completeUrl);
+                },
+                disabled() {
+                    if (this.step === '1' && this.topic === '') return true;
+                    if (this.step === '2' && this.structure === '') return true;
+                    if (this.step === '3' && (this.block1 === '' || this.block2 === '' || this.block3 === '' || this.block4 === '' || (this.phases === 5 && this.block5 === ''))) return true;
+                    return false;
+                },
+                get filtersTrue() {
+                    return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
+                },
+                showTraining(filterPks) {
+                    return this.filtersTrue.map(filter => filterPks.includes(filter)).every(_ => _);
+                },
+                setCount() {
+                    const l = document.querySelectorAll('#exercise-list li');
+                    this.count = Array.from(l).filter(e => e._x_isShown).length;
+                },
+                filterClicked(filterPk) {
+                    const pk = String(filterPk);
+                    if (pk in this.filterSelected) {
+                        this.filterSelected[pk] = !this.filterSelected[pk]
+                    } else {
+                        this.filterSelected[pk] = true;
+                    }
+                    {#this.filterChanged = !this.filterChanged;#}
+                    {#this.$nextTick(this.setCount)#}
+                }
             }
-        }
-    }
+        });
+    });
 </script>

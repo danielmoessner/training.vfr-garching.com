@@ -9,9 +9,9 @@
                     {% endif %}"
         >
             {% if number|to_int > step|to_int %}
-                <div class="text-gray-500">{{ number }}</div>
+                <div class="text-gray-500">{{ display_number }}</div>
             {% elif number|to_int == step|to_int %}
-                <div class="text-red-600">{{ number }}</div>
+                <div class="text-red-600">{{ display_number }}</div>
             {% elif number|to_int < step|to_int %}
                 <div class="text-white">
                     {% include 'svg/outline/check.svg' with class='w-4 h-4 md:w-6 md:h-6' %}

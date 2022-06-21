@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Prefetch
 from django.views.generic.base import ContextMixin
 from django.template.loader import render_to_string
-from apps.trainings.models import Exercise, Filter
+from apps.trainings.models import Exercise, Filter, PlayerAmount
 from apps.generator.models import Structure, Topic, Block, Training, Group
 from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import Trainings
@@ -44,6 +44,12 @@ class TrainingContextMixin(ContextMixin):
         description = self.request.GET.get('description', default=None)
         if description:
             context['description'] = description  # .replace('\n', '')
+        player_amount = self.request.GET.get('player_amount', default=None)
+        if player_amount:
+            context['player_amount'] = player_amount
+        exercise_amount = self.request.GET.get('exercise_amount', default=None)
+        if exercise_amount:
+            context['exercise_amount'] = exercise_amount
         # return
         return context
 
@@ -207,10 +213,22 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
         elif step == '4':
             context['exercises_total'] = Exercise.objects.all().count()
             context['possible_exercises'] = Exercise.objects.all().select_related('difficulty')
-            if 'block{}'.format(exercise_step) in context:
+            # new stuff
+            if 'topic' in context:
+                context['possible_exercises'] = Exercise.filter_by_topic_new(
+                    context['possible_exercises'],
+                    context['topic']
+                )
+            if context['player_amount']:
+                player_amount_id = int(context['player_amount'])
+                context['possible_exercises'] = context['possible_exercises'].filter(
+                    player_amounts=PlayerAmount.objects.get(id=player_amount_id))
+            context['training_filters'] = Filter.objects.filter(show_on_trainings_generator_step_4=True)
+            # old stuff:
+            if 'block{}'.format(exercise_step) in context and False:
                 context['possible_exercises'] = Exercise.filter_by_block(context['possible_exercises'],
                                                                          context['block{}'.format(exercise_step)])
-            if 'structure' in context and 'topic' in context:
+            if 'structure' in context and 'topic' in context and False:
                 phase = getattr(context['structure'], 'phase{}'.format(exercise_step))
                 context['possible_exercises'] = Exercise.filter_by_topic(
                     context['possible_exercises'],

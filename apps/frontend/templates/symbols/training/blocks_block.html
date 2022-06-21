@@ -11,52 +11,52 @@
                     </div>
                 </div>
             </div>
-            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                <div>
-                    <div class="text-sm text-gray-500">
-                        {% if phase %}
-                            <div class="inline-block align-top">{{ phase }}:</div>
-                        {% else %}
-                            <div class="inline-block w-16 rounded bg-gray-200 {% if step == '2' %}bg-gray-300{% endif %}">
-                                &nbsp;
-                            </div>:
-                        {% endif %}
-                        <div class="inline-block font-medium text-gray-900">
-                            {% if step == '2' %}
-                                {% for block in blocks.all %}
-                                    <div>
-                                        <div class="inline-block relative">
-                                            <div class="inset-0 bg-gray-200 absolute rounded"></div>
-                                            <span class="relative">{{ block.name }}</span>
-                                        </div>
-                                    </div>
-                                {% empty %}
-                                    <div class="inline-block">
-                                        <div class="w-24 bg-gray-200 rounded">&nbsp;</div>
-                                    </div>
-                                {% endfor %}
-                            {% elif step == '3' %}
-                                {% for block in blocks.all %}
-                                    <div x-cloak x-show="String(block{{ number }}) === '{{ block.pk }}'">
-                                        <div class="inline-block">{{ block.name }}</div>
-                                    </div>
-                                {% endfor %}
-                                <div x-show="String(block{{ number }}) === '0' || String(block{{ number }}) === ''">
-                                    <div class="inline-block w-24 rounded bg-gray-300">
-                                        &nbsp;
-                                    </div>
-                                </div>
-                            {% elif block %}
-                                <div class="inline-block">{{ block.name }}</div>
-                            {% else %}
-                                <div class="inline-block w-24 rounded bg-gray-200">
-                                    &nbsp;
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+{#            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">#}
+{#                <div>#}
+{#                    <div class="text-sm text-gray-500">#}
+{#                        {% if phase %}#}
+{#                            <div class="inline-block align-top">{{ phase }}:</div>#}
+{#                        {% else %}#}
+{#                            <div class="inline-block w-16 rounded bg-gray-200 {% if step == '2' %}bg-gray-300{% endif %}">#}
+{#                                &nbsp;#}
+{#                            </div>:#}
+{#                        {% endif %}#}
+{#                        <div class="inline-block font-medium text-gray-900">#}
+{#                            {% if step == '2' %}#}
+{#                                {% for block in blocks.all %}#}
+{#                                    <div>#}
+{#                                        <div class="inline-block relative">#}
+{#                                            <div class="inset-0 bg-gray-200 absolute rounded"></div>#}
+{#                                            <span class="relative">{{ block.name }}</span>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                {% empty %}#}
+{#                                    <div class="inline-block">#}
+{#                                        <div class="w-24 bg-gray-200 rounded">&nbsp;</div>#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{#                            {% elif step == '3' %}#}
+{#                                {% for block in blocks.all %}#}
+{#                                    <div x-cloak x-show="String(block{{ number }}) === '{{ block.pk }}'">#}
+{#                                        <div class="inline-block">{{ block.name }}</div>#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{#                                <div x-show="String(block{{ number }}) === '0' || String(block{{ number }}) === ''">#}
+{#                                    <div class="inline-block w-24 rounded bg-gray-300">#}
+{#                                        &nbsp;#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% elif block %}#}
+{#                                <div class="inline-block">{{ block.name }}</div>#}
+{#                            {% else %}#}
+{#                                <div class="inline-block w-24 rounded bg-gray-200">#}
+{#                                    &nbsp;#}
+{#                                </div>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
         </div>
     </div>
     {% if not training and step in '123'|make_list %}

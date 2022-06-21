@@ -165,3 +165,6 @@ TINYMCE_DEFAULT_CONFIG = {
 
 # used in url copy stuff
 URL = get_secret('URL')
+
+# primary key default
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

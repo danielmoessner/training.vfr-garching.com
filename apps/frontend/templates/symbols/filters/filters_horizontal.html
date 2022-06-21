@@ -1,0 +1,18 @@
+<ul class="flex space-x-5">
+    {% for training_filter in training_filters %}
+        <li class="flex">
+            <input class="mt-px h-5 w-5 text-red-600 cursor-pointer border-gray-300 rounded focus:ring-0"
+                   style="box-shadow: none;"
+                   x-model="filterSelected[{{ training_filter.pk }}]"
+                   x-on:click="filterClicked({{ training_filter.pk }})"
+                   id="filter_{{ training_filter.pk }}"
+                   name="{{ training_filter.pk }}"
+                   type="checkbox"
+            >
+            <label class="ml-2 text-base text-gray-900 leading-snug cursor-pointer"
+                   for="filter_{{ training_filter.pk }}">
+                {{ training_filter.name }}
+            </label>
+        </li>
+    {% endfor %}
+</ul>

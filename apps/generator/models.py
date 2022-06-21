@@ -1,4 +1,4 @@
-from apps.trainings.models import Filter, Exercise, Youth
+from apps.trainings.models import Filter, Exercise, Youth, PlayerAmount
 from django.db.models import Prefetch
 from django.conf import settings
 from django.urls import reverse
@@ -103,15 +103,15 @@ class Topic(models.Model):
     description = models.TextField(verbose_name='Beschreibung')
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     youths = models.ManyToManyField(Youth, related_name='topics', verbose_name='Jugenden', blank=True)
-    structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')
+    # structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')
     general_or_filters = models.ManyToManyField(Filter, verbose_name='ALLGEMEINE ODER Filter', blank=True,
                                                 related_name='general_topics')
-    start_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
-                                              related_name='start_topics')
-    main_or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
-                                             related_name='main_topics')
-    end_or_filters = models.ManyToManyField(Filter, verbose_name='ABSCHLUSS ODER Filter', blank=True,
-                                            related_name='end_topic')
+    # start_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
+    #                                           related_name='start_topics')
+    # main_or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
+    #                                          related_name='main_topics')
+    # end_or_filters = models.ManyToManyField(Filter, verbose_name='ABSCHLUSS ODER Filter', blank=True,
+    #                                         related_name='end_topic')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -133,28 +133,37 @@ class Training(models.Model):
     description = models.TextField(verbose_name='Beschreibung', blank=True)
     topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='trainings',
                               blank=True, null=True, verbose_name='Thema')
-    structure = models.ForeignKey(Structure, on_delete=models.PROTECT, related_name='trainings',
-                                  blank=True, null=True, verbose_name='Trainingsstruktur')
+    player_amount = models.ForeignKey(PlayerAmount, verbose_name='Spieleranzahl', blank=True, null=True,
+                                      on_delete=models.SET_NULL)
+    AMOUNT_CHOICES = (
+        (3, 3),
+        (4, 4),
+        (5, 5),
+    )
+    exercise_amount = models.CharField(verbose_name='Übungsanzahl', max_length=1, choices=AMOUNT_CHOICES, blank=True,
+                                       null=True)
+    # structure = models.ForeignKey(Structure, on_delete=models.PROTECT, related_name='trainings',
+    #                               blank=True, null=True, verbose_name='Trainingsstruktur')
     exercise1 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings1', verbose_name='Übung 1',
                                   blank=True, null=True)
-    block1 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings1',
-                               verbose_name='Block 1', blank=True, null=True)
+    # block1 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings1',
+    #                            verbose_name='Block 1', blank=True, null=True)
     exercise2 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings2', verbose_name='Übung 2',
                                   blank=True, null=True)
-    block2 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings2',
-                               verbose_name='Block 2', blank=True, null=True)
+    # block2 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings2',
+    #                            verbose_name='Block 2', blank=True, null=True)
     exercise3 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings3', verbose_name='Übung 3',
                                   blank=True, null=True)
-    block3 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings3',
-                               verbose_name='Block 3', blank=True, null=True)
+    # block3 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings3',
+    #                            verbose_name='Block 3', blank=True, null=True)
     exercise4 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings4', verbose_name='Übung 4',
                                   blank=True, null=True)
-    block4 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings4',
-                               verbose_name='Block 4', blank=True, null=True)
+    # block4 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings4',
+    #                            verbose_name='Block 4', blank=True, null=True)
     exercise5 = models.ForeignKey(Exercise, on_delete=models.PROTECT, related_name='trainings5', verbose_name='Übung 5',
                                   blank=True, null=True)
-    block5 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings5',
-                               verbose_name='Block 5', blank=True, null=True)
+    # block5 = models.ForeignKey(Block, on_delete=models.SET_NULL, related_name='trainings5',
+    #                            verbose_name='Block 5', blank=True, null=True)
     user = models.ForeignKey('users.UserSettings', on_delete=models.PROTECT, related_name='trainings',
                              verbose_name='Nutzer', blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
@@ -184,8 +193,9 @@ class Training(models.Model):
 
     @staticmethod
     def get_remaining_fields(all_except):
-        fields = ['name', 'description', 'topic', 'structure',
-                  'block1', 'block2', 'block3', 'block4', 'block5',
+        fields = ['name', 'description', 'topic', 'player_amount', 'exercise_amount',
+                  # 'structure',
+                  # 'block1', 'block2', 'block3', 'block4', 'block5',
                   'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5']
         fields = list(filter(lambda field: field not in all_except, fields))
         return fields

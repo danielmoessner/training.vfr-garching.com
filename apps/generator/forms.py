@@ -32,7 +32,7 @@ class ShowHideFieldsMixin:
 class Step1Form(ShowHideFieldsMixin, forms.ModelForm):
     class Meta:
         model = Training
-        shown_fields = []
+        shown_fields = ['player_amount', 'exercise_amount']
         hidden_fields = Training.get_remaining_fields(shown_fields)
         fields = shown_fields + hidden_fields
 

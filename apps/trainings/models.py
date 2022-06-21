@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models import Q, Prefetch
+from django.db.models import Q
 from django.urls import reverse
 from tinymce.models import HTMLField
 from django.utils import timezone
@@ -99,6 +99,18 @@ class Group(models.Model):
         return groups
 
 
+class PlayerAmount(models.Model):
+    amount = models.IntegerField('Spieleranzahl')
+
+    class Meta:
+        verbose_name = 'Spieleranzahl'
+        verbose_name_plural = 'Spieleranzahlen'
+        ordering = ['amount']
+
+    def __str__(self):
+        return '{}'.format(self.amount)
+
+
 class Filter(models.Model):
     group = models.ForeignKey(Group, on_delete=models.PROTECT, verbose_name='Gruppe',
                               related_name='training_filters')
@@ -108,6 +120,8 @@ class Filter(models.Model):
     hide = models.BooleanField(default=False, verbose_name='Versteckt')
     show_on_detail = models.BooleanField(verbose_name='Auf der Detailseite anzeigen', default=False)
     show_on_detail_bottom = models.BooleanField(verbose_name='Auf der Detailseite unten anzeigen', default=False)
+    show_on_trainings_generator_step_4 = models.BooleanField(verbose_name='Im Trainingsgenerator Schritt 4 anzeigen',
+                                                             default=False)
     description = models.TextField(verbose_name='Beschreibung', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -159,6 +173,8 @@ class Exercise(models.Model):
     filters = models.ManyToManyField(Filter, verbose_name='Filter', blank=True, related_name='trainings')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    player_amounts = models.ManyToManyField(PlayerAmount, verbose_name='Spieleranzahlen', blank=True,
+                                            related_name='exercises')
 
     class Meta:
         verbose_name = 'Übung'
@@ -256,6 +272,13 @@ class Exercise(models.Model):
         for training_filter in and_filters:
             exercises = exercises.filter(filters=training_filter)
         exercises = exercises.distinct()
+        return exercises
+
+    @staticmethod
+    def filter_by_topic_new(exercises, topic):
+        filters = topic.general_or_filters.all()
+        if filters.count() > 0:
+            exercises = exercises.filter(filters__in=filters).distinct()
         return exercises
 
     @staticmethod

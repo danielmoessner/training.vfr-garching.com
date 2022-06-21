@@ -1,8 +1,6 @@
 {% spaceless %}
     {% load extra_tags %}
-    {% if step in '12'|make_list %}
-        {{ exercise_step }}
-    {% elif step in '3'|make_list %}
+    {% if step in '123'|make_list %}
         1
     {% elif step in '4'|make_list %}
         {{ exercise_step|add:'1' }}

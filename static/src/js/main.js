@@ -1,4 +1,4 @@
-import 'alpinejs'
+import Alpine from 'alpinejs'
 import './lazyimages'
 
 function getCookie(cname) {
@@ -17,3 +17,7 @@ function getCookie(cname) {
     return "";
 }
 window.getCookie = getCookie
+
+window.Alpine = Alpine
+
+Alpine.start()

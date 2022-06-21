@@ -1,3 +1,5 @@
+*.sqlite3
+#tmp/backup.db.sqlite3
 tmp/db.sqlite3
 tmp/secrets.json
 tmp/venv/*
