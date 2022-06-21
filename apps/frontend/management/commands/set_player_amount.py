@@ -12,5 +12,5 @@ class Command(BaseCommand):
                     amount = int(f.name.split(': ')[1])
                     amounts.append(amount)
             player_amounts = PlayerAmount.objects.filter(amount__in=amounts)
-            exercise.player_amount.set(player_amounts)
+            exercise.player_amounts.set(player_amounts)
             exercise.save()
