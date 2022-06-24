@@ -1,7 +1,7 @@
 <div class="px-5 pt-5 {% if step != '4' %}mb-10{% endif %}">
     <div class="flex items-center">
         <div class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border-2 md:text-lg md:w-10 md:h-10 border-red-600">
-            <div class="text-red-600 font-medium">{{ step }}</div>
+            <div class="text-red-600 font-medium">{% if step == '5' %}3{% else %}{{ step }}{% endif %}</div>
         </div>
         <h1 class="text-xl ml-3 font-medium md:text-3xl text-red-600">
             {% if step == '1' %}

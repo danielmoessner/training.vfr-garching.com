@@ -1,16 +1,16 @@
 {% load extra_tags %}
 
 {% if exercise.description %}
-    <h2>Beschreibung</h2>
+    <h2 class="text-xl font-bold">Beschreibung</h2>
     {{ exercise.description|safe }}
 {% endif %}
 {% if exercise.variations %}
-    <h2>Variationen</h2>
+    <h2 class="text-xl font-bold">Variationen</h2>
     {{ exercise.variations|safe }}
 {% endif %}
 {% with filters=exercise.filters.all|filter_show_on_detail %}
     {% if filters %}
-        <h2>Spielprinzipien & Methoden</h2>
+        <h2 class="text-xl font-bold">Spielprinzipien & Methoden</h2>
         {% for filter in filters %}
             <b>{{ filter.name }}</b>
             <ul>
@@ -22,6 +22,6 @@
     {% endif %}
 {% endwith %}
 {% if exercise.coaching %}
-    <h2>Coachingpunkte</h2>
+    <h2 class="text-xl font-bold">Coachingpunkte</h2>
     {{ exercise.coaching|safe }}
 {% endif %}

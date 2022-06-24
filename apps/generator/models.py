@@ -104,8 +104,9 @@ class Topic(models.Model):
     ordering = models.IntegerField(verbose_name='Sortierung', default=1)
     youths = models.ManyToManyField(Youth, related_name='topics', verbose_name='Jugenden', blank=True)
     # structures = models.ManyToManyField(Structure, blank=True, verbose_name='Strukturen')
-    general_or_filters = models.ManyToManyField(Filter, verbose_name='ALLGEMEINE ODER Filter', blank=True,
-                                                related_name='general_topics')
+    or_filters_1 = models.ManyToManyField(Filter, verbose_name='ALLGEMEINE ODER Filter', blank=True,
+                                          related_name='general_topics')
+    or_filters_2 = models.ManyToManyField(Filter, verbose_name='ALTERSGRUPPE ODER Filter', blank=True)
     # start_or_filters = models.ManyToManyField(Filter, verbose_name='WARM-UP ODER Filter', blank=True,
     #                                           related_name='start_topics')
     # main_or_filters = models.ManyToManyField(Filter, verbose_name='HAUPTTEIL ODER Filter', blank=True,
@@ -184,9 +185,10 @@ class Training(models.Model):
     def optimize_queryset(trainings=None):
         if trainings is None:
             trainings = Training.objects.all()
-        return trainings.select_related('topic', 'structure',
+        return trainings.select_related('topic',
+                                        # 'structure',
                                         'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5',
-                                        'block1', 'block2', 'block3', 'block4', 'block5',
+                                        # 'block1', 'block2', 'block3', 'block4', 'block5',
                                         'exercise1__difficulty', 'exercise2__difficulty', 'exercise3__difficulty',
                                         'exercise4__difficulty', 'exercise5__difficulty',
                                         )
@@ -207,14 +209,9 @@ class Training(models.Model):
         return ''
 
     def get_block_pk(self, number):
-        block = getattr(self, 'block{}'.format(number), None)
-        if block:
-            return block.pk
         return ''
 
     def get_structure_pk(self):
-        if self.structure:
-            return self.structure.pk
         return ''
 
     def get_topic_pk(self):

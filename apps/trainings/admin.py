@@ -75,6 +75,8 @@ class TrainingForm(forms.ModelForm):
         queryset=Filter.objects.all(),
         widget=FilterWidget(),
         label="Filter", required=False)
+    player_amounts = forms.ModelMultipleChoiceField(queryset=PlayerAmount.objects.all(), label='Spieleranzahlen',
+                                                    widget=forms.CheckboxSelectMultiple())
 
     class Meta:
         model = Exercise
@@ -96,12 +98,12 @@ class TrainingFilterForm(forms.ModelForm):
 
     class Meta:
         model = Filter
-        fields = '__all__'
+        exclude = ['show_on_detail']
 
 
 class TrainingFilterAdmin(admin.ModelAdmin):
     form = TrainingFilterForm
-    list_display = ('name', 'ordering', 'hide', 'show_on_detail', 'exercises_count')
+    list_display = ('name', 'ordering', 'hide', 'show_on_detail_bottom', 'exercises_count')
 
     def exercises_count(self, obj):
         return obj.trainings.all().count()

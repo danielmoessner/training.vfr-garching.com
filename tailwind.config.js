@@ -9,36 +9,37 @@ module.exports = {
     ],
     theme: {
         extend: {
-            typography: {
+            typography: ({theme }) => ({
                 DEFAULT: {
                     css: {
-                        color: colors.gray['800'],
-                        'ul > li::before': {
-                            backgroundColor: colors.gray['700'],
-                        },
-                        'ul > li > ul > li::before': {
-                            backgroundColor: colors.gray['400'],
-                        },
-                        h2: {
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.025em'
-                        },
-                        'strong': {
-                            color: 'inherit',
-                        },
-                        '> ul > li > *:first-child': {
-                            marginTop: 0,
-                        }
+                        // color: colors.gray['800'],
+                        // 'ul > li::before': {
+                        //     backgroundColor: colors.gray['700'],
+                        // },
+                        // 'ul > li > ul > li::before': {
+                        //     backgroundColor: colors.gray['400'],
+                        // },
+                        // h2: {
+                        //     textTransform: 'uppercase',
+                        //     letterSpacing: '0.025em'
+                        // },
+                        // 'strong': {
+                        //     color: 'inherit',
+                        // },
+                        // '> ul > li > *:first-child': {
+                        //     marginTop: 0,
+                        // },
+                         '--tw-prose-bullets': theme('colors.gray[700]'),
                     },
                 },
-                md: {
-                    css: {
-                        '> ul > li > *:first-child': {
-                            marginTop: 0,
-                        }
-                    }
-                }
-            },
+                // md: {
+                //     css: {
+                //         '> ul > li > *:first-child': {
+                //             marginTop: 0,
+                //         }
+                //     }
+                // }
+            }),
             colors: {
                 gray: colors.neutral,
             },

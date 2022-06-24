@@ -1,0 +1,676 @@
+Invalid or unsupported selector 'abbr:where([title]) ', ('Unknown pseudo-class', 'where')
+Ignored `outline: auto` at 170:3, invalid value.
+Ignored `box-shadow: none` at 176:3, unknown property.
+Ignored `outline-offset: -2px` at 197:3, unknown property.
+Ignored `resize: vertical` at 255:3, unknown property.
+Invalid or unsupported selector 'input::placeholder,
+textarea::placeholder ', unknown pseudo-element: placeholder
+Ignored `appearance: none` at 304:5, unknown property.
+Ignored `outline-offset: 2px` at 319:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)` at 326:5, unknown property.
+Invalid or unsupported selector 'input::placeholder,textarea::placeholder ', unknown pseudo-element: placeholder
+Ignored `print-color-adjust: exact` at 349:5, unknown property.
+Ignored `background-repeat: unset` at 354:5, invalid value.
+Ignored `print-color-adjust: unset` at 357:5, unknown property.
+Ignored `appearance: none` at 360:5, unknown property.
+Ignored `print-color-adjust: exact` at 362:5, unknown property.
+Ignored `user-select: none` at 366:5, unknown property.
+Ignored `outline-offset: 2px` at 384:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)` at 391:5, unknown property.
+Invalid or unsupported selector '[type="checkbox"]:indeterminate ', ('Unknown pseudo-class', 'indeterminate')
+Invalid or unsupported selector '[type="checkbox"]:indeterminate:hover,[type="checkbox"]:indeterminate:focus ', ('Unknown pseudo-class', 'indeterminate')
+Ignored `background: unset` at 423:5, invalid value.
+Ignored `font-size: unset` at 428:5, invalid value.
+Ignored `outline: 1px solid ButtonText` at 432:5, invalid value.
+Ignored `outline: 1px auto -webkit-focus-ring-color` at 433:5, invalid value.
+Invalid or unsupported selector '::backdrop ', unknown pseudo-element: backdrop
+Invalid or unsupported selector '.prose :where([class~="lead"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(a):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="A"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="a"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="A" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="a" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="I"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="i"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="I" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="i" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="1"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol > li):not(:where([class~="not-prose"] *))::marker ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li):not(:where([class~="not-prose"] *))::marker ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(hr):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(blockquote):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(blockquote p:last-of-type):not(:where([class~="not-prose"] *))::after ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h1):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h1 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h4):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h4 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(figure > *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(figcaption):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(code):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(code):not(:where([class~="not-prose"] *))::after ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(a code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Ignored `overflow-x: auto` at 684:5, unknown property.
+Invalid or unsupported selector '.prose :where(pre):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(pre code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(pre code):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(pre code):not(:where([class~="not-prose"] *))::after ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(table):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead th):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody tr):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody tr:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody td):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(img):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(video):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(figure):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ul > li p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ul > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ul > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ol > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ol > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul ul, ul ol, ol ul, ol ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(hr + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h4 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead th:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead th:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody td:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody td:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li > ul > li):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where([class~="lead"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(blockquote):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h1):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h2):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h3):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h4):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(img):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(video):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(figure):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(figure > *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(figcaption):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h2 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h3 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(pre):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ul):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ol > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ul > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ul > li p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ul > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ul > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ol > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ol > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ul ul, ul ol, ol ul, ol ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(hr):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(hr + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h2 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h3 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h4 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(table):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(thead th):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(thead th:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(thead th:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(tbody td):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(tbody td:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(tbody td:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Ignored `padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%)` at 1042:5, invalid value.
+Ignored `padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%)` at 1059:5, invalid value.
+Ignored `pointer-events: none` at 1086:5, unknown property.
+Ignored `pointer-events: auto` at 1089:5, unknown property.
+Ignored `display: grid` at 1341:5, invalid value.
+Ignored `display: contents` at 1344:5, invalid value.
+Ignored `min-height: 100vh` at 1386:5, invalid value.
+Ignored `width: 100vw` at 1416:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1489:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1493:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1497:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1501:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1505:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1509:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1513:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1518:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1523:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1528:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1531:5, invalid value.
+Ignored `resize: both` at 1545:5, unknown property.
+Ignored `appearance: none` at 1548:5, unknown property.
+Ignored `grid-template-columns: repeat(2, minmax(0, 1fr))` at 1551:5, unknown property.
+Ignored `grid-template-columns: repeat(1, minmax(0, 1fr))` at 1554:5, unknown property.
+Ignored `grid-template-columns: repeat(3, minmax(0, 1fr))` at 1557:5, unknown property.
+Ignored `grid-template-columns: repeat(4, minmax(0, 1fr))` at 1560:5, unknown property.
+Ignored `grid-template-columns: repeat(5, minmax(0, 1fr))` at 1563:5, unknown property.
+Ignored `gap: 0.75rem` at 1596:5, unknown property.
+Ignored `gap: 1rem` at 1599:5, unknown property.
+Ignored `gap: 1.5rem` at 1602:5, unknown property.
+Ignored `row-gap: 2rem` at 1605:5, unknown property.
+Ignored `margin-right: calc(0.5rem * var(--tw-space-x-reverse))` at 1609:5, invalid value.
+Ignored `margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))` at 1610:5, invalid value.
+Ignored `margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)))` at 1614:5, invalid value.
+Ignored `margin-bottom: calc(2rem * var(--tw-space-y-reverse))` at 1615:5, invalid value.
+Ignored `margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)))` at 1619:5, invalid value.
+Ignored `margin-bottom: calc(1.5rem * var(--tw-space-y-reverse))` at 1620:5, invalid value.
+Ignored `margin-top: calc(-1px * calc(1 - var(--tw-space-y-reverse)))` at 1624:5, invalid value.
+Ignored `margin-bottom: calc(-1px * var(--tw-space-y-reverse))` at 1625:5, invalid value.
+Ignored `margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)))` at 1629:5, invalid value.
+Ignored `margin-bottom: calc(0.5rem * var(--tw-space-y-reverse))` at 1630:5, invalid value.
+Ignored `margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)))` at 1634:5, invalid value.
+Ignored `margin-bottom: calc(1.25rem * var(--tw-space-y-reverse))` at 1635:5, invalid value.
+Ignored `margin-right: calc(0.25rem * var(--tw-space-x-reverse))` at 1639:5, invalid value.
+Ignored `margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))` at 1640:5, invalid value.
+Ignored `margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)))` at 1644:5, invalid value.
+Ignored `margin-bottom: calc(0.75rem * var(--tw-space-y-reverse))` at 1645:5, invalid value.
+Ignored `margin-right: calc(0.75rem * var(--tw-space-x-reverse))` at 1649:5, invalid value.
+Ignored `margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))` at 1650:5, invalid value.
+Ignored `margin-right: calc(1.25rem * var(--tw-space-x-reverse))` at 1654:5, invalid value.
+Ignored `margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)))` at 1655:5, invalid value.
+Ignored `margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)))` at 1659:5, invalid value.
+Ignored `margin-bottom: calc(0.25rem * var(--tw-space-y-reverse))` at 1660:5, invalid value.
+Ignored `margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)))` at 1664:5, invalid value.
+Ignored `margin-bottom: calc(1rem * var(--tw-space-y-reverse))` at 1665:5, invalid value.
+Ignored `margin-right: calc(1rem * var(--tw-space-x-reverse))` at 1669:5, invalid value.
+Ignored `margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)))` at 1670:5, invalid value.
+Ignored `border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)))` at 1674:5, invalid value.
+Ignored `border-bottom-width: calc(1px * var(--tw-divide-y-reverse))` at 1675:5, invalid value.
+Ignored `border-top-width: calc(2px * calc(1 - var(--tw-divide-y-reverse)))` at 1679:5, invalid value.
+Ignored `border-bottom-width: calc(2px * var(--tw-divide-y-reverse))` at 1680:5, invalid value.
+Ignored `border-color: rgb(229 229 229 / var(--tw-divide-opacity))` at 1684:5, invalid value.
+Ignored `border-color: rgb(254 226 226 / var(--tw-divide-opacity))` at 1688:5, invalid value.
+Ignored `border-color: rgb(212 212 212 / var(--tw-divide-opacity))` at 1692:5, invalid value.
+Ignored `overflow-y: auto` at 1701:5, unknown property.
+Ignored `overflow-x: scroll` at 1704:5, unknown property.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 1774:5, invalid value.
+Ignored `border-color: rgb(220 38 38 / var(--tw-border-opacity))` at 1778:5, invalid value.
+Ignored `border-color: rgb(229 229 229 / var(--tw-border-opacity))` at 1785:5, invalid value.
+Ignored `border-color: rgb(254 202 202 / var(--tw-border-opacity))` at 1789:5, invalid value.
+Ignored `border-color: rgb(82 82 82 / var(--tw-border-opacity))` at 1793:5, invalid value.
+Ignored `border-color: rgb(248 113 113 / var(--tw-border-opacity))` at 1797:5, invalid value.
+Ignored `border-color: rgb(38 38 38 / var(--tw-border-opacity))` at 1801:5, invalid value.
+Ignored `background-color: rgb(245 245 245 / var(--tw-bg-opacity))` at 1805:5, invalid value.
+Ignored `background-color: rgb(0 0 0 / var(--tw-bg-opacity))` at 1809:5, invalid value.
+Ignored `background-color: rgb(255 255 255 / var(--tw-bg-opacity))` at 1813:5, invalid value.
+Ignored `background-color: rgb(250 250 250 / var(--tw-bg-opacity))` at 1817:5, invalid value.
+Ignored `background-color: rgb(220 38 38 / var(--tw-bg-opacity))` at 1821:5, invalid value.
+Ignored `background-color: rgb(82 82 82 / var(--tw-bg-opacity))` at 1825:5, invalid value.
+Ignored `background-color: rgb(115 115 115 / var(--tw-bg-opacity))` at 1829:5, invalid value.
+Ignored `background-color: rgb(254 242 242 / var(--tw-bg-opacity))` at 1833:5, invalid value.
+Ignored `background-color: rgb(229 229 229 / var(--tw-bg-opacity))` at 1837:5, invalid value.
+Ignored `background-color: rgb(187 247 208 / var(--tw-bg-opacity))` at 1841:5, invalid value.
+Ignored `background-color: rgb(254 226 226 / var(--tw-bg-opacity))` at 1845:5, invalid value.
+Ignored `background-color: rgb(64 64 64 / var(--tw-bg-opacity))` at 1849:5, invalid value.
+Ignored `background-color: rgb(22 163 74 / var(--tw-bg-opacity))` at 1853:5, invalid value.
+Ignored `background-color: rgb(220 252 231 / var(--tw-bg-opacity))` at 1857:5, invalid value.
+Ignored `background-color: rgb(219 234 254 / var(--tw-bg-opacity))` at 1861:5, invalid value.
+Ignored `background-color: rgb(212 212 212 / var(--tw-bg-opacity))` at 1865:5, invalid value.
+Ignored `background-color: rgb(163 163 163 / var(--tw-bg-opacity))` at 1869:5, invalid value.
+Ignored `fill: currentColor` at 1878:5, unknown property.
+Ignored `color: rgb(255 255 255 / var(--tw-text-opacity))` at 2113:5, invalid value.
+Ignored `color: rgb(163 163 163 / var(--tw-text-opacity))` at 2117:5, invalid value.
+Ignored `color: rgb(38 38 38 / var(--tw-text-opacity))` at 2121:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2125:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2129:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2133:5, invalid value.
+Ignored `color: rgb(82 82 82 / var(--tw-text-opacity))` at 2137:5, invalid value.
+Ignored `color: rgb(64 64 64 / var(--tw-text-opacity))` at 2141:5, invalid value.
+Ignored `color: rgb(127 29 29 / var(--tw-text-opacity))` at 2145:5, invalid value.
+Ignored `color: rgb(20 83 45 / var(--tw-text-opacity))` at 2149:5, invalid value.
+Ignored `color: rgb(185 28 28 / var(--tw-text-opacity))` at 2153:5, invalid value.
+Ignored `color: rgb(245 245 245 / var(--tw-text-opacity))` at 2157:5, invalid value.
+Ignored `color: rgb(248 113 113 / var(--tw-text-opacity))` at 2161:5, invalid value.
+Ignored `color: rgb(250 204 21 / var(--tw-text-opacity))` at 2165:5, invalid value.
+Ignored `color: rgb(22 101 52 / var(--tw-text-opacity))` at 2169:5, invalid value.
+Ignored `color: rgb(30 64 175 / var(--tw-text-opacity))` at 2173:5, invalid value.
+Ignored `color: rgb(254 240 138 / var(--tw-text-opacity))` at 2177:5, invalid value.
+Ignored `color: rgb(212 212 212 / var(--tw-text-opacity))` at 2181:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-placeholder-opacity))` at 2188:5, invalid value.
+Invalid or unsupported selector '.placeholder-gray-500::placeholder ', unknown pseudo-element: placeholder
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2211:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2216:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2221:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2226:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2231:5, unknown property.
+Ignored `outline-offset: 2px` at 2235:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2240:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2245:5, unknown property.
+Ignored `filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)` at 2276:5, unknown property.
+Ignored `display: -webkit-box` at 2319:5, invalid value.
+Ignored `display: -webkit-box` at 2325:5, invalid value.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2339:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2341:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2346:5, unknown property.
+Ignored `box-shadow: none` at 2351:9, unknown property.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2361:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2363:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2368:5, unknown property.
+Ignored `box-shadow: none` at 2373:9, unknown property.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2381:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2384:5, unknown property.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2388:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2392:1.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2404:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2407:5, unknown property.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2411:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2415:1.
+Ignored `color: rgb(64 64 64 / var(--tw-text-opacity))` at 2428:5, invalid value.
+Ignored `margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)))` at 2432:5, invalid value.
+Ignored `margin-bottom: calc(1rem * var(--tw-space-y-reverse))` at 2433:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2440:5, invalid value.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2448:5, invalid value.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2458:5, invalid value.
+Ignored `outline-offset: 2px` at 2460:5, unknown property.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2464:1.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2477:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2480:5, unknown property.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2484:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2488:1.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2500:5, invalid value.
+Expected a media type, got '(min-width: 768px)'
+Invalid media type ' (min-width: 768px) ' the whole @media rule was ignored at 2506:1.
+Expected a media type, got '(min-width: 768px)'
+Invalid media type ' (min-width: 768px) ' the whole @media rule was ignored at 2515:1.
+Expected a media type, got '(min-width: 1280px)'
+Invalid media type ' (min-width: 1280px) ' the whole @media rule was ignored at 2522:1.
+Ignored `pointer-events: none` at 2537:5, unknown property.
+Ignored `background-color: rgb(64 64 64 / var(--tw-bg-opacity))` at 2565:5, invalid value.
+Ignored `background-color: rgb(245 245 245 / var(--tw-bg-opacity))` at 2569:5, invalid value.
+Ignored `background-color: rgb(212 212 212 / var(--tw-bg-opacity))` at 2573:5, invalid value.
+Ignored `background-color: rgb(134 239 172 / var(--tw-bg-opacity))` at 2577:5, invalid value.
+Ignored `background-color: rgb(254 202 202 / var(--tw-bg-opacity))` at 2581:5, invalid value.
+Ignored `background-color: rgb(38 38 38 / var(--tw-bg-opacity))` at 2585:5, invalid value.
+Ignored `background-color: rgb(250 250 250 / var(--tw-bg-opacity))` at 2589:5, invalid value.
+Ignored `background-color: rgb(229 229 229 / var(--tw-bg-opacity))` at 2593:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2597:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2601:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2605:5, invalid value.
+Ignored `color: rgb(38 38 38 / var(--tw-text-opacity))` at 2609:5, invalid value.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2619:5, invalid value.
+Ignored `border-color: rgb(82 82 82 / var(--tw-border-opacity))` at 2623:5, invalid value.
+Ignored `background-color: rgb(229 229 229 / var(--tw-bg-opacity))` at 2627:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2631:5, invalid value.
+Ignored `color: rgb(163 163 163 / var(--tw-placeholder-opacity))` at 2635:5, invalid value.
+Invalid or unsupported selector '.focus\:placeholder-gray-400:focus::placeholder ', unknown pseudo-element: placeholder
+Ignored `outline-offset: 2px` at 2639:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2644:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2649:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2654:5, unknown property.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 2685:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2689:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2693:5, invalid value.
+Ignored `color: rgb(163 163 163 / var(--tw-text-opacity))` at 2697:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2702:1.
+Expected a media type, got '(min-width: 768px)'
+Invalid media type ' (min-width: 768px) ' the whole @media rule was ignored at 2845:1.
+Expected a media type, got '(min-width: 1024px)'
+Invalid media type ' (min-width: 1024px) ' the whole @media rule was ignored at 3319:1.
+Expected a media type, got '(min-width: 1280px)'
+Invalid media type ' (min-width: 1280px) ' the whole @media rule was ignored at 3467:1.
+Expected a media type, got '(min-width: 1536px)'
+Invalid media type ' (min-width: 1536px) ' the whole @media rule was ignored at 3491:1.
+Expected a media type, got '(min-width: 1921px)'
+Invalid media type ' (min-width: 1921px) ' the whole @media rule was ignored at 3510:1.
+Invalid or unsupported selector 'abbr:where([title]) ', ('Unknown pseudo-class', 'where')
+Ignored `outline: auto` at 170:3, invalid value.
+Ignored `box-shadow: none` at 176:3, unknown property.
+Ignored `outline-offset: -2px` at 197:3, unknown property.
+Ignored `resize: vertical` at 255:3, unknown property.
+Invalid or unsupported selector 'input::placeholder,
+textarea::placeholder ', unknown pseudo-element: placeholder
+Ignored `appearance: none` at 304:5, unknown property.
+Ignored `outline-offset: 2px` at 319:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)` at 326:5, unknown property.
+Invalid or unsupported selector 'input::placeholder,textarea::placeholder ', unknown pseudo-element: placeholder
+Ignored `print-color-adjust: exact` at 349:5, unknown property.
+Ignored `background-repeat: unset` at 354:5, invalid value.
+Ignored `print-color-adjust: unset` at 357:5, unknown property.
+Ignored `appearance: none` at 360:5, unknown property.
+Ignored `print-color-adjust: exact` at 362:5, unknown property.
+Ignored `user-select: none` at 366:5, unknown property.
+Ignored `outline-offset: 2px` at 384:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)` at 391:5, unknown property.
+Invalid or unsupported selector '[type="checkbox"]:indeterminate ', ('Unknown pseudo-class', 'indeterminate')
+Invalid or unsupported selector '[type="checkbox"]:indeterminate:hover,[type="checkbox"]:indeterminate:focus ', ('Unknown pseudo-class', 'indeterminate')
+Ignored `background: unset` at 423:5, invalid value.
+Ignored `font-size: unset` at 428:5, invalid value.
+Ignored `outline: 1px solid ButtonText` at 432:5, invalid value.
+Ignored `outline: 1px auto -webkit-focus-ring-color` at 433:5, invalid value.
+Invalid or unsupported selector '::backdrop ', unknown pseudo-element: backdrop
+Invalid or unsupported selector '.prose :where([class~="lead"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(a):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="A"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="a"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="A" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="a" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="I"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="i"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="I" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="i" s]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol[type="1"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol > li):not(:where([class~="not-prose"] *))::marker ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li):not(:where([class~="not-prose"] *))::marker ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(hr):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(blockquote):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(blockquote p:last-of-type):not(:where([class~="not-prose"] *))::after ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h1):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h1 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h4):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h4 strong):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(figure > *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(figcaption):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(code):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(code):not(:where([class~="not-prose"] *))::after ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(a code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Ignored `overflow-x: auto` at 684:5, unknown property.
+Invalid or unsupported selector '.prose :where(pre):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(pre code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(pre code):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(pre code):not(:where([class~="not-prose"] *))::after ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(table):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead th):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody tr):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody tr:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody td):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(img):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(video):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(figure):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ol > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ul > li p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ul > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ul > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ol > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(ol > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul ul, ul ol, ol ul, ol ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(hr + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h2 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h3 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(h4 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead th:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(thead th:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody td:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(tbody td:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose > :where(:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose :where(ul > li > ul > li):not(:where([class~="not-prose"] *))::before ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where([class~="lead"]):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(blockquote):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h1):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h2):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h3):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h4):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(img):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(video):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(figure):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(figure > *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(figcaption):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h2 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h3 code):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(pre):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ul):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ol > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ul > li):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ul > li p):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ul > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ul > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ol > li > *:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(ol > li > *:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(ul ul, ul ol, ol ul, ol ol):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(hr):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(hr + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h2 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h3 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(h4 + *):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(table):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(thead th):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(thead th:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(thead th:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(tbody td):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(tbody td:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm :where(tbody td:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(:first-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Invalid or unsupported selector '.prose-sm > :where(:last-child):not(:where([class~="not-prose"] *)) ', ('Unknown pseudo-class', 'where')
+Ignored `padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%)` at 1042:5, invalid value.
+Ignored `padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%)` at 1059:5, invalid value.
+Ignored `pointer-events: none` at 1086:5, unknown property.
+Ignored `pointer-events: auto` at 1089:5, unknown property.
+Ignored `display: grid` at 1341:5, invalid value.
+Ignored `display: contents` at 1344:5, invalid value.
+Ignored `min-height: 100vh` at 1386:5, invalid value.
+Ignored `width: 100vw` at 1416:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1489:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1493:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1497:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1501:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1505:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1509:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1513:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1518:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1523:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1528:5, invalid value.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 1531:5, invalid value.
+Ignored `resize: both` at 1545:5, unknown property.
+Ignored `appearance: none` at 1548:5, unknown property.
+Ignored `grid-template-columns: repeat(2, minmax(0, 1fr))` at 1551:5, unknown property.
+Ignored `grid-template-columns: repeat(1, minmax(0, 1fr))` at 1554:5, unknown property.
+Ignored `grid-template-columns: repeat(3, minmax(0, 1fr))` at 1557:5, unknown property.
+Ignored `grid-template-columns: repeat(4, minmax(0, 1fr))` at 1560:5, unknown property.
+Ignored `grid-template-columns: repeat(5, minmax(0, 1fr))` at 1563:5, unknown property.
+Ignored `gap: 0.75rem` at 1596:5, unknown property.
+Ignored `gap: 1rem` at 1599:5, unknown property.
+Ignored `gap: 1.5rem` at 1602:5, unknown property.
+Ignored `row-gap: 2rem` at 1605:5, unknown property.
+Ignored `margin-right: calc(0.5rem * var(--tw-space-x-reverse))` at 1609:5, invalid value.
+Ignored `margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))` at 1610:5, invalid value.
+Ignored `margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)))` at 1614:5, invalid value.
+Ignored `margin-bottom: calc(2rem * var(--tw-space-y-reverse))` at 1615:5, invalid value.
+Ignored `margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)))` at 1619:5, invalid value.
+Ignored `margin-bottom: calc(1.5rem * var(--tw-space-y-reverse))` at 1620:5, invalid value.
+Ignored `margin-top: calc(-1px * calc(1 - var(--tw-space-y-reverse)))` at 1624:5, invalid value.
+Ignored `margin-bottom: calc(-1px * var(--tw-space-y-reverse))` at 1625:5, invalid value.
+Ignored `margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)))` at 1629:5, invalid value.
+Ignored `margin-bottom: calc(0.5rem * var(--tw-space-y-reverse))` at 1630:5, invalid value.
+Ignored `margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)))` at 1634:5, invalid value.
+Ignored `margin-bottom: calc(1.25rem * var(--tw-space-y-reverse))` at 1635:5, invalid value.
+Ignored `margin-right: calc(0.25rem * var(--tw-space-x-reverse))` at 1639:5, invalid value.
+Ignored `margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))` at 1640:5, invalid value.
+Ignored `margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)))` at 1644:5, invalid value.
+Ignored `margin-bottom: calc(0.75rem * var(--tw-space-y-reverse))` at 1645:5, invalid value.
+Ignored `margin-right: calc(0.75rem * var(--tw-space-x-reverse))` at 1649:5, invalid value.
+Ignored `margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))` at 1650:5, invalid value.
+Ignored `margin-right: calc(1.25rem * var(--tw-space-x-reverse))` at 1654:5, invalid value.
+Ignored `margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)))` at 1655:5, invalid value.
+Ignored `margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)))` at 1659:5, invalid value.
+Ignored `margin-bottom: calc(0.25rem * var(--tw-space-y-reverse))` at 1660:5, invalid value.
+Ignored `margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)))` at 1664:5, invalid value.
+Ignored `margin-bottom: calc(1rem * var(--tw-space-y-reverse))` at 1665:5, invalid value.
+Ignored `margin-right: calc(1rem * var(--tw-space-x-reverse))` at 1669:5, invalid value.
+Ignored `margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)))` at 1670:5, invalid value.
+Ignored `border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)))` at 1674:5, invalid value.
+Ignored `border-bottom-width: calc(1px * var(--tw-divide-y-reverse))` at 1675:5, invalid value.
+Ignored `border-top-width: calc(2px * calc(1 - var(--tw-divide-y-reverse)))` at 1679:5, invalid value.
+Ignored `border-bottom-width: calc(2px * var(--tw-divide-y-reverse))` at 1680:5, invalid value.
+Ignored `border-color: rgb(229 229 229 / var(--tw-divide-opacity))` at 1684:5, invalid value.
+Ignored `border-color: rgb(254 226 226 / var(--tw-divide-opacity))` at 1688:5, invalid value.
+Ignored `border-color: rgb(212 212 212 / var(--tw-divide-opacity))` at 1692:5, invalid value.
+Ignored `overflow-y: auto` at 1701:5, unknown property.
+Ignored `overflow-x: scroll` at 1704:5, unknown property.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 1774:5, invalid value.
+Ignored `border-color: rgb(220 38 38 / var(--tw-border-opacity))` at 1778:5, invalid value.
+Ignored `border-color: rgb(229 229 229 / var(--tw-border-opacity))` at 1785:5, invalid value.
+Ignored `border-color: rgb(254 202 202 / var(--tw-border-opacity))` at 1789:5, invalid value.
+Ignored `border-color: rgb(82 82 82 / var(--tw-border-opacity))` at 1793:5, invalid value.
+Ignored `border-color: rgb(248 113 113 / var(--tw-border-opacity))` at 1797:5, invalid value.
+Ignored `border-color: rgb(38 38 38 / var(--tw-border-opacity))` at 1801:5, invalid value.
+Ignored `background-color: rgb(245 245 245 / var(--tw-bg-opacity))` at 1805:5, invalid value.
+Ignored `background-color: rgb(0 0 0 / var(--tw-bg-opacity))` at 1809:5, invalid value.
+Ignored `background-color: rgb(255 255 255 / var(--tw-bg-opacity))` at 1813:5, invalid value.
+Ignored `background-color: rgb(250 250 250 / var(--tw-bg-opacity))` at 1817:5, invalid value.
+Ignored `background-color: rgb(220 38 38 / var(--tw-bg-opacity))` at 1821:5, invalid value.
+Ignored `background-color: rgb(82 82 82 / var(--tw-bg-opacity))` at 1825:5, invalid value.
+Ignored `background-color: rgb(115 115 115 / var(--tw-bg-opacity))` at 1829:5, invalid value.
+Ignored `background-color: rgb(254 242 242 / var(--tw-bg-opacity))` at 1833:5, invalid value.
+Ignored `background-color: rgb(229 229 229 / var(--tw-bg-opacity))` at 1837:5, invalid value.
+Ignored `background-color: rgb(187 247 208 / var(--tw-bg-opacity))` at 1841:5, invalid value.
+Ignored `background-color: rgb(254 226 226 / var(--tw-bg-opacity))` at 1845:5, invalid value.
+Ignored `background-color: rgb(64 64 64 / var(--tw-bg-opacity))` at 1849:5, invalid value.
+Ignored `background-color: rgb(22 163 74 / var(--tw-bg-opacity))` at 1853:5, invalid value.
+Ignored `background-color: rgb(220 252 231 / var(--tw-bg-opacity))` at 1857:5, invalid value.
+Ignored `background-color: rgb(219 234 254 / var(--tw-bg-opacity))` at 1861:5, invalid value.
+Ignored `background-color: rgb(212 212 212 / var(--tw-bg-opacity))` at 1865:5, invalid value.
+Ignored `background-color: rgb(163 163 163 / var(--tw-bg-opacity))` at 1869:5, invalid value.
+Ignored `fill: currentColor` at 1878:5, unknown property.
+Ignored `color: rgb(255 255 255 / var(--tw-text-opacity))` at 2113:5, invalid value.
+Ignored `color: rgb(163 163 163 / var(--tw-text-opacity))` at 2117:5, invalid value.
+Ignored `color: rgb(38 38 38 / var(--tw-text-opacity))` at 2121:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2125:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2129:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2133:5, invalid value.
+Ignored `color: rgb(82 82 82 / var(--tw-text-opacity))` at 2137:5, invalid value.
+Ignored `color: rgb(64 64 64 / var(--tw-text-opacity))` at 2141:5, invalid value.
+Ignored `color: rgb(127 29 29 / var(--tw-text-opacity))` at 2145:5, invalid value.
+Ignored `color: rgb(20 83 45 / var(--tw-text-opacity))` at 2149:5, invalid value.
+Ignored `color: rgb(185 28 28 / var(--tw-text-opacity))` at 2153:5, invalid value.
+Ignored `color: rgb(245 245 245 / var(--tw-text-opacity))` at 2157:5, invalid value.
+Ignored `color: rgb(248 113 113 / var(--tw-text-opacity))` at 2161:5, invalid value.
+Ignored `color: rgb(250 204 21 / var(--tw-text-opacity))` at 2165:5, invalid value.
+Ignored `color: rgb(22 101 52 / var(--tw-text-opacity))` at 2169:5, invalid value.
+Ignored `color: rgb(30 64 175 / var(--tw-text-opacity))` at 2173:5, invalid value.
+Ignored `color: rgb(254 240 138 / var(--tw-text-opacity))` at 2177:5, invalid value.
+Ignored `color: rgb(212 212 212 / var(--tw-text-opacity))` at 2181:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-placeholder-opacity))` at 2188:5, invalid value.
+Invalid or unsupported selector '.placeholder-gray-500::placeholder ', unknown pseudo-element: placeholder
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2211:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2216:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2221:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2226:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2231:5, unknown property.
+Ignored `outline-offset: 2px` at 2235:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2240:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2245:5, unknown property.
+Ignored `filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)` at 2276:5, unknown property.
+Ignored `display: -webkit-box` at 2319:5, invalid value.
+Ignored `display: -webkit-box` at 2325:5, invalid value.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2339:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2341:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2346:5, unknown property.
+Ignored `box-shadow: none` at 2351:9, unknown property.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2361:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2363:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2368:5, unknown property.
+Ignored `box-shadow: none` at 2373:9, unknown property.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2381:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2384:5, unknown property.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2388:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2392:1.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2404:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2407:5, unknown property.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2411:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2415:1.
+Ignored `color: rgb(64 64 64 / var(--tw-text-opacity))` at 2428:5, invalid value.
+Ignored `margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)))` at 2432:5, invalid value.
+Ignored `margin-bottom: calc(1rem * var(--tw-space-y-reverse))` at 2433:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2440:5, invalid value.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2448:5, invalid value.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2458:5, invalid value.
+Ignored `outline-offset: 2px` at 2460:5, unknown property.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2464:1.
+Ignored `border-color: rgb(212 212 212 / var(--tw-border-opacity))` at 2477:5, invalid value.
+Ignored `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)` at 2480:5, unknown property.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2484:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2488:1.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2500:5, invalid value.
+Expected a media type, got '(min-width: 768px)'
+Invalid media type ' (min-width: 768px) ' the whole @media rule was ignored at 2506:1.
+Expected a media type, got '(min-width: 768px)'
+Invalid media type ' (min-width: 768px) ' the whole @media rule was ignored at 2515:1.
+Expected a media type, got '(min-width: 1280px)'
+Invalid media type ' (min-width: 1280px) ' the whole @media rule was ignored at 2522:1.
+Ignored `pointer-events: none` at 2537:5, unknown property.
+Ignored `background-color: rgb(64 64 64 / var(--tw-bg-opacity))` at 2565:5, invalid value.
+Ignored `background-color: rgb(245 245 245 / var(--tw-bg-opacity))` at 2569:5, invalid value.
+Ignored `background-color: rgb(212 212 212 / var(--tw-bg-opacity))` at 2573:5, invalid value.
+Ignored `background-color: rgb(134 239 172 / var(--tw-bg-opacity))` at 2577:5, invalid value.
+Ignored `background-color: rgb(254 202 202 / var(--tw-bg-opacity))` at 2581:5, invalid value.
+Ignored `background-color: rgb(38 38 38 / var(--tw-bg-opacity))` at 2585:5, invalid value.
+Ignored `background-color: rgb(250 250 250 / var(--tw-bg-opacity))` at 2589:5, invalid value.
+Ignored `background-color: rgb(229 229 229 / var(--tw-bg-opacity))` at 2593:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2597:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2601:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2605:5, invalid value.
+Ignored `color: rgb(38 38 38 / var(--tw-text-opacity))` at 2609:5, invalid value.
+Ignored `border-color: rgb(115 115 115 / var(--tw-border-opacity))` at 2619:5, invalid value.
+Ignored `border-color: rgb(82 82 82 / var(--tw-border-opacity))` at 2623:5, invalid value.
+Ignored `background-color: rgb(229 229 229 / var(--tw-bg-opacity))` at 2627:5, invalid value.
+Ignored `color: rgb(220 38 38 / var(--tw-text-opacity))` at 2631:5, invalid value.
+Ignored `color: rgb(163 163 163 / var(--tw-placeholder-opacity))` at 2635:5, invalid value.
+Invalid or unsupported selector '.focus\:placeholder-gray-400:focus::placeholder ', unknown pseudo-element: placeholder
+Ignored `outline-offset: 2px` at 2639:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2644:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2649:5, unknown property.
+Ignored `box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)` at 2654:5, unknown property.
+Ignored `transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))` at 2685:5, invalid value.
+Ignored `color: rgb(115 115 115 / var(--tw-text-opacity))` at 2689:5, invalid value.
+Ignored `color: rgb(23 23 23 / var(--tw-text-opacity))` at 2693:5, invalid value.
+Ignored `color: rgb(163 163 163 / var(--tw-text-opacity))` at 2697:5, invalid value.
+Expected a media type, got '(min-width: 640px)'
+Invalid media type ' (min-width: 640px) ' the whole @media rule was ignored at 2702:1.
+Expected a media type, got '(min-width: 768px)'
+Invalid media type ' (min-width: 768px) ' the whole @media rule was ignored at 2845:1.
+Expected a media type, got '(min-width: 1024px)'
+Invalid media type ' (min-width: 1024px) ' the whole @media rule was ignored at 3319:1.
+Expected a media type, got '(min-width: 1280px)'
+Invalid media type ' (min-width: 1280px) ' the whole @media rule was ignored at 3467:1.
+Expected a media type, got '(min-width: 1536px)'
+Invalid media type ' (min-width: 1536px) ' the whole @media rule was ignored at 3491:1.
+Expected a media type, got '(min-width: 1921px)'
+Invalid media type ' (min-width: 1921px) ' the whole @media rule was ignored at 3510:1.

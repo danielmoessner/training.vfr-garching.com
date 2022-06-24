@@ -112,6 +112,13 @@ class TrainingPrintView(LoginRequiredMixin, TrainingContextMixin, SettingsContex
         return context
 
     def render_to_response(self, context, **response_kwargs):
+        import logging
+        import os
+
+        logger = logging.getLogger('weasyprint')
+        logger.handlers = []  # Remove the default stderr handler
+        logger.addHandler(logging.FileHandler(os.path.join(settings.BASE_DIR, '/tmp/weasyprint.log')))
+
         rendered = render_to_string(self.template_name, context)
         name = context['name']
         html = HTML(string=rendered, base_url=self.request.build_absolute_uri())
@@ -219,7 +226,7 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
                     context['possible_exercises'],
                     context['topic']
                 )
-            if context['player_amount']:
+            if 'player_amount' in context:
                 player_amount_id = int(context['player_amount'])
                 context['possible_exercises'] = context['possible_exercises'].filter(
                     player_amounts=PlayerAmount.objects.get(id=player_amount_id))

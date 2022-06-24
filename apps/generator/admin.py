@@ -34,10 +34,16 @@ from django import forms
 
 # overwrite topic admin
 class TopicForm(forms.ModelForm):
-    general_or_filters = forms.ModelMultipleChoiceField(
+    or_filters_1 = forms.ModelMultipleChoiceField(
         queryset=Filter.objects.all(),
-        widget=FilterWidget(name='general_or'),
+        widget=FilterWidget(name='or_filters_1'),
         label="ALLGEMEINE ODER Filter",
+        required=False
+    )
+    or_filters_2 = forms.ModelMultipleChoiceField(
+        queryset=Filter.objects.all(),
+        widget=FilterWidget(name='or_filters_2'),
+        label="ALTERSGRUPPE ODER Filter",
         required=False
     )
     # start_or_filters = forms.ModelMultipleChoiceField(

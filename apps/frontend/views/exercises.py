@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import ContextMixin
 from rest_framework.response import Response
@@ -9,7 +10,7 @@ from apps.users.forms import SelectAgeGroupForm, SelectDifficultiesForm
 from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
-from weasyprint import HTML
+from weasyprint import HTML, CSS
 from .utils import SettingsContextMixin, SuccessUrlReverseMixin
 
 
@@ -83,10 +84,20 @@ class ExercisePdfView(LoginRequiredMixin, SettingsContextMixin, generic.DetailVi
     template_name = 'exercise_pdf.html'
 
     def render_to_response(self, context, **response_kwargs):
+        # import logging
+        # import os
+        #
+        # logger = logging.getLogger('weasyprint')
+        # logger.handlers = []  # Remove the default stderr handler
+        # logger.addHandler(logging.FileHandler(os.path.join(settings.BASE_DIR, 'tmp/weasyprint.log')))
+
         rendered = render_to_string(self.template_name, context)
+        # return HttpResponse(content=rendered)
         html = HTML(string=rendered, base_url=self.request.build_absolute_uri())
+        # path = os.path.join(settings.BASE_DIR, 'static/dist/css/main.css')
+        # print(path)
+
         pdf = html.write_pdf()
-        # return HttpResponseRedirect('/media/pdfs/{}.pdf'.format(self.object.pk))
         response = HttpResponse(pdf)
         response['Content-Type'] = 'application/pdf'
         response['Content-Disposition'] = 'inline; filename="{}.pdf"'.format(self.object.name)

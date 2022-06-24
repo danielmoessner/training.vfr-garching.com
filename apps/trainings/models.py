@@ -120,7 +120,7 @@ class Filter(models.Model):
     hide = models.BooleanField(default=False, verbose_name='Versteckt')
     show_on_detail = models.BooleanField(verbose_name='Auf der Detailseite anzeigen', default=False)
     show_on_detail_bottom = models.BooleanField(verbose_name='Auf der Detailseite unten anzeigen', default=False)
-    show_on_trainings_generator_step_4 = models.BooleanField(verbose_name='Im Trainingsgenerator Schritt 4 anzeigen',
+    show_on_trainings_generator_step_4 = models.BooleanField(verbose_name='Im Trainingsgenerator Schritt 2 anzeigen',
                                                              default=False)
     description = models.TextField(verbose_name='Beschreibung', blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -276,14 +276,17 @@ class Exercise(models.Model):
 
     @staticmethod
     def filter_by_topic_new(exercises, topic):
-        filters = topic.general_or_filters.all()
-        if filters.count() > 0:
-            exercises = exercises.filter(filters__in=filters).distinct()
+        filters1 = topic.or_filters_1.all()
+        if filters1.count() > 0:
+            exercises = exercises.filter(filters__in=filters1).distinct()
+        filters2 = topic.or_filters_2.all()
+        if filters2.count() > 0:
+            exercises = exercises.filter(filters__in=filters2).distinct()
         return exercises
 
     @staticmethod
     def filter_by_topic(exercises, topic, phase):
-        filters = topic.general_or_filters.all()
+        filters = topic.or_filters_1.all()
         if filters.count() > 0:
             exercises = exercises.filter(filters__in=filters).distinct()
         if phase == 'MAIN':

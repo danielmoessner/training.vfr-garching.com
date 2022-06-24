@@ -4,6 +4,7 @@
 
 {% block body %}
     <body>
+    <script src="https://cdn.tailwindcss.com/3.0.23?plugins=typography"></script>
     <style type="text/css">
         * {
             font-family: Arial, Helvetica, sans-serif;
@@ -26,14 +27,17 @@
              alt="VfR Garching">
     </div>
     <article class="prose prose-sm w-full max-w-none">
-        <h1>{{ object.name }}</h1>
+        <h1 class="text-3xl font-bold">{{ object.name }}</h1>
         <p class="">
             <b>Thema:</b> {{ object.topic|default:'-' }} <br>
+            <b>Spieleranzahl:</b> {{ object.player_amount|default:'-' }} <br>
             <br>
             <b>Übung 1:</b> {{ object.exercise1|default:'-' }} <br>
             <b>Übung 2:</b> {{ object.exercise2|default:'-' }} <br>
             <b>Übung 3:</b> {{ object.exercise3|default:'-' }} <br>
-            <b>Übung 4:</b> {{ object.exercise4|default:'-' }} <br>
+            {% if object.exercise4 %}
+                <b>Übung 4:</b> {{ object.exercise4|default:'-' }} <br>
+            {% endif %}
             {% if object.exercise5 %}
                 <b>Übung 5:</b> {{ object.exercise5|default:'-' }} <br>
             {% endif %}
@@ -54,13 +58,15 @@
     <article>
         {% include 'symbols/exercise/print.html' with exercise=object.exercise3 %}
     </article>
-    <div class="" style="page-break-before: always"></div>
-    <article>
-        {% include 'symbols/exercise/print.html' with exercise=object.exercise4 %}
-    </article>
-    {% if object.exercise5 %}
+    {% if object.exercise4 %}
+        <div class="" style="page-break-before: always"></div>
         <article>
-            <div class="" style="page-break-before: always"></div>
+            {% include 'symbols/exercise/print.html' with exercise=object.exercise4 %}
+        </article>
+    {% endif %}
+    {% if object.exercise5 %}
+        <div class="" style="page-break-before: always"></div>
+        <article>
             {% include 'symbols/exercise/print.html' with exercise=object.exercise5 %}
         </article>
     {% endif %}

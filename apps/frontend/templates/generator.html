@@ -14,13 +14,16 @@
                 </div>
             </section>
 
-            <section class="{% include 'symbols/pages/generator/container.txt' %} my-10">
+            <section
+                    class="{% include 'symbols/pages/generator/container.txt' %} {% if step != '4' %}my-10{% endif %}">
                 <div class="{% include 'symbols/padding.txt' %}">
-                    <div class="border border-gray-300 rounded-md bg-gray-50 shadow-sm">
+                    <div class="{% if step != '4' %}border border-gray-300 rounded-md bg-gray-50 shadow-sm{% endif %}">
 
-                        {% include 'symbols/pages/generator/top_text.html' %}
+                        {% if step != '4' %}
+                            {% include 'symbols/pages/generator/top_text.html' %}
+                        {% endif %}
 
-                        <form class="" method="{% if step == '5' %}POST{% else %}GET{% endif %}"
+                        <form class="pb-5" method="{% if step == '5' %}POST{% else %}GET{% endif %}"
                               action="{% url 'generator' %}{% if training %}?training={{ training.pk }}{% endif %}">
                             <div class="px-5 w-full">
                                 <div class="django-form django-form--3-columns">
@@ -30,7 +33,7 @@
 
                             {% if step == '1' %}
                                 <div class="px-5 pt-10">
-                                    {% include 'symbols/topics/index.html' with show_description=True %}
+                                    {% include 'symbols/topics/index.html' with class='lg:grid-cols-3' show_description=True %}
                                 </div>
                             {% endif %}
 
@@ -59,52 +62,72 @@
                             <input type="hidden" name="exercise_step"
                                    value="{% include 'symbols/pages/generator/url_params_exercise.html' %}">
 
-                            <div class="col-span-6 px-5 pb-5 mt-16">
-                                <div class="-m-2">
-                                    <div class="w-full flex flex-row flex-wrap">
+                            <div class="px-5 py-5 fixed bottom-0 bg-white z-50 w-full left-0 right-0 border-t lg:px-10">
+                                <div class="{% include 'symbols/pages/generator/container.txt' %}">
+                                    <div class="{% include 'symbols/padding.txt' %}">
+                                        <div class="flex -m-2">
 
-                                        {% if step in '2345'|make_list %}
-                                            <div class="p-2">
-                                                {% include 'symbols/pages/generator/back_button.html' %}
-                                            </div>
-                                        {% endif %}
+                                            <div class="w-full flex flex-row flex-wrap">
 
-                                        <div class="p-2 ml-auto">
-                                            <button class="{% include 'symbols/button/button_green.txt' with size='px-5 py-3 text-base' %}"
-                                                    :class="{ 'disabled': disabled() }"
-                                                    type="submit">
-                                                {% if step == '1' or step == '2' or step == '3' or step == '4' %}
-                                                    <span class="mr-2">Weiter</span>
-                                                    {% include 'svg/solid/arrow-right.svg' %}
-                                                {% elif step == '5' %}
-                                                    Speichern
+                                                {% if step in '2345'|make_list %}
+                                                    <div class="p-2">
+                                                        {% include 'symbols/pages/generator/back_button.html' %}
+                                                    </div>
                                                 {% endif %}
-                                            </button>
+
+                                                <div class="ml-auto"></div>
+
+                                                {% if step == '1' %}
+                                                    <div class="p-2">
+                                                        <a href="{% url 'generator' %}?step=4&exercise_step=1"
+                                                           class="{% include 'symbols/button/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                                        >
+                                                            Expertenmodus
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="p-2">
+                                                    <button class="{% include 'symbols/button/button_green.txt' with size='px-5 py-3 text-base' %}"
+                                                            :class="{ 'disabled': disabled() }"
+                                                            type="submit">
+                                                        {% if step == '1' or step == '2' or step == '3' or step == '4' %}
+                                                            <span class="mr-2">Weiter</span>
+                                                            {% include 'svg/solid/arrow-right.svg' %}
+                                                        {% elif step == '5' %}
+                                                            Speichern
+                                                        {% endif %}
+                                                    </button>
+                                                </div>
+
+
+
+                                                {% if step == '5' %}
+
+                                                    <div class="p-2">
+                                                        <button formaction="{% url 'training_print' %}"
+                                                                formtarget="_blank"
+                                                                formmethod="get"
+                                                                class="{% include 'symbols/button/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                                                type="submit">
+                                                            PDF erstellen
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="p-2 lg:hidden">
+                                                        <a class="{% include 'symbols/button/button_gray.txt' with size='px-5 py-3 text-base' %}"
+                                                           :href="`whatsapp://send?text=${escape('{{ request.get_full_path }}')}`"
+                                                           data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
+                                                    </div>
+
+                                                    <div class="p-2">
+                                                        {% include 'symbols/button/button_copy.html' with unique1='generator' text=link_url big_button=True %}
+                                                    </div>
+
+                                                {% endif %}
+                                            </div>
+
                                         </div>
-
-                                        {% if step == '5' %}
-
-                                            <div class="p-2">
-                                                <button formaction="{% url 'training_print' %}"
-                                                        formtarget="_blank"
-                                                        formmethod="get"
-                                                        class="{% include 'symbols/button/button_gray.txt' with size='px-5 py-3 text-base' %}"
-                                                        type="submit">
-                                                    PDF erstellen
-                                                </button>
-                                            </div>
-
-                                            <div class="p-2 lg:hidden">
-                                                <a class="{% include 'symbols/button/button_gray.txt' with size='px-5 py-3 text-base' %}"
-                                                   :href="`whatsapp://send?text=${escape('{{ request.get_full_path }}')}`"
-                                                   data-action="share/whatsapp/share">Auf WhatsApp teilen</a>
-                                            </div>
-
-                                            <div class="p-2">
-                                                {% include 'symbols/button/button_copy.html' with unique1='generator' text=link_url big_button=True %}
-                                            </div>
-
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +145,13 @@
                                     {% include 'svg/outline/template.svg' with class='w-4 h-4 md:w-6 md:h-6' %}
                                 </div>
                             </div>
-                            <h2 class="text-xl ml-3 font-medium md:text-3xl text-red-600">Übersicht</h2>
+                            <h2 class="text-xl ml-3 font-medium md:text-3xl text-red-600">
+                                {% if step == '4' %}
+                                    Übungen auswählen
+                                {% else %}
+                                    Übersicht
+                                {% endif %}
+                            </h2>
                         </div>
                         <div class="mt-10">
                             {% include 'symbols/training/index.html' %}

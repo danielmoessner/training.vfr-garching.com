@@ -5,13 +5,13 @@
             {% include 'symbols/sidenav/button.html' with property='filterMenuOpen' text='Filtermenü öffnen' %}
         </div>
         <div x-cloak :class="{ block: filterMenuOpen, hidden: !filterMenuOpen }"
-             class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-4">
-            {% include 'symbols/filters/index.html' %}
-            <div class="pt-5 flex justify-between items-baseline">
+             class="{% include 'symbols/sidenav/content.txt' %} lg:-mt-2">
+            <div class="pb-0 lg:pb-5 flex justify-between items-baseline">
                 <a class="{% include 'symbols/button/button_gray.txt' %}"
-                   href="{% url 'reset_training_filters' %}?reverse={{ request.path }}">Zurücksetzen</a>
+                   href="{% url 'reset_training_filters' %}?reverse={{ request.path }}">Filter Zurücksetzen</a>
                 <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings_total }} Trainings</div>
             </div>
+            {% include 'symbols/filters/index.html' %}
         </div>
     </div>
 </nav>

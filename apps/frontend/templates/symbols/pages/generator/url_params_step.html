@@ -5,9 +5,7 @@
     {% elif step == '2' or step == '3'%}
         {{ step|add:1 }}
     {% elif step == '4' %}
-        {% if exercise_step == '5' %}
-            {{ step|add:1 }}
-        {% elif exercise_step == '4' and structure and not structure.phase5 %}
+        {% if exercise_step == '5' or exercise_step == exercise_amount %}
             {{ step|add:1 }}
         {% else %}
             {{ step }}
