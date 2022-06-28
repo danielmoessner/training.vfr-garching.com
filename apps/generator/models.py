@@ -269,3 +269,6 @@ class TrainingGroup(models.Model):
     class Meta:
         verbose_name = 'Trainingsgruppe'
         verbose_name_plural = 'Trainingsgruppen'
+
+    def __str__(self):
+        return self.name

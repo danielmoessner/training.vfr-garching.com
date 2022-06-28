@@ -43,7 +43,7 @@ class ExerciseListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # trainings
-        exercises = Exercise.objects.order_by('-created')
+        exercises = Exercise.objects.order_by('?')
         if context['user_settings'].search:
             exercises = Exercise.get_search_queryset(context['user_settings'].search, exercises)
         context['exercises'] = Exercise.optimize_queryset(exercises)

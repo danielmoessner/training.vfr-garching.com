@@ -179,7 +179,7 @@ class Exercise(models.Model):
     class Meta:
         verbose_name = 'Übung'
         verbose_name_plural = 'Übungen'
-        ordering = ['name']
+        ordering = ['?']
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -193,7 +193,7 @@ class Exercise(models.Model):
     @staticmethod
     def optimize_queryset(exercises=None):
         if exercises is None:
-            exercises = Exercise.objects.all()
+            exercises = Exercise.objects.order_by('?')
         return (exercises
                 .select_related('difficulty')
                 .prefetch_related('filters')
