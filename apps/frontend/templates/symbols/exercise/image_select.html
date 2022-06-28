@@ -1,3 +1,5 @@
+{% load extra_tags %}
+
 <button class="group overflow-hidden focus:outline-none block w-full h-full"
         type="button"
         x-on:click="show = {{ exercise.pk }}"
@@ -5,5 +7,20 @@
     <div class="transform group-hover:scale-105 transition w-full h-full text-left" style="background: #8abe6a;">
         <img class="mw-full w-full h-auto rounded-b-lg" data-src="{{ exercise.image1.url }}"
              alt="{{ exercise.name }}">
+    </div>
+    <div class="transition absolute z-10 inset-0 group-hover:opacity-100 opacity-0 bg-gray-800/25">
+        {% with filters=exercise.filters.all|filter_show_on_detail_bottom %}
+            {% if filters %}
+                <div class="flex items-center justify-center w-full h-full">
+                    <div class="flex flex-row flex-wrap text-xs max-w-full p-2">
+                        {% for training_filter in filters %}
+                            <div class="m-1 p-1 bg-gray-100 text-gray-600 font-medium rounded shadow max-w-full truncate">
+                                {{ training_filter.name }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
     </div>
 </button>

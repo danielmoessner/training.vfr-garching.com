@@ -137,9 +137,9 @@ class Training(models.Model):
     player_amount = models.ForeignKey(PlayerAmount, verbose_name='Spieleranzahl', blank=True, null=True,
                                       on_delete=models.SET_NULL)
     AMOUNT_CHOICES = (
-        (3, 3),
-        (4, 4),
-        (5, 5),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
     )
     exercise_amount = models.CharField(verbose_name='Übungsanzahl', max_length=1, choices=AMOUNT_CHOICES, blank=True,
                                        null=True)
