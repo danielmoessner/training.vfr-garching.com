@@ -17,6 +17,15 @@
                 {{ groups_open }}.
                 forEach(pk => this.groupOpen[pk] = true);
                 this.showed = {{ trainings_count|safe }};
+                this.$watch('show', (v) => {
+                    if (v !== 0) {
+                        document.querySelector('html').classList.add('overflow-hidden');
+                        document.querySelector('html').style.paddingRight = 'var(--scrollbar-width)';
+                    } else {
+                        document.querySelector('html').classList.remove('overflow-hidden');
+                        document.querySelector('html').style.paddingRight = '0';
+                    }
+                })
             },
             get filtersTrue() {
                 return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
@@ -51,7 +60,7 @@
                         "Content-Type": "application/json"
                     },
                 }).then(response => response.json()).then(data => {
-                    if (typeof(this.showed) !== "string")
+                    if (typeof (this.showed) !== "string")
                         this.showed = data['videos'];
                 })
             }

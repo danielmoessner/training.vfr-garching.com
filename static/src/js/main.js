@@ -1,6 +1,8 @@
 import Alpine from 'alpinejs'
 import './lazyimages'
 
+document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + "px");
+
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

@@ -8,9 +8,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:css && npm run build:js && tmp/venv/bin/python manage.py collectstatic --noinput --clear",
-    "css": "tailwindcss -i static/src/css/main.css -o static/dist/css/main.css",
+    "css": "postcss static/src/css/main.css -o static/dist/css/main.css",
     "build:css": "cross-env NODE_ENV=production postcss static/src/css/main.css -o static/dist/css/main.css",
-    "css:watch": "tailwindcss -i static/src/css/main.css -o static/dist/css/main.css -w",
+    "css:watch": "postcss static/src/css/main.css -o static/dist/css/main.css -w",
     "js": "browserify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] ] -o static/dist/js/main.js",
     "build:js": "browserify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] --minified ] | uglifyjs > static/dist/js/main.js",
     "watch:js": "watchify static/src/js/main.js -t [ babelify --presets [ @babel/preset-env ] --minified ] -o static/dist/js/main.js"

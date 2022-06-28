@@ -12,7 +12,7 @@
                 <div class="pb-4">
                     <div class="inline-block">
                         <a class="group flex items-center justify-center px-2 py-1 space-x-2 h-8 my-3 mx-2 bg-white rounded focus:outline-none"
-                           href="{% url 'trainings' %}"
+                           href="{% if training and training.user.user.pk == request.user.pk %}{% url 'trainings' %}{% else %}{% url 'trainings_vfr' %}{% endif %}"
                         >
                             <div class="text-gray-400 group-hover:text-gray-500">
                                 {% include 'svg/solid-arrow-narrow-left.svg' %}
@@ -34,7 +34,7 @@
                         <div class="flex space-x-2">
                             {% include 'symbols/button/button_print.html' with href=print_url title='Training drucken' %}
                             {% include 'symbols/button/button_copy.html' with unique='U1' text=request.build_absolute_uri title='Link kopieren' %}
-                            {% if training and training.user %}
+                            {% if training and training.user.user.pk == request.user.pk %}
                                 {% include 'symbols/button/edit.html' with href=training.get_edit_url title='Training bearbeiten' %}
                                 {% url 'training_delete' training.pk as url %}
                                 {% include 'symbols/button/delete.html' with url=url title='Training löschen' %}

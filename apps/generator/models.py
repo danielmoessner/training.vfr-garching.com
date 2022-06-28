@@ -260,3 +260,12 @@ class Training(models.Model):
         part1 = reverse('training_print')
         part2 = self.get_base_url_infos()
         return '{}{}'.format(part1, part2)
+
+
+class TrainingGroup(models.Model):
+    name = models.CharField(verbose_name='Name', max_length=80)
+    trainings = models.ManyToManyField(Training, blank=True)
+
+    class Meta:
+        verbose_name = 'Trainingsgruppe'
+        verbose_name_plural = 'Trainingsgruppen'

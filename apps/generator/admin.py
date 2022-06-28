@@ -1,4 +1,4 @@
-from apps.generator.models import Block, Topic, Structure, Training, Group
+from apps.generator.models import Block, Topic, Structure, Training, Group, TrainingGroup
 from apps.trainings.models import Filter
 from apps.trainings.admin import FilterWidget
 from django.contrib import admin
@@ -29,7 +29,7 @@ from django import forms
 #     form = BlockForm
 
 
-# admin.site.register(Block, BlockAdmin)
+admin.site.register(TrainingGroup)
 
 
 # overwrite topic admin

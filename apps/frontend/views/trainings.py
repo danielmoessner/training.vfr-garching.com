@@ -3,7 +3,7 @@ from django.db.models import Prefetch
 from django.views.generic.base import ContextMixin
 from django.template.loader import render_to_string
 from apps.trainings.models import Exercise, Filter, PlayerAmount
-from apps.generator.models import Structure, Topic, Block, Training, Group
+from apps.generator.models import Structure, Topic, Block, Training, Group, TrainingGroup
 from apps.generator.forms import Step1Form, Step2Form, Step3Form, Step5Form, TrainingForm, Step4Form, TopicForm
 from apps.settings.models import Trainings
 from apps.frontend.utils import get_params_from_request
@@ -72,7 +72,7 @@ class TrainingsView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
 
 
 class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListView):
-    template_name = 'trainings.html'
+    template_name = 'trainings_vfr.html'
     model = Training
 
     def get_queryset(self):
@@ -80,7 +80,14 @@ class TrainingsVfrView(LoginRequiredMixin, SettingsContextMixin, generic.ListVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['exercises'] = Exercise.optimize_queryset()
+        # context['exercises'] = Exercise.optimize_queryset()
+        context['training_groups'] = TrainingGroup.objects.prefetch_related('trainings',
+                                                                            'trainings__topic',
+                                                                            'trainings__exercise1',
+                                                                            'trainings__exercise2',
+                                                                            'trainings__exercise3',
+                                                                            'trainings__exercise4',
+                                                                            'trainings__exercise5')
         context['groups'] = Group.optimize_queryset(user_settings=context['user_settings'])
         context['title'] = 'VfR Trainings'
         return context
