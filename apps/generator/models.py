@@ -220,13 +220,8 @@ class Training(models.Model):
         return ''
 
     def get_base_url_infos(self):
-        part1 = '?topic={}&structure={}'.format(self.get_topic_pk(),
-                                                self.get_structure_pk())
-        part2 = '&block1={}&block2={}&block3={}&block4={}&block5={}'.format(self.get_block_pk(1),
-                                                                            self.get_block_pk(2),
-                                                                            self.get_block_pk(3),
-                                                                            self.get_block_pk(4),
-                                                                            self.get_block_pk(5))
+        part1 = '?topic={}'.format(self.get_topic_pk())
+        part2 = '&exercise_amount={}&player_amount={}'.format(self.exercise_amount, self.player_amount)
         part3 = '&exercise1={}&exercise2={}&exercise3={}&exercise4={}&exercise5={}'.format(self.get_exercise_pk(1),
                                                                                            self.get_exercise_pk(2),
                                                                                            self.get_exercise_pk(3),

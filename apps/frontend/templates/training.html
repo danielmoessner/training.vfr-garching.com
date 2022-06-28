@@ -45,7 +45,7 @@
                         <p class="text-lg text-gray-800">{{ description|linebreaksbr }}</p>
                     </div>
                     <div class="mt-10">
-                        {% include 'symbols/training/index.html' with show=True %}
+                        {% include 'symbols/training/index.html' with show=True exercise_amount=training.exercise_amount %}
                     </div>
                 </div>
             </div>
