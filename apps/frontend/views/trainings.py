@@ -259,7 +259,8 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
                 context['exercises'] = context['exercises'] + list(exercises2)
 
         # random
-        context['possible_exercises'] = list(context['possible_exercises'])
-        random.shuffle(context['possible_exercises'])
+        if 'possible_exercises' in context:
+            context['possible_exercises'] = list(context['possible_exercises'])
+            random.shuffle(context['possible_exercises'])
         # return
         return context
