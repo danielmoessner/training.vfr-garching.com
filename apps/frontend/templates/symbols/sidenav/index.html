@@ -11,7 +11,7 @@
                    href="{% url 'reset_training_filters' %}?reverse={{ request.path }}">Filter Zurücksetzen</a>
                 <div class="text-sm font-medium"><span x-text="showed"></span> von {{ trainings_total }} Trainings</div>
             </div>
-            <div class="lg:pb-5 hidden lg:block">
+            <div class="lg:pb-5">
                 <div x-data="{open: false, activeIndex: -1}"
                      @keydown.escape.stop="open = false;"
                      @click.away="open = false"

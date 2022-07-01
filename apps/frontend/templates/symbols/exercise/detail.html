@@ -5,8 +5,9 @@
         <div class="xl:w-1/3 space-y-5">
             <div class="relative">
                 <img class="mw-full h-auto rounded-t-lg xl:rounded-tr-none w-full"
-                     :src="image"
-                     data-src="{{ exercise.image1.url }}"
+                     x-data="{imageSrc: ''}"
+                     x-intersect="imageSrc = '{{ exercise.image1.url }}'"
+                     :src="imageSrc"
                      :alt="`{{ exercise.name }} ${alt}`">
                 <div class="p-1">
                     <div class="flex flex-row h-20 space-x-1 overflow-x-scroll md:overflow-auto">
