@@ -1,3 +1,5 @@
+import json
+
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Q
@@ -189,6 +191,23 @@ class Exercise(models.Model):
         if self.created + timedelta(days=30) > timezone.now():
             return True
         return False
+
+    @staticmethod
+    def json_all():
+        ret = []
+        for exercise in Exercise.objects.prefetch_related('filters').select_related('difficulty'):
+            ret.append(exercise.json())
+        return ret
+
+    def json(self):
+        return {
+            'name': self.name,
+            'difficulty': self.difficulty.name,
+            'focus': self.focus,
+            'image': self.image1.url,
+            'filterNames': [f.name for f in self.filters.all() if f.show_on_detail_bottom],
+            'filterIds': [f.id for f in self.filters.all()],
+        }
 
     @staticmethod
     def optimize_queryset(exercises=None):

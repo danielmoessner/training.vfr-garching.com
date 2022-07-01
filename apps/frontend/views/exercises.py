@@ -130,6 +130,13 @@ class ResetTrainingFiltersView(LoginRequiredMixin, SuccessUrlReverseMixin, gener
 
 
 # api views
+class ExercisesApiView(APIView):
+    http_method_names = ['head', 'get']
+
+    def get(self, request):
+        return Response(Exercise.json_all())
+
+
 class ToggleFilterGroupApiView(APIView):
     http_method_names = ['head', 'post']
 

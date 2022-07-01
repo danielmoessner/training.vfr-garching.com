@@ -1,8 +1,8 @@
 {% load static %}
 
 <script>
-    window.trainingsData = () => {
-        return {
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('trainingsData', () => ({
             filterSelected: {},
             groupOpen: {},
             filterMenuOpen: false,
@@ -11,6 +11,7 @@
             difficultyMenuOpen: false,
             showed: 0,
             show: 0,
+            exercises: [],
             init() {
                 {{ filters_selected }}.
                 forEach(filter => this.filterSelected[filter] = true);
@@ -26,6 +27,8 @@
                         document.querySelector('html').style.paddingRight = '0';
                     }
                 })
+                console.log('init')
+                this.fetchExercises();
             },
             get filtersTrue() {
                 return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
@@ -48,6 +51,21 @@
                     },
                 })
             },
+            fetchExercises() {
+                fetch("/api/exercises/", {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "same-origin",
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        this.exercises = data;
+                    })
+                    .catch((err) => {
+                        alert('Es ist leider ein Fehler aufgetreten: ' + err);
+                    });
+            },
             filterClicked(filterPk, set = false) {
                 if (set)
                     this.filterSelected[filterPk] = !this.filterSelected[filterPk];
@@ -64,6 +82,6 @@
                         this.showed = data['videos'];
                 })
             }
-        }
-    }
+        }))
+    })
 </script>

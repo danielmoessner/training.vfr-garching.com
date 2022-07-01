@@ -29,6 +29,7 @@ urlpatterns = [
     path('einstellungen/filter-zuruecksetzen/', views.ResetTrainingFiltersView.as_view(),
          name='reset_training_filters'),
     # api stuff
+    path('api/exercises/', views.ExercisesApiView.as_view(), name='api_exercises'),
     path('api/filter_groups/<int:pk>/', views.ToggleFilterGroupApiView.as_view(), name='api_toggle_filter_group'),
     path('api/training_filters/<int:pk>/', views.ToggleTrainingFilterApiView.as_view(),
          name='api_toggle_training_filter'),

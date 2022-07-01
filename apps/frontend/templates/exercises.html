@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block main %}
-    <main class="{% include 'symbols/main.txt' %}" x-data="trainingsData()" x-init="init()">
+    <main class="{% include 'symbols/main.txt' %}" x-data="trainingsData">
         <aside class="{% include 'symbols/padding.txt' %} lg:w-80">
             {% include 'symbols/sidenav/index.html' %}
         </aside>
@@ -15,10 +15,12 @@
                 <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
                     <div class="hidden" x-show="showTraining([-1])"></div>
                     {% for exercise in exercises %}
+{#                        <template x-for="exercise in exercises">#}
                         <li id="{{ exercise.pk }}" x-show="showTraining([{% for filter in exercise.filters.all %}{{ filter.pk }},{% endfor %}])"
                             class="video">
                             {% include 'symbols/exercise/index.html' with state='select' %}
                         </li>
+{#                        </template>#}
                     {% endfor %}
                     <div class="hidden" x-show="showTraining([-2])"></div>
                 </ul>
