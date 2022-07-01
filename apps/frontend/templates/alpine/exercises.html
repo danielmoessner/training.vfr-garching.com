@@ -9,7 +9,6 @@
             menuOpen: false,
             trainerMenuOpen: false,
             difficultyMenuOpen: false,
-            showed: 0,
             show: 0,
             exercises: [],
             orderBy: '?',
@@ -19,7 +18,6 @@
                 forEach(filter => this.filterSelected[filter] = true);
                 {{ groups_open }}.
                 forEach(pk => this.groupOpen[pk] = true);
-                this.showed = {{ trainings_count|safe }};
                 this.$watch('show', (v) => {
                     if (v !== 0) {
                         document.querySelector('html').classList.add('overflow-hidden');
@@ -31,18 +29,19 @@
                 })
                 this.fetchExercises();
             },
+            get showed() {
+                return this.exercisesAdapted.length
+            },
             get filtersTrue() {
                 return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
             },
             get exercisesAdapted() {
+                const exercises = this.exercises.filter(e => this.filtersTrue.map(f => e.filterIds.includes(f)).every(_ => _));
                 if (this.orderBy === '?')
-                    return window._shuffle(this.exercises)
+                    return window._shuffle(exercises)
                 else
-                    return window._orderBy(this.exercises, [this.orderBy], [this.orderDirection])
+                    return window._orderBy(exercises, [this.orderBy], [this.orderDirection])
 
-            },
-            showTraining(filterPks) {
-                return this.filtersTrue.map(filter => filterPks.includes(filter)).every(_ => _);
             },
             showFilter(filterPk) {
                 return this.filtersTrue.includes(filterPk);
@@ -60,7 +59,7 @@
                 })
             },
             fetchExercises() {
-                fetch("/api/exercises/", {
+                fetch("{{ endpoint }}", {
                     headers: {
                         "Content-Type": "application/json",
                     },

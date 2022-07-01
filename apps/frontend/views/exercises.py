@@ -51,6 +51,8 @@ class ExerciseListView(LoginRequiredMixin, SettingsContextMixin, FilterContextMi
         for training_filter in list(self.request.user.settings.training_filters.all()):
             exercises = exercises.filter(filters=training_filter.pk)
         context['trainings_count'] = exercises.count()
+        # endpoint
+        context['endpoint'] = '/api/exercises/'
         # return
         return context
 
@@ -65,6 +67,8 @@ class BookmarksView(ExerciseListView):
             bookmarked_trainings = Exercise.get_search_queryset(context['user_settings'].search, bookmarked_trainings)
         context['exercises'] = Exercise.optimize_queryset(bookmarked_trainings)
         context['trainings_count'] = '"?"'
+        # endpoint
+        context['endpoint'] = '/api/bookmarked_exercises/'
         return context
 
 
@@ -135,6 +139,13 @@ class ExercisesApiView(APIView):
 
     def get(self, request):
         return Response(Exercise.json_all())
+
+
+class BookmarkedExercisesApiView(APIView):
+    http_method_names = ['head', 'get']
+
+    def get(self, request):
+        return Response(Exercise.json_all(request.user.settings.bookmarks.all()))
 
 
 class ToggleFilterGroupApiView(APIView):

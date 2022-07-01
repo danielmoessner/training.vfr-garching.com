@@ -193,9 +193,11 @@ class Exercise(models.Model):
         return False
 
     @staticmethod
-    def json_all():
+    def json_all(exercises=None):
+        if exercises is None:
+            exercises = Exercise.objects.all()
         ret = []
-        for exercise in Exercise.objects.prefetch_related('filters').select_related('difficulty'):
+        for exercise in exercises.prefetch_related('filters').select_related('difficulty'):
             ret.append(exercise.json())
         return ret
 
