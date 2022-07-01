@@ -1,11 +1,11 @@
 {% load extra_tags %}
 
 {% if exercise.description %}
-    <h2 class="text-xl font-bold">Beschreibung</h2>
+    <h2 class="text-xl font-bold mb-2 mt-3">Beschreibung</h2>
     {{ exercise.description|safe }}
 {% endif %}
 {% if exercise.variations %}
-    <h2 class="text-xl font-bold">Variationen</h2>
+    <h2 class="text-xl font-bold mt-5 mb-2">Variationen</h2>
     {{ exercise.variations|safe }}
 {% endif %}
 {% with filters=exercise.filters.all|filter_show_on_detail %}
@@ -22,6 +22,6 @@
     {% endif %}
 {% endwith %}
 {% if exercise.coaching %}
-    <h2 class="text-xl font-bold">Coachingpunkte</h2>
+    <h2 class="text-xl font-bold mt-5 mb-2">Coachingpunkte</h2>
     {{ exercise.coaching|safe }}
 {% endif %}

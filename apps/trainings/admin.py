@@ -1,3 +1,4 @@
+from apps.generator.models import TrainingGroupExercise
 from apps.trainings.models import Filter, Exercise, Group, Youth, Difficulty, PlayerAmount
 from django.contrib import admin
 from django import forms
@@ -141,4 +142,4 @@ admin.site.register(Group, GroupAdmin)
 admin.site.register(Youth)
 admin.site.register(Difficulty)
 admin.site.register(PlayerAmount)
-# admin.site.register(Training)
+admin.site.register(TrainingGroupExercise)

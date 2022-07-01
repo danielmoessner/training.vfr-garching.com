@@ -12,7 +12,7 @@
         {% with filters=exercise.filters.all|filter_show_on_detail_bottom %}
             {% if filters %}
                 <div class="flex items-center justify-center w-full h-full">
-                    <div class="flex flex-row flex-wrap text-xs max-w-full p-2">
+                    <div class="flex flex-row flex-wrap text-xs max-w-full p-2 items-center justify-center">
                         {% for training_filter in filters %}
                             <div class="m-1 p-1 bg-gray-100 text-gray-600 font-medium rounded shadow max-w-full truncate">
                                 {{ training_filter.name }}

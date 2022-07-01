@@ -56,8 +56,8 @@ class Group(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Gruppe'
-        verbose_name_plural = 'Gruppen'
+        verbose_name = 'Filtergruppe'
+        verbose_name_plural = 'Filtergruppen'
         ordering = ['ordering']
 
     def __str__(self):
@@ -179,7 +179,7 @@ class Exercise(models.Model):
     class Meta:
         verbose_name = 'Übung'
         verbose_name_plural = 'Übungen'
-        ordering = ['?']
+        ordering = ['name']
 
     def __str__(self):
         return '{}'.format(self.name)

@@ -238,6 +238,7 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
                 context['possible_exercises'] = context['possible_exercises'].filter(
                     player_amounts=PlayerAmount.objects.get(id=player_amount_id))
             context['training_filters'] = Filter.objects.filter(show_on_trainings_generator_step_4=True)
+            context['possible_exercises'] = context['possible_exercises'].order_by('?')
             # old stuff:
             if 'block{}'.format(exercise_step) in context and False:
                 context['possible_exercises'] = Exercise.filter_by_block(context['possible_exercises'],

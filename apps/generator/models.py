@@ -80,8 +80,8 @@ class Group(models.Model):
 
     class Meta:
         ordering = ['ordering']
-        verbose_name = 'Gruppe'
-        verbose_name_plural = 'Gruppen'
+        verbose_name = 'Themengruppe'
+        verbose_name_plural = 'Themengruppen'
 
     def __str__(self):
         return self.name
@@ -259,11 +259,30 @@ class Training(models.Model):
 
 class TrainingGroup(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
-    trainings = models.ManyToManyField(Training, blank=True)
+    trainings = models.ManyToManyField(Training, blank=True, through='TrainingGroupExercise')
 
     class Meta:
-        verbose_name = 'Trainingsgruppe'
-        verbose_name_plural = 'Trainingsgruppen'
+        verbose_name = 'Trainingswoche'
+        verbose_name_plural = 'Trainingswochen'
 
     def __str__(self):
         return self.name
+
+    @property
+    def training_connections(self):
+        return TrainingGroupExercise.objects.filter(training_group__pk=self.pk).order_by('order')
+
+
+class TrainingGroupExercise(models.Model):
+    training_group = models.ForeignKey(TrainingGroup, verbose_name='Trainingswoche', on_delete=models.CASCADE,
+                                       related_name='connections')
+    training = models.ForeignKey(Training, verbose_name='Übung', on_delete=models.CASCADE, related_name='connections')
+    order = models.IntegerField('Sortierung')
+
+    def __str__(self):
+        return '{} - {}'.format(self.training_group.name, self.training.name)
+
+    class Meta:
+        verbose_name = 'Trainingswochetraining'
+        verbose_name_plural = 'Trainingswochetrainings'
+        ordering = ['-order']

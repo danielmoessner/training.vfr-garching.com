@@ -31,8 +31,8 @@
                                             {{ topic.name }}
                                         </div>
                                         {% if show_description %}
-                                            <div class="mt-2 space-y-2 text-gray-500 text-sm block break-all"
-                                                 :class="{ 'line-clamp-1 overflow-hidden h-5': String(topic) !== '{{ topic.pk }}', 'text-red-900': String(topic) === '{{ topic.pk }}' }"
+                                            <div class="space-y-2 text-gray-500 text-sm block break-all"
+                                                 :class="{ 'overflow-hidden h-0 mt-0': String(topic) !== '{{ topic.pk }}', 'mt-2 text-red-900': String(topic) === '{{ topic.pk }}' }"
                                             >
                                                 {{ topic.description|linebreaks }}
                                             </div>

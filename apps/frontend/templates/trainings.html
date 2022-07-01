@@ -7,15 +7,15 @@
 
     <main class="{% include 'symbols/main.txt' %}" x-data="trainings()" x-init="init()">
 
-        <aside class="{% include 'symbols/padding.txt' %} lg:w-80">
-            {% include 'symbols/pages/trainings/sidenav.html' %}
-        </aside>
+{#        <aside class="{% include 'symbols/padding.txt' %} lg:w-80">#}
+{#            {% include 'symbols/pages/trainings/sidenav.html' %}#}
+{#        </aside>#}
 
         <div class="lg:flex-1">
 
             <section class="{% include 'symbols/padding.txt' %} pb-20">
                 <h1 class="text-3xl font-bold text-gray-700 mb-8">{{ title }}</h1>
-                <ul class="grid 3xl:grid-cols-2 gap-4">
+                <ul class="grid 2xl:grid-cols-2 gap-4">
                     {% for object in object_list %}
                         <li x-show="showTraining('{{ object.topic.pk }}')">
                             <a class="block bg-white rounded shadow"
