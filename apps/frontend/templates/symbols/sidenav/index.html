@@ -59,28 +59,28 @@
                                x-state:off="Not Active" :class="{ 'bg-gray-100': activeIndex === 0 }" role="menuitem"
                                tabindex="-1" id="menu-item-0" @mouseenter="activeIndex = 0"
                                @mouseleave="activeIndex = -1"
-                               @click="open = false; focusButton()">
+                               @click="open = false; orderBy = '?';">
                                 Zufällig
                             </a>
                             <a href="#" class="block px-4 py-2 text-sm font-medium text-gray-900"
                                :class="{ 'bg-gray-100': activeIndex === 1 }" role="menuitem" tabindex="-1"
                                id="menu-item-1"
                                @mouseenter="activeIndex = 1" @mouseleave="activeIndex = -1"
-                               @click="open = false; focusButton()">
+                               @click="open = false; orderBy = 'created'; orderDirection = 'desc';">
                                 Erstellungsdatum absteigend
                             </a>
                             <a href="#" class="block px-4 py-2 text-sm font-medium text-gray-900"
                                :class="{ 'bg-gray-100': activeIndex === 2 }" role="menuitem" tabindex="-1"
                                id="menu-item-2"
                                @mouseenter="activeIndex = 2" @mouseleave="activeIndex = -1"
-                               @click="open = false; focusButton()">
-                                Erstellungsdatum aufsteigen
+                               @click="open = false; orderBy = 'created'; orderDirection = 'asc';">
+                                Erstellungsdatum aufsteigend
                             </a>
                             <a href="#" class="block px-4 py-2 text-sm font-medium text-gray-900"
                                :class="{ 'bg-gray-100': activeIndex === 3 }" role="menuitem" tabindex="-1"
                                id="menu-item-3"
                                @mouseenter="activeIndex = 3" @mouseleave="activeIndex = -1"
-                               @click="open = false; focusButton()">
+                               @click="open = false; orderBy = 'name'; orderDirection = 'asc';">
                                 Alphabetisch
                             </a>
                         </div>

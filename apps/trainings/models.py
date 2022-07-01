@@ -201,7 +201,12 @@ class Exercise(models.Model):
 
     def json(self):
         return {
+            'created': self.created.strftime('%Y%m%d'),
+            'id': self.pk,
             'name': self.name,
+            'video': bool(self.video),
+            'new': self.new,
+            'stars': self.difficulty.stars,
             'difficulty': self.difficulty.name,
             'focus': self.focus,
             'image': self.image1.url,

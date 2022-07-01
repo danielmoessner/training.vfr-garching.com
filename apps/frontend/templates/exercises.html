@@ -13,16 +13,78 @@
                     {% include 'symbols/filters/shop.html' %}
                 </div>
                 <ul class="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
-                    <div class="hidden" x-show="showTraining([-1])"></div>
-                    {% for exercise in exercises %}
-{#                        <template x-for="exercise in exercises">#}
-                        <li id="{{ exercise.pk }}" x-show="showTraining([{% for filter in exercise.filters.all %}{{ filter.pk }},{% endfor %}])"
-                            class="video">
-                            {% include 'symbols/exercise/index.html' with state='select' %}
+                    <template x-for="exercise in exercisesAdapted">
+                        <li :id="exercise.id" x-show="showTraining(exercise.filterIds)" class="video">
+
+                            <div class="bg-white border border-gray-300 shadow overflow-hidden rounded-lg flex flex-col h-full">
+                                <div class="px-3 py-2 md:pl-5 md:pr-4 md:py-3">
+                                    <button class="flex flex-col justify-between h-full focus:outline-none relative"
+                                            type="button"
+                                            x-on:click="show=exercise.id"
+                                    >
+                                        <h2 x-text="exercise.name"
+                                            class="text-left text-base text-gray-900 inline-block line-clamp-2 font-medium h-12 hover:underline md:text-lg md:h-14 lg:text-xl lg:h-14">
+                                        </h2>
+                                        <p x-text="exercise.focus"
+                                           class="text-left mt-1 text-gray-700 text-sm line-clamp-1"></p>
+                                    </button>
+                                </div>
+                                <div class="relative overflow-hidden flex-1">
+
+                                    <button class="group overflow-hidden focus:outline-none block w-full h-full"
+                                            type="button"
+                                            x-on:click="show=exercise.id"
+                                    >
+                                        <div class="transform group-hover:scale-105 transition w-full h-full text-left"
+                                             style="background: #8abe6a;">
+                                            <img class="mw-full w-full h-auto rounded-b-lg" x-data="{imageSrc: ''}"
+                                                 x-intersect="imageSrc = exercise.image"
+                                                 :src="imageSrc"
+                                                 :alt="exercise.name">
+                                        </div>
+                                        <div class="transition absolute z-10 inset-0 group-hover:opacity-100 opacity-0 bg-gray-800/25">
+                                            <div class="flex items-center justify-center w-full h-full">
+                                                <div class="flex flex-row flex-wrap text-xs max-w-full p-2 items-center justify-center">
+                                                    <template x-for="name in exercise.filterNames">
+                                                        <div x-text="name"
+                                                             class="m-1 p-1 bg-gray-100 text-gray-600 font-medium rounded shadow max-w-full truncate">
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+
+                                    <div class="absolute top-2 left-3 flex space-x-2">
+                                        <template x-if="exercise.new">
+                                            <div class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                NEU
+                                            </div>
+                                        </template>
+                                        <template x-if="exercise.video">
+                                            <div class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                                VIDEO
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="absolute top-2 right-3">
+                                        <abbr title="Komplexität der Übung">
+                                            <div class="text-yellow-200 flex">
+                                                {% include 'svg/solid/light-bulb.svg' with class='w-5 h-5' %}
+                                                <div :class="{'opacity-30': exercise.stars === 1 }">
+                                                    {% include 'svg/solid/light-bulb.svg' with class='w-5 h-5' %}
+                                                </div>
+                                                <div :class="{'opacity-30': exercise.stars === 1 || exercise.stars === 2 }">
+                                                    {% include 'svg/solid/light-bulb.svg' with class='w-5 h-5' %}
+                                                </div>
+                                            </div>
+                                        </abbr>
+                                    </div>
+                                </div>
+                            </div>
+
                         </li>
-{#                        </template>#}
-                    {% endfor %}
-                    <div class="hidden" x-show="showTraining([-2])"></div>
+                    </template>
                 </ul>
             </section>
 

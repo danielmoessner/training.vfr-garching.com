@@ -1,7 +1,18 @@
 import Alpine from 'alpinejs'
 import './lazyimages'
+import {orderBy, shuffle} from 'lodash';
 
-document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + "px");
+import intersect from '@alpinejs/intersect'
+
+Alpine.plugin(intersect)
+
+setTimeout(
+    () => document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + "px"),
+    2000
+);
+
+window._orderBy = orderBy;
+window._shuffle = shuffle;
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -18,8 +29,11 @@ function getCookie(cname) {
     }
     return "";
 }
+
 window.getCookie = getCookie
 
 window.Alpine = Alpine
 
 Alpine.start()
+
+

@@ -12,6 +12,8 @@
             showed: 0,
             show: 0,
             exercises: [],
+            orderBy: '?',
+            orderDirection: 'asc',
             init() {
                 {{ filters_selected }}.
                 forEach(filter => this.filterSelected[filter] = true);
@@ -27,11 +29,17 @@
                         document.querySelector('html').style.paddingRight = '0';
                     }
                 })
-                console.log('init')
                 this.fetchExercises();
             },
             get filtersTrue() {
                 return Object.keys(this.filterSelected).map(key => this.filterSelected[key] ? parseInt(key) : 0).filter(item => item !== 0);
+            },
+            get exercisesAdapted() {
+                if (this.orderBy === '?')
+                    return window._shuffle(this.exercises)
+                else
+                    return window._orderBy(this.exercises, [this.orderBy], [this.orderDirection])
+
             },
             showTraining(filterPks) {
                 return this.filtersTrue.map(filter => filterPks.includes(filter)).every(_ => _);
