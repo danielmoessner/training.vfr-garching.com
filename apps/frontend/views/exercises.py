@@ -138,7 +138,13 @@ class ExercisesApiView(APIView):
     http_method_names = ['head', 'get']
 
     def get(self, request):
-        return Response(Exercise.json_all())
+        if request.user.settings.search:
+            all_exercises = Exercise.objects.all()
+            exercises = Exercise.get_search_queryset(request.user.settings.search, all_exercises)
+            data = Exercise.json_all(exercises)
+        else:
+            data = Exercise.json_all()
+        return Response(data)
 
 
 class BookmarkedExercisesApiView(APIView):

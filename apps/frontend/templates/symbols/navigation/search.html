@@ -1,4 +1,4 @@
-<div x-data="searchAlpine()" class="w-full sm:w-auto" x-init="init()" @click.outside="changed = false">
+<div x-data="searchAlpine" class="w-full sm:w-auto" x-init="init()" @click.outside="changed = false">
     <div class="w-full relative lg:w-96">
         <label for="search" class="sr-only">Suche</label>
         <form x-ref="form" method="POST" action="{% url 'search' %}" class="relative">

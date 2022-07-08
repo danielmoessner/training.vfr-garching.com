@@ -2,8 +2,8 @@
 {% load extra_tags %}
 
 <script>
-    window.searchAlpine = () => {
-        return {
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('searchAlpine', () => ({
             search: "{{ user_settings.search|safe|default:'' }}",
             resultFilters: [],
             resultExercises: [],
@@ -43,6 +43,6 @@
                 this.$refs.form.submit()
                 {#this.$nextTick(() => this.$refs.form.submit());#}
             }
-        }
-    }
+        }))
+    })
 </script>
