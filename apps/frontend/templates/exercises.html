@@ -37,9 +37,9 @@
                                     >
                                         <div class="transform group-hover:scale-105 transition w-full h-full text-left"
                                              style="background: #8abe6a;">
-                                            <img class="mw-full w-full h-auto rounded-b-lg" x-data="{imageSrc: ''}"
-                                                 x-intersect="imageSrc = exercise.image"
-                                                 :src="imageSrc"
+                                            <img class="mw-full w-full h-auto rounded-b-lg" x-data="{load: false}"
+                                                 x-intersect="load = true"
+                                                 :src="load ? exercise.image : ''"
                                                  :alt="exercise.name">
                                         </div>
                                         <div class="transition absolute z-10 inset-0 group-hover:opacity-100 opacity-0 bg-gray-800/25">
