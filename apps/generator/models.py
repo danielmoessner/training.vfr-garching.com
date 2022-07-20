@@ -259,7 +259,8 @@ class Training(models.Model):
 
 class TrainingGroup(models.Model):
     name = models.CharField(verbose_name='Name', max_length=80)
-    trainings = models.ManyToManyField(Training, blank=True, through='TrainingGroupExercise')
+    trainings = models.ManyToManyField(Training, verbose_name='Trainings', blank=True, through='TrainingGroupExercise')
+    description = models.TextField(verbose_name='Beschreibung', blank=True)
 
     class Meta:
         verbose_name = 'Trainingswoche'

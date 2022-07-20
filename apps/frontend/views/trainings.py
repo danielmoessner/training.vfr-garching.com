@@ -238,6 +238,7 @@ class GeneratorView(LoginRequiredMixin, TrainingContextMixin, SettingsContextMix
                 context['possible_exercises'] = context['possible_exercises'].filter(
                     player_amounts=PlayerAmount.objects.get(id=player_amount_id))
             context['training_filters'] = Filter.objects.filter(show_on_trainings_generator_step_4=True)
+            context['training_filters_2'] = Filter.objects.filter(show_on_trainings_generator_step_4_row_2=True)
 
             if context['user_settings'].search:
                 context['possible_exercises'] = (
